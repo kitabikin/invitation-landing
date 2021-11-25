@@ -1,24 +1,70 @@
 import ContainerBlank from '@/layouts/container/containerBlank'
 import { NextSeo } from 'next-seo'
 import site from '@/config/site'
+import _ from 'lodash'
+import qs from 'qs'
 
-import { useRouter } from 'next/router'
+const coreUrl = process.env.CORE_URL
 
-function ThemeDetail() {
-  const router = useRouter()
-  const { code_theme } = router.query
+// Theme Container
+import ContainerGoldenGold from '@/components/theme/golden-gold/container'
+import ContainerPalem from '@/components/theme/palem/container'
+
+function ThemeDetail({ data }) {
+  const renderTheme = codeTheme => {
+    switch (codeTheme) {
+      case 'golden-gold':
+        return <ContainerGoldenGold data={data} />
+      case 'palem':
+        return <ContainerPalem data={data} />
+      default:
+        return ''
+    }
+  }
 
   return (
     <>
       <NextSeo
-        title="Theme Detail"
+        title={`Tema ${data.name}`}
         titleTemplate={`%s | ${site.title}`}
-        description={site.description}
+        description={data.description}
       />
-      <div>Theme Detail ({code_theme})</div>
-      <div>get single theme by code</div>
+      {renderTheme(data.code)}
     </>
   )
+}
+
+export async function getStaticPaths() {
+  const pParams = {
+    where: [{ is_delete: false }],
+    with: [{ theme_category: true }, { event: true }],
+  }
+
+  const merge = qs.stringify(pParams)
+  const res = await fetch(`${coreUrl}/v1/theme?${merge}`)
+  const datas = await res.json()
+
+  const paths = datas.data.map(data => ({
+    params: {
+      code_event: data.theme_category.event.code,
+      code_theme: data.code,
+    },
+  }))
+
+  return { paths, fallback: false }
+}
+
+export async function getStaticProps({ params }) {
+  const pParams = {
+    where: [{ is_delete: false }],
+    with: [{ theme_feature: true }, { theme_feature_column: true }],
+  }
+
+  const merge = qs.stringify(pParams)
+  const res = await fetch(`${coreUrl}/v1/theme/${params.code_theme}?${merge}`)
+  const data = await res.json()
+
+  return { props: { data: data.data } }
 }
 
 ThemeDetail.Layout = function getLayout(page) {
