@@ -1,25 +1,23 @@
+import { useRouter } from 'next/router'
 import ContainerBlank from '@/layouts/container/containerBlank'
 import { NextSeo } from 'next-seo'
 import site from '@/config/site'
 import _ from 'lodash'
 import qs from 'qs'
+import { addDays } from 'date-fns'
 
 const coreUrl = process.env.CORE_URL
 
-// Theme Container
-import ContainerGoldenGold from '@/components/theme/golden-gold/container'
-import ContainerPalem from '@/components/theme/palem/container'
+import SwitchTheme from '@/components/theme/switchTheme'
 
 function ThemeDetail({ data }) {
-  const renderTheme = codeTheme => {
-    switch (codeTheme) {
-      case 'golden-gold':
-        return <ContainerGoldenGold data={data} />
-      case 'palem':
-        return <ContainerPalem data={data} />
-      default:
-        return ''
-    }
+  const router = useRouter()
+  const guest = router.query.to || 'Tamu Undangan'
+
+  const options = {
+    from: 'theme',
+    guest: guest,
+    date: addDays(new Date(), 100),
   }
 
   return (
@@ -29,7 +27,7 @@ function ThemeDetail({ data }) {
         titleTemplate={`%s | ${site.title}`}
         description={data.description}
       />
-      {renderTheme(data.code)}
+      <SwitchTheme options={options} data={data} />
     </>
   )
 }

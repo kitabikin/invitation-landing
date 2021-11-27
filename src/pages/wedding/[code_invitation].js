@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import ContainerBlank from '@/layouts/container/containerBlank'
 import { NextSeo } from 'next-seo'
 import site from '@/config/site'
@@ -6,20 +7,17 @@ import qs from 'qs'
 
 const coreUrl = process.env.CORE_URL
 
-import Cover from '@/components/theme/golden-gold/cover'
+import SwitchTheme from '@/components/theme/switchTheme'
 
 function WeddingDetail({ data }) {
-  const { feature } = data
+  const router = useRouter()
+  const guest = router.query.to || 'Tamu Undangan'
 
-  const item = (code, data = feature) => {
-    return _.find(data, {
-      theme_feature: { code: code },
-    })
+  const options = {
+    from: 'invitation',
+    guest: guest,
+    date: new Date(data.invitation_at),
   }
-
-  const code = 'golden-gold_'
-  const general = item(`${code}general`)
-  const cover = item(`${code}cover`)
 
   return (
     <>
@@ -28,21 +26,15 @@ function WeddingDetail({ data }) {
         titleTemplate={`%s | ${site.title}`}
         description={data.description}
       />
-      {cover.is_active && <Cover general={general} cover={cover} />}
-
-      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+      <SwitchTheme options={options} data={data} />
     </>
   )
 }
 
 export async function getStaticPaths() {
-  const pWhere = [
-    { is_delete: false },
-    { id_event: '2b3b4de1-ed5c-4b5a-9b62-1059344c5775' },
-  ]
-
   const pParams = {
-    where: pWhere,
+    where: [{ is_delete: false }, { ['event:code']: 'wedding' }],
+    with: [{ event: true }],
   }
 
   const merge = qs.stringify(pParams)
@@ -58,7 +50,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const pParams = {
-    with: [{ invitation_feature: true }],
+    with: [
+      { theme: true },
+      { invitation_feature: true },
+      { invitation_feature_data: true },
+    ],
   }
 
   const merge = qs.stringify(pParams)
