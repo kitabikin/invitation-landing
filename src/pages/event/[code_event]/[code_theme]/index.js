@@ -1,3 +1,4 @@
+import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import ContainerBlank from '@/layouts/container/containerBlank'
 import { NextSeo } from 'next-seo'
@@ -6,7 +7,8 @@ import _ from 'lodash'
 import qs from 'qs'
 import { addDays } from 'date-fns'
 
-const coreUrl = process.env.CORE_URL
+const { serverRuntimeConfig } = getConfig()
+const coreUrl = serverRuntimeConfig.coreUrl
 
 import SwitchTheme from '@/components/theme/switchTheme'
 

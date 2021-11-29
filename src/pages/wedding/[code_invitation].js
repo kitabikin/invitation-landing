@@ -1,3 +1,4 @@
+import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import ContainerBlank from '@/layouts/container/containerBlank'
 import { NextSeo } from 'next-seo'
@@ -5,7 +6,8 @@ import site from '@/config/site'
 import _ from 'lodash'
 import qs from 'qs'
 
-const coreUrl = process.env.CORE_URL
+const { serverRuntimeConfig } = getConfig()
+const coreUrl = serverRuntimeConfig.coreUrl
 
 import SwitchTheme from '@/components/theme/switchTheme'
 
