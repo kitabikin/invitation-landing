@@ -1,0 +1,11 @@
+version: '3'
+services:
+  invitation-landing-dev:
+    build:
+      context: .
+      dockerfile: .docker/dev.dockerfile
+    image: kitabikincom/invitation-landing:dev
+    container_name: 'invitation-landing-dev'
+    ports:
+      - '18022:3000'
+    restart: always
