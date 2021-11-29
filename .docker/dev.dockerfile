@@ -2,7 +2,7 @@ FROM node:14-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm install ci
 
 FROM node:14-alpine AS builder
 WORKDIR /app
