@@ -6,8 +6,6 @@ RUN npm install ci
 
 FROM node:14-alpine AS builder
 WORKDIR /app
-ARG NEXT_PUBLIC_CORE_URL
-ENV NEXT_PUBLIC_CORE_URL=$NEXT_PUBLIC_CORE_URL
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
@@ -15,6 +13,8 @@ RUN npm run build
 FROM node:14-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
+ARG NEXT_PUBLIC_CORE_URL
+ENV NEXT_PUBLIC_CORE_URL=$NEXT_PUBLIC_CORE_URL
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 COPY --from=builder /app/next.config.js ./
