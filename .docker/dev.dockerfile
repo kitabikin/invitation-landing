@@ -6,7 +6,8 @@ RUN npm install
 
 FROM node:14-alpine AS builder
 WORKDIR /app
-ENV NEXT_PUBLIC_CORE_URL=${NEXT_PUBLIC_CORE_URL}
+ARG NEXT_PUBLIC_CORE_URL
+ENV NEXT_PUBLIC_CORE_URL=$NEXT_PUBLIC_CORE_URL
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
