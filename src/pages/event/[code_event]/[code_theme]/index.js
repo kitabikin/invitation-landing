@@ -49,7 +49,7 @@ export async function getStaticPaths() {
     },
   }))
 
-  return { paths, fallback: false }
+  return { paths, fallback: 'blocking' }
 }
 
 export async function getStaticProps({ params }) {
@@ -62,7 +62,7 @@ export async function getStaticProps({ params }) {
   const res = await fetch(`${coreUrl}/v1/theme/${params.code_theme}?${merge}`)
   const data = await res.json()
 
-  return { props: { data: data.data } }
+  return { props: { data: data.data }, revalidate: 10 }
 }
 
 ThemeDetail.Layout = function getLayout(page) {
