@@ -42,7 +42,7 @@ jobs:
           context: ./
           file: .docker/dev.dockerfile
           build-args: |
-            NEXT_PUBLIC_CORE_URL=${{ secrets.CORE_URL }}
+            NEXT_PUBLIC_CORE_URL=${{ secrets.DEV_CORE_URL }}
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ github.repository }}:dev
