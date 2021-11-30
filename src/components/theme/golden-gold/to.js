@@ -1,13 +1,19 @@
 import { useState } from 'react'
 import Image from 'next/image'
+import ReactPlayer from 'react-player'
 
 import _ from 'lodash'
-import { Container, Box, Flex, Button } from '@chakra-ui/react'
+import { Container, Box, Flex, Button, Circle } from '@chakra-ui/react'
+import { MdMusicNote, MdMusicOff } from 'react-icons/md'
 
 function To({ options, feature }) {
   const [display, setDisplay] = useState('block')
+  const [playing, setPlaying] = useState(false)
 
   const code = 'golden-gold'
+
+  // Feature
+  const { [`${code}_music`]: fMusic } = feature
 
   // General
   const codeGeneral = `${code}_general`
@@ -28,6 +34,19 @@ function To({ options, feature }) {
     [`${codeTo}_label`]: tLabel,
     [`${codeTo}_button-label`]: tButtonLabel,
   } = to
+
+  // Music
+  const codeMusic = `${code}_music`
+  const music = feature[codeMusic].column.reduce(
+    (obj, item) => Object.assign(obj, { [item.code]: item }),
+    {}
+  )
+  const { [`${codeMusic}_source`]: mSource } = music
+
+  function handleClick() {
+    setDisplay('none')
+    setPlaying(!playing)
+  }
 
   return (
     <>
@@ -87,13 +106,38 @@ function To({ options, feature }) {
               borderRadius="20px"
               px="8"
               _hover={{ bg: 'yellow.500' }}
-              onClick={() => setDisplay('none')}
+              onClick={() => handleClick()}
             >
               {tButtonLabel.value}
             </Button>
           </Flex>
         </Container>
       </Box>
+
+      {fMusic && fMusic.is_active && (
+        <Box>
+          <Circle
+            as={'button'}
+            cursor="pointer"
+            position="fixed"
+            size="50px"
+            bottom="30px"
+            right="30px"
+            border="2px"
+            zIndex="400"
+            onClick={() => setPlaying(!playing)}
+          >
+            {playing ? <MdMusicNote size={20} /> : <MdMusicOff size={20} />}
+          </Circle>
+          <ReactPlayer
+            url={mSource.value}
+            playing={playing}
+            loop={true}
+            width="0"
+            height="0"
+          />
+        </Box>
+      )}
     </>
   )
 }
