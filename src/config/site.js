@@ -1,11 +1,11 @@
 const site = {
-  title: `Invitation Landing`,
-  description: `Description Invitation Landing`,
+  title: `Invitation by Kitabikin`,
+  description: `Invitation by Kitabikin`,
   author: `Kitabikin.com`,
   siteUrl:
-    process.env.NODE_ENV === 'development'
-      ? `https://dev.invitation.com`
-      : `https://invitation.com`,
+    process.env.ENVIRONMENT === 'production'
+      ? `https://invitation.kitabikin.com`
+      : `https://invitation-dev.kitabikin.com`,
   image: `vercel.svg`,
   twitterUsername: `@kitabikincom`,
 }

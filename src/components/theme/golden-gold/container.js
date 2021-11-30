@@ -24,9 +24,7 @@ function Container({ options, data }) {
   return (
     <>
       {/* To */}
-      {/* {fTo && fTo.is_active && (
-        <To options={options} feature={feature} />
-      )} */}
+      {fTo && fTo.is_active && <To options={options} feature={feature} />}
 
       {/* Cover */}
       {fCover && fCover.is_active && (

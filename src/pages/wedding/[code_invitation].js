@@ -6,6 +6,7 @@ import _ from 'lodash'
 import qs from 'qs'
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
+const isProduction = process.env.ENVIRONMENT === 'production'
 
 import SwitchTheme from '@/components/theme/switchTheme'
 
@@ -19,12 +20,17 @@ function WeddingDetail({ data }) {
     date: new Date(data.invitation_at),
   }
 
+  const canonical = `${site.siteUrl}/wedding/${data.code}`
+  const noIndex = !isProduction
+
   return (
     <>
       <NextSeo
         title={`Pernikahan ${data.name}`}
         titleTemplate={`%s | ${site.title}`}
         description={data.description}
+        canonical={canonical}
+        noindex={noIndex}
       />
       <SwitchTheme options={options} data={data} />
     </>
@@ -62,6 +68,15 @@ export async function getStaticProps({ params }) {
     `${coreUrl}/v1/invitation/${params.code_invitation}?${merge}`
   )
   const data = await res.json()
+
+  if (data.error === 1) {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
+    }
+  }
 
   return { props: { data: data.data }, revalidate: 10 }
 }

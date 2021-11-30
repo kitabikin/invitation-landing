@@ -7,6 +7,7 @@ import qs from 'qs'
 import { addDays } from 'date-fns'
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
+const isProduction = process.env.ENVIRONMENT === 'production'
 
 import SwitchTheme from '@/components/theme/switchTheme'
 
@@ -20,12 +21,17 @@ function ThemeDetail({ data }) {
     date: addDays(new Date(), 100),
   }
 
+  const canonical = `${site.siteUrl}/event/${data.theme_category.event.code}/${data.code}`
+  const noIndex = !isProduction
+
   return (
     <>
       <NextSeo
         title={`Tema ${data.name}`}
         titleTemplate={`%s | ${site.title}`}
         description={data.description}
+        canonical={canonical}
+        noindex={noIndex}
       />
       <SwitchTheme options={options} data={data} />
     </>
@@ -55,12 +61,26 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const pParams = {
     where: [{ is_delete: false }],
-    with: [{ theme_feature: true }, { theme_feature_column: true }],
+    with: [
+      { theme_category: true },
+      { event: true },
+      { theme_feature: true },
+      { theme_feature_column: true },
+    ],
   }
 
   const merge = qs.stringify(pParams)
   const res = await fetch(`${coreUrl}/v1/theme/${params.code_theme}?${merge}`)
   const data = await res.json()
+
+  if (data.error === 1) {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
+    }
+  }
 
   return { props: { data: data.data }, revalidate: 10 }
 }
