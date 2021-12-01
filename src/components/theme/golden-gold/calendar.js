@@ -1,9 +1,20 @@
-import Image from 'next/image'
-
 import _ from 'lodash'
 import { Button } from '@chakra-ui/react'
 
-function Quotes({ buttonLabel, link }) {
+function Calendar({ options, feature, type }) {
+  const code = 'golden-gold'
+
+  // Calendar
+  const codeCalendar = `${code}_calendar-${type}`
+  const calendar = feature[codeCalendar].column.reduce(
+    (obj, item) => Object.assign(obj, { [item.code]: item }),
+    {}
+  )
+  const {
+    [`${codeCalendar}_button-label`]: cButtonLabel,
+    [`${codeCalendar}_link`]: cLink,
+  } = calendar
+
   return (
     <>
       <Button
@@ -14,12 +25,12 @@ function Quotes({ buttonLabel, link }) {
         _hover={{ bg: 'yellow.700' }}
         as="a"
         target="_blank"
-        href={link}
+        href={cLink.value}
       >
-        {buttonLabel}
+        {cButtonLabel.value}
       </Button>
     </>
   )
 }
 
-export default Quotes
+export default Calendar

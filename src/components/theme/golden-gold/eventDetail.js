@@ -7,12 +7,21 @@ import { Container, Box, Button } from '@chakra-ui/react'
 
 import CountdownTimer from '@/components/theme/golden-gold/countdownTimer'
 import Calendar from '@/components/theme/golden-gold/calendar'
+import Map from '@/components/theme/golden-gold/map'
 
 function EventDetail({ options, feature }) {
   const code = 'golden-gold'
 
   // Feature
-  const { [`${code}_countdown-timer`]: fCountdownTimer } = feature
+  const {
+    [`${code}_countdown-timer`]: fCountdownTimer,
+    [`${code}_calendar-um`]: fCalenderUm,
+    [`${code}_calendar-contract`]: fCalenderContract,
+    [`${code}_calendar-reception`]: fCalenderReception,
+    [`${code}_map-um`]: fMapUm,
+    [`${code}_map-contract`]: fMapContract,
+    [`${code}_map-reception`]: fMapReception,
+  } = feature
 
   // General
   const codeGeneral = `${code}_general`
@@ -58,66 +67,6 @@ function EventDetail({ options, feature }) {
   const formatDate = date => {
     return format(date, 'EEEE, d MMMM yyyy', { locale: id })
   }
-
-  // const { column: dG } = general
-  // const { column: dED } = eventDetail
-  // const { column: dC } = calendar
-
-  // const item = (data, code) => {
-  //   return _.find(data, { code: code })
-  // }
-
-  // const changeDate = value => {
-  //   let data
-  //   if (options.from === 'theme') {
-  //     data = options.date
-  //   } else {
-  //     data = parseISO(value)
-  //   }
-
-  //   return format(data, 'EEEE, d MMMM yyyy', { locale: id })
-  // }
-
-  // // General
-  // const cG = 'golden-gold_general_'
-  // const bg = item(dG, `${cG}background`)
-  // const bgBefore = item(
-  //   dG,
-  //   `${cG}background-between-quotes-event-detail-before`
-  // )
-  // const bgAfter = item(dG, `${cG}background-event-detail-after`)
-
-  // // Event Detail
-  // const cED = 'golden-gold_event-detail_'
-  // const title = item(dED, `${cED}title`)
-  // const umTitle = item(dED, `${cED}unduh-mantu-title`)
-  // const umDate = item(dED, `${cED}unduh-mantu-date`)
-  // const umTime = item(dED, `${cED}unduh-mantu-time`)
-  // const umLocation = item(dED, `${cED}unduh-mantu-location`)
-  // const umAddress = item(dED, `${cED}unduh-mantu-address`)
-  // const cTitle = item(dED, `${cED}contract-title`)
-  // const cDate = item(dED, `${cED}contract-date`)
-  // const cTime = item(dED, `${cED}contract-time`)
-  // const cLocation = item(dED, `${cED}contract-location`)
-  // const cAddress = item(dED, `${cED}contract-address`)
-  // const rTitle = item(dED, `${cED}reception-title`)
-  // const rDate = item(dED, `${cED}reception-date`)
-  // const rTime = item(dED, `${cED}reception-time`)
-  // const rLocation = item(dED, `${cED}reception-location`)
-  // const rAddress = item(dED, `${cED}reception-address`)
-  // const saveTheDate = item(dED, `${cED}save-the-date`)
-  // const closingSentence = item(dED, `${cED}closing-sentence`)
-  // const closingThankYou = item(dED, `${cED}closing-thank-you`)
-  // const closingSaying = item(dED, `${cED}closing-saying`)
-
-  // // Calendar
-  // const cC = 'golden-gold_calendar_'
-  // const cUmButtonLabel = item(dC, `${cC}um-button-label`)
-  // const cUmLink = item(dC, `${cC}um-link`)
-  // const cCButtonLabel = item(dC, `${cC}c-button-label`)
-  // const cCLink = item(dC, `${cC}c-link`)
-  // const cRButtonLabel = item(dC, `${cC}r-button-label`)
-  // const cRLink = item(dC, `${cC}r-link`)
 
   return (
     <>
@@ -201,12 +150,12 @@ function EventDetail({ options, feature }) {
                   <Box mt="2">{edUmTime.value}</Box>
                 )}
 
-                {/* <Box mt="2">
-                  <Calendar
-                    buttonLabel={cUmButtonLabel.value}
-                    link={cUmLink.value}
-                  />
-                </Box> */}
+                {/* Calendar Unduh Mantu */}
+                {fCalenderUm && fCalenderUm.is_active && (
+                  <Box mt="2">
+                    <Calendar options={options} feature={feature} type="um" />
+                  </Box>
+                )}
 
                 <Box mt="4">
                   {/* Event Detail Unduh Mantu Location */}
@@ -219,17 +168,12 @@ function EventDetail({ options, feature }) {
                     <Box mt="1">{edUmAddress.value}</Box>
                   )}
 
-                  {/* <Box mt="2">
-                    <Button
-                      bg="yellow.600"
-                      color="white"
-                      size="sm"
-                      borderRadius="20px"
-                      _hover={{ bg: 'yellow.700' }}
-                    >
-                      Lihat Lokasi Unduh Mantu (Belum)
-                    </Button>
-                  </Box> */}
+                  {/* Map Unduh Mantu */}
+                  {fMapUm && fMapUm.is_active && (
+                    <Box mt="2">
+                      <Map options={options} feature={feature} type="um" />
+                    </Box>
+                  )}
                 </Box>
               </Box>
 
@@ -258,12 +202,16 @@ function EventDetail({ options, feature }) {
                   <Box mt="2">{edCTime.value}</Box>
                 )}
 
-                {/* <Box mt="2">
-                  <Calendar
-                    buttonLabel={cUmButtonLabel.value}
-                    link={cUmLink.value}
-                  />
-                </Box> */}
+                {/* Calendar Contract */}
+                {fCalenderContract && fCalenderContract.is_active && (
+                  <Box mt="2">
+                    <Calendar
+                      options={options}
+                      feature={feature}
+                      type="contract"
+                    />
+                  </Box>
+                )}
 
                 <Box mt="4">
                   {/* Event Detail Contract Location */}
@@ -276,17 +224,16 @@ function EventDetail({ options, feature }) {
                     <Box mt="1">{edCAddress.value}</Box>
                   )}
 
-                  {/* <Box mt="2">
-                    <Button
-                      bg="yellow.600"
-                      color="white"
-                      size="sm"
-                      borderRadius="20px"
-                      _hover={{ bg: 'yellow.700' }}
-                    >
-                      Lihat Lokasi Contract (Belum)
-                    </Button>
-                  </Box> */}
+                  {/* Map Contract */}
+                  {fMapContract && fMapContract.is_active && (
+                    <Box mt="2">
+                      <Map
+                        options={options}
+                        feature={feature}
+                        type="contract"
+                      />
+                    </Box>
+                  )}
                 </Box>
               </Box>
 
@@ -328,12 +275,16 @@ function EventDetail({ options, feature }) {
                   </Box>
                 )}
 
-                {/* <Box mt="2">
-                  <Calendar
-                    buttonLabel={cUmButtonLabel.value}
-                    link={cUmLink.value}
-                  />
-                </Box> */}
+                {/* Calendar Reception */}
+                {fCalenderReception && fCalenderReception.is_active && (
+                  <Box mt="2">
+                    <Calendar
+                      options={options}
+                      feature={feature}
+                      type="reception"
+                    />
+                  </Box>
+                )}
 
                 <Box mt="4">
                   {/* Event Detail Reception Location */}
@@ -346,17 +297,16 @@ function EventDetail({ options, feature }) {
                     <Box mt="1">{edRAddress.value}</Box>
                   )}
 
-                  {/* <Box mt="2">
-                    <Button
-                      bg="yellow.600"
-                      color="white"
-                      size="sm"
-                      borderRadius="20px"
-                      _hover={{ bg: 'yellow.700' }}
-                    >
-                      Lihat Lokasi Reception (Belum)
-                    </Button>
-                  </Box> */}
+                  {/* Map Reception */}
+                  {fMapReception && fMapReception.is_active && (
+                    <Box mt="2">
+                      <Map
+                        options={options}
+                        feature={feature}
+                        type="reception"
+                      />
+                    </Box>
+                  )}
                 </Box>
               </Box>
 

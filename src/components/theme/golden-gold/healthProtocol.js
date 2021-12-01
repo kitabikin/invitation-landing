@@ -34,7 +34,6 @@ function HealthProtocol({ options, feature }) {
           bgPosition="center center"
           bgRepeat="repeat"
           bgSize="300px 300px"
-          pt="24"
           pb="24"
         >
           <Container h="full" maxW="4xl" centerContent>
