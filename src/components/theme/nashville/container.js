@@ -17,6 +17,12 @@ import FeatureLiveWedding from '@/components/theme/nashville/featureLiveWedding'
 import FeatureTurutMengundang from '@/components/theme/nashville/featureTurutMengundang'
 import FeaturePanduanTamu from '@/components/theme/nashville/featurePanduanTamu'
 import FeatureProtokolKesehatan from '@/components/theme/nashville/featureProtokolKesehatan'
+import FeatureLoveStory from '@/components/theme/nashville/featureLoveStory'
+import FeatureLoveQuotes from '@/components/theme/nashville/featureLoveQuotes'
+import FeatureGalleryPhoto from '@/components/theme/nashville/featureGalleryPhoto'
+import FeatureGalleryVideo from '@/components/theme/nashville/featureGalleryVideo'
+import FeatureKehadiranUcapan from '@/components/theme/nashville/featureKehadiranUcapan'
+import FeatureUcapanDoa from '@/components/theme/nashville/featureUcapanDoa'
 
 function Container({ options, data }) {
   const [display, setDisplay] = useState('block')
@@ -43,6 +49,12 @@ function Container({ options, data }) {
     [`${options.code}-turutMengundang`]: fTurutMengundang,
     [`${options.code}-panduanTamu`]: fPanduanTamu,
     [`${options.code}-protokolKesehatan`]: fProtokolKesehatan,
+    [`${options.code}-loveStory`]: fLoveStory,
+    [`${options.code}-loveQuotes`]: fLoveQuotes,
+    [`${options.code}-galleryPhoto`]: fGalleryPhoto,
+    [`${options.code}-galleryVideo`]: fGalleryVideo,
+    [`${options.code}-kehadiranUcapan`]: fKehadiranUcapan,
+    [`${options.code}-ucapanDoa`]: fUcapanDoa,
   } = feature
 
   // General
@@ -222,19 +234,53 @@ function Container({ options, data }) {
             <FeatureLiveWedding options={options} feature={feature} />
           )}
 
-          {/* TurutMengundang */}
+          {/* Turut Mengundang */}
           {fTurutMengundang && fTurutMengundang.is_active && (
             <FeatureTurutMengundang options={options} feature={feature} />
           )}
 
-          {/* PanduanTamu */}
+          {/* Panduan Tamu */}
           {fPanduanTamu && fPanduanTamu.is_active && (
             <FeaturePanduanTamu options={options} feature={feature} />
           )}
 
-          {/* ProtokolKesehatan */}
+          {/* Protokol Kesehatan */}
           {fProtokolKesehatan && fProtokolKesehatan.is_active && (
             <FeatureProtokolKesehatan options={options} feature={feature} />
+          )}
+        </Box>
+
+        <Box position="relative" py="24">
+          {/* Love Story */}
+          {fLoveStory && fLoveStory.is_active && (
+            <FeatureLoveStory options={options} feature={feature} />
+          )}
+
+          {/* Love Quotes */}
+          {fLoveQuotes && fLoveQuotes.is_active && (
+            <FeatureLoveQuotes options={options} feature={feature} />
+          )}
+
+          {/* Gallery Photo */}
+          {fGalleryPhoto && fGalleryPhoto.is_active && (
+            <FeatureGalleryPhoto options={options} feature={feature} />
+          )}
+
+          {/* Gallery Video */}
+          {fGalleryVideo && fGalleryVideo.is_active && (
+            <FeatureGalleryVideo options={options} feature={feature} />
+          )}
+        </Box>
+
+        <Box position="relative" py="24">
+          {/* Kehadiran Ucapan */}
+          {fKehadiranUcapan && fKehadiranUcapan.is_active && (
+            <FeatureKehadiranUcapan options={options} feature={feature} />
+          )}
+
+          {/* Ucapan Doa */}
+          {fUcapanDoa && fUcapanDoa.is_active && (
+            <FeatureUcapanDoa options={options} feature={feature} />
           )}
         </Box>
       </Box>
