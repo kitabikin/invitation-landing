@@ -2,15 +2,15 @@ import _ from 'lodash'
 
 // Theme Container
 import ContainerGoldenGold from '@/components/theme/golden-gold/container'
-import ContainerPalem from '@/components/theme/palem/container'
+import ContainerNashville from '@/components/theme/nashville/container'
 
 function SwitchTheme({ options, data }) {
   const getThemeByCode = codeTheme => {
     switch (codeTheme) {
       case 'golden-gold':
         return <ContainerGoldenGold options={options} data={modify(data)} />
-      case 'palem':
-        return <ContainerPalem data={modify(data)} />
+      case 'nashville':
+        return <ContainerNashville options={options} data={modify(data)} />
       default:
         return ''
     }

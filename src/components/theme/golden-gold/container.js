@@ -9,6 +9,7 @@ import HealthProtocol from '@/components/theme/golden-gold/healthProtocol'
 import GuestGuide from '@/components/theme/golden-gold/guestGuide'
 import SpecialGuest from '@/components/theme/golden-gold/specialGuest'
 import LiveWedding from '@/components/theme/golden-gold/liveWedding'
+import LoveDetail from '@/components/theme/golden-gold/loveDetail'
 
 function Container({ options, data }) {
   const code = 'golden-gold'
@@ -66,6 +67,9 @@ function Container({ options, data }) {
       {fHealthProtocol && fHealthProtocol.is_active && (
         <HealthProtocol options={options} feature={feature} />
       )}
+
+      {/* Love Detail */}
+      <LoveDetail options={options} feature={feature} />
     </>
   )
 }

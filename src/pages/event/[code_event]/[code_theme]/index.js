@@ -18,6 +18,7 @@ function ThemeDetail({ data }) {
   const options = {
     from: 'theme',
     guest: guest,
+    code: data.code,
     date: addDays(new Date(), 100),
   }
 
