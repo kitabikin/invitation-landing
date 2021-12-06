@@ -9,14 +9,20 @@ const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
 const isProduction = process.env.ENVIRONMENT === 'production'
 
 import SwitchTheme from '@/components/theme/switchTheme'
+import LoadingPage from '@/components/specific/loadingPage'
 
 function WeddingDetail({ data }) {
   const router = useRouter()
   const guest = router.query.to || 'Tamu Undangan'
 
+  if (router.isFallback) {
+    return <LoadingPage />
+  }
+
   const options = {
     from: 'invitation',
     guest: guest,
+    code: data.theme.code,
     date: new Date(data.invitation_at),
   }
 
@@ -51,7 +57,7 @@ export async function getStaticPaths() {
     params: { code_invitation: data.code },
   }))
 
-  return { paths, fallback: 'blocking' }
+  return { paths, fallback: true }
 }
 
 export async function getStaticProps({ params }) {
@@ -71,14 +77,11 @@ export async function getStaticProps({ params }) {
 
   if (data.error === 1) {
     return {
-      redirect: {
-        destination: '/404',
-        permanent: false,
-      },
+      notFound: true,
     }
   }
 
-  return { props: { data: data.data }, revalidate: 10 }
+  return { props: { data: data.data }, revalidate: 1 }
 }
 
 WeddingDetail.Layout = function getLayout(page) {

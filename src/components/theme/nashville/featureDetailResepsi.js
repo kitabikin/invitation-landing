@@ -44,23 +44,20 @@ function FeatureDetailResepsi({ ...props }) {
     if (props.options.from === 'theme') {
       date = props.options.date
     } else {
-      date = parseISO(sampulDate.value)
+      date = parseISO(detailResepsiDate.value)
     }
     return date
   }
 
-  const getDay = () => {
-    const date = getDate()
+  const getDay = date => {
     return format(date, 'd', { locale: id })
   }
 
-  const getMonth = () => {
-    const date = getDate()
+  const getMonth = date => {
     return format(date, 'MMMM', { locale: id })
   }
 
-  const getYear = () => {
-    const date = getDate()
+  const getYear = date => {
     return format(date, 'yyyy', { locale: id })
   }
 
@@ -113,7 +110,7 @@ function FeatureDetailResepsi({ ...props }) {
                     textTransform="uppercase"
                     fontSize={{ base: 'xl', md: '3xl' }}
                   >
-                    {getMonth()}
+                    {getMonth(getDate())}
                   </Text>
                 </Flex>
                 <Flex justifyContent="space-between" alignItems="center">
@@ -129,7 +126,7 @@ function FeatureDetailResepsi({ ...props }) {
                     fontSize="6xl"
                     lineHeight="1"
                   >
-                    {getDay()}
+                    {getDay(getDate())}
                   </Text>
                   <Box
                     h={{ base: '0', md: '90px' }}
@@ -144,7 +141,7 @@ function FeatureDetailResepsi({ ...props }) {
                     fontSize={{ base: '1.75rem', md: '2.5rem' }}
                     mt={{ base: '-10px', md: '0' }}
                   >
-                    {getYear()}
+                    {getYear(getDate())}
                   </Text>
                 </Flex>
               </Grid>

@@ -48,7 +48,7 @@ function SwitchTheme({ options, data }) {
     return modify
   }
 
-  return getThemeByCode(options.from === 'theme' ? data.code : data.theme.code)
+  return getThemeByCode(options.code)
 }
 
 export default SwitchTheme

@@ -30,6 +30,8 @@ function FeatureSampul({ ...props }) {
     [`${codeSampul}-date`]: sampulDate,
   } = sampul
 
+  console.log(sampulDate)
+
   // Function ==================================================================
   const getDate = () => {
     let date
@@ -41,18 +43,15 @@ function FeatureSampul({ ...props }) {
     return date
   }
 
-  const getDay = () => {
-    const date = getDate()
+  const getDay = date => {
     return format(date, 'd', { locale: id })
   }
 
-  const getMonth = () => {
-    const date = getDate()
+  const getMonth = date => {
     return format(date, 'MMMM', { locale: id })
   }
 
-  const getYear = () => {
-    const date = getDate()
+  const getYear = date => {
     return format(date, 'yyyy', { locale: id })
   }
 
@@ -127,7 +126,7 @@ function FeatureSampul({ ...props }) {
             {/* Sampul Date */}
             {sampulDate && sampulDate.is_active && (
               <Box mt="6" fontFamily="nashvilleTitle" fontWeight="bold">
-                <Text fontSize="xl">{getMonth()}</Text>
+                <Text fontSize="xl">{getMonth(getDate())}</Text>
                 <Flex alignItems="center" justifyContent="center">
                   <Box
                     w="35px"
@@ -135,7 +134,7 @@ function FeatureSampul({ ...props }) {
                     borderColor={generalColorPrimary.value}
                   ></Box>
                   <Text mx="6" fontSize="5xl" lineHeight="1.2">
-                    {getDay()}
+                    {getDay(getDate())}
                   </Text>
                   <Box
                     w="35px"
@@ -144,7 +143,7 @@ function FeatureSampul({ ...props }) {
                   ></Box>
                 </Flex>
                 <Text fontSize="xl" mt="-5px">
-                  {getYear()}
+                  {getYear(getDate())}
                 </Text>
               </Box>
             )}

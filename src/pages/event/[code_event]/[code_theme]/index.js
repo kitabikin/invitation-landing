@@ -10,16 +10,21 @@ const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
 const isProduction = process.env.ENVIRONMENT === 'production'
 
 import SwitchTheme from '@/components/theme/switchTheme'
+import LoadingPage from '@/components/specific/loadingPage'
 
 function ThemeDetail({ data }) {
   const router = useRouter()
   const guest = router.query.to || 'Tamu Undangan'
 
+  if (router.isFallback) {
+    return <LoadingPage />
+  }
+
   const options = {
     from: 'theme',
     guest: guest,
     code: data.code,
-    date: addDays(new Date(), 100),
+    date: addDays(new Date(), Math.floor(Math.random() * (60 - 30 + 1) + 30)),
   }
 
   const canonical = `${site.siteUrl}/event/${data.theme_category.event.code}/${data.code}`
@@ -56,7 +61,7 @@ export async function getStaticPaths() {
     },
   }))
 
-  return { paths, fallback: 'blocking' }
+  return { paths, fallback: true }
 }
 
 export async function getStaticProps({ params }) {
@@ -76,14 +81,11 @@ export async function getStaticProps({ params }) {
 
   if (data.error === 1) {
     return {
-      redirect: {
-        destination: '/404',
-        permanent: false,
-      },
+      notFound: true,
     }
   }
 
-  return { props: { data: data.data }, revalidate: 10 }
+  return { props: { data: data.data }, revalidate: 1 }
 }
 
 ThemeDetail.Layout = function getLayout(page) {
