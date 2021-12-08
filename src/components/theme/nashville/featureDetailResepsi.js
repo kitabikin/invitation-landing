@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { Container, Box, Flex, Text, Grid } from '@chakra-ui/react'
 import { format, parseISO } from 'date-fns'
@@ -7,6 +8,11 @@ import FeatureKalender from '@/components/theme/nashville/featureKalender'
 import FeatureMap from '@/components/theme/nashville/featureMap'
 
 function FeatureDetailResepsi({ ...props }) {
+  const { from, date } = props.options
+  const [formatDay, setFormatDay] = useState()
+  const [formatMonth, setFormatMonth] = useState()
+  const [formatYear, setFormatYear] = useState()
+
   // Get Data ==================================================================
   // Feature
   const {
@@ -38,28 +44,15 @@ function FeatureDetailResepsi({ ...props }) {
     [`${codeDetailResepsi}-address`]: detailResepsiAddress,
   } = detailResepsi
 
+  const dateWedding =
+    from === 'theme' ? date : parseISO(detailResepsiDate.value)
+
   // Function ==================================================================
-  const getDate = () => {
-    let date
-    if (props.options.from === 'theme') {
-      date = props.options.date
-    } else {
-      date = parseISO(detailResepsiDate.value)
-    }
-    return date
-  }
-
-  const getDay = date => {
-    return format(date, 'd', { locale: id })
-  }
-
-  const getMonth = date => {
-    return format(date, 'MMMM', { locale: id })
-  }
-
-  const getYear = date => {
-    return format(date, 'yyyy', { locale: id })
-  }
+  useEffect(() => {
+    setFormatDay(format(dateWedding, 'd', { locale: id }))
+    setFormatMonth(format(dateWedding, 'MMMM', { locale: id }))
+    setFormatYear(format(dateWedding, 'yyyy', { locale: id }))
+  }, [dateWedding])
 
   return (
     <>
@@ -110,7 +103,7 @@ function FeatureDetailResepsi({ ...props }) {
                     textTransform="uppercase"
                     fontSize={{ base: 'xl', md: '3xl' }}
                   >
-                    {getMonth(getDate())}
+                    {formatMonth}
                   </Text>
                 </Flex>
                 <Flex justifyContent="space-between" alignItems="center">
@@ -126,7 +119,7 @@ function FeatureDetailResepsi({ ...props }) {
                     fontSize="6xl"
                     lineHeight="1"
                   >
-                    {getDay(getDate())}
+                    {formatDay}
                   </Text>
                   <Box
                     h={{ base: '0', md: '90px' }}
@@ -141,7 +134,7 @@ function FeatureDetailResepsi({ ...props }) {
                     fontSize={{ base: '1.75rem', md: '2.5rem' }}
                     mt={{ base: '-10px', md: '0' }}
                   >
-                    {getYear(getDate())}
+                    {formatYear}
                   </Text>
                 </Flex>
               </Grid>

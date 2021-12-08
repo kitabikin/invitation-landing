@@ -1,9 +1,15 @@
+import { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { Container, Box, Flex, Text } from '@chakra-ui/react'
 import { format, parseISO } from 'date-fns'
 import { id } from 'date-fns/locale'
 
 function FeatureSampul({ ...props }) {
+  const { from, date } = props.options
+  const [formatDay, setFormatDay] = useState()
+  const [formatMonth, setFormatMonth] = useState()
+  const [formatYear, setFormatYear] = useState()
+
   // Get Data ==================================================================
   // General
   const codeGeneral = `${props.options.code}-general`
@@ -11,7 +17,10 @@ function FeatureSampul({ ...props }) {
     (obj, item) => Object.assign(obj, { [item.code]: item }),
     {}
   )
-  const { [`${codeGeneral}-colorPrimary`]: generalColorPrimary } = general
+  const {
+    [`${codeGeneral}-colorPrimary`]: generalColorPrimary,
+    [`${codeGeneral}-orderGroomBride`]: generalOrderGroomBride,
+  } = general
 
   // Sampul
   const codeSampul = `${props.options.code}-sampul`
@@ -25,35 +34,19 @@ function FeatureSampul({ ...props }) {
     [`${codeSampul}-title`]: sampulTitle,
     [`${codeSampul}-nicknameGroom`]: sampulNicknameGroom,
     [`${codeSampul}-and`]: sampulAnd,
-    [`${codeSampul}-nicknameBridge`]: sampulNicknameBridge,
+    [`${codeSampul}-nicknameBridge`]: sampulNicknameBride,
     [`${codeSampul}-subTitle`]: sampulSubTitle,
     [`${codeSampul}-date`]: sampulDate,
   } = sampul
 
-  console.log(sampulDate)
+  const dateWedding = from === 'theme' ? date : parseISO(sampulDate.value)
 
   // Function ==================================================================
-  const getDate = () => {
-    let date
-    if (props.options.from === 'theme') {
-      date = props.options.date
-    } else {
-      date = parseISO(sampulDate.value)
-    }
-    return date
-  }
-
-  const getDay = date => {
-    return format(date, 'd', { locale: id })
-  }
-
-  const getMonth = date => {
-    return format(date, 'MMMM', { locale: id })
-  }
-
-  const getYear = date => {
-    return format(date, 'yyyy', { locale: id })
-  }
+  useEffect(() => {
+    setFormatDay(format(dateWedding, 'd', { locale: id }))
+    setFormatMonth(format(dateWedding, 'MMMM', { locale: id }))
+    setFormatYear(format(dateWedding, 'yyyy', { locale: id }))
+  }, [dateWedding])
 
   return (
     <>
@@ -96,7 +89,9 @@ function FeatureSampul({ ...props }) {
                 textTransform="uppercase"
                 color={generalColorPrimary.value}
               >
-                {sampulNicknameGroom.value}
+                {generalOrderGroomBride.value === 'bride'
+                  ? sampulNicknameBride.value
+                  : sampulNicknameGroom.value}
               </Text>
               <Text
                 fontFamily="nashvilleHandwriting1"
@@ -112,7 +107,9 @@ function FeatureSampul({ ...props }) {
                 textTransform="uppercase"
                 color={generalColorPrimary.value}
               >
-                {sampulNicknameBridge.value}
+                {generalOrderGroomBride.value === 'bride'
+                  ? sampulNicknameGroom.value
+                  : sampulNicknameBride.value}
               </Text>
             </Flex>
 
@@ -126,7 +123,7 @@ function FeatureSampul({ ...props }) {
             {/* Sampul Date */}
             {sampulDate && sampulDate.is_active && (
               <Box mt="6" fontFamily="nashvilleTitle" fontWeight="bold">
-                <Text fontSize="xl">{getMonth(getDate())}</Text>
+                <Text fontSize="xl">{formatMonth}</Text>
                 <Flex alignItems="center" justifyContent="center">
                   <Box
                     w="35px"
@@ -134,7 +131,7 @@ function FeatureSampul({ ...props }) {
                     borderColor={generalColorPrimary.value}
                   ></Box>
                   <Text mx="6" fontSize="5xl" lineHeight="1.2">
-                    {getDay(getDate())}
+                    {formatDay}
                   </Text>
                   <Box
                     w="35px"
@@ -143,7 +140,7 @@ function FeatureSampul({ ...props }) {
                   ></Box>
                 </Flex>
                 <Text fontSize="xl" mt="-5px">
-                  {getYear(getDate())}
+                  {formatYear}
                 </Text>
               </Box>
             )}

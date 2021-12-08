@@ -1,6 +1,15 @@
 import Image from 'next/image'
 import _ from 'lodash'
-import { Container, Box, Text } from '@chakra-ui/react'
+import {
+  Container,
+  Box,
+  Text,
+  SimpleGrid,
+  Center,
+  Link,
+} from '@chakra-ui/react'
+
+import { SiInstagram, SiYoutube, SiZoom, SiGooglemeet } from 'react-icons/si'
 
 function FeatureLiveWedding({ ...props }) {
   // Get Data ==================================================================
@@ -21,6 +30,9 @@ function FeatureLiveWedding({ ...props }) {
   const {
     [`${codeLiveWedding}-title`]: liveWeddingTitle,
     [`${codeLiveWedding}-instagram`]: liveWeddingInstagram,
+    [`${codeLiveWedding}-youtube`]: liveWeddingYoutube,
+    [`${codeLiveWedding}-zoom`]: liveWeddingZoom,
+    [`${codeLiveWedding}-googleMeet`]: liveWeddingGoogleMeet,
   } = liveWedding
 
   return (
@@ -43,6 +55,44 @@ function FeatureLiveWedding({ ...props }) {
               {liveWeddingTitle.value}
             </Text>
           )}
+
+          <SimpleGrid
+            minChildWidth={{ base: '180px', md: '120px' }}
+            spacing="16px"
+            mt="6"
+          >
+            {liveWeddingInstagram && liveWeddingInstagram.is_active && (
+              <Center minH="100px">
+                <Link href={liveWeddingInstagram.value} isExternal>
+                  <SiInstagram size="48px" />
+                </Link>
+              </Center>
+            )}
+
+            {liveWeddingYoutube && liveWeddingYoutube.is_active && (
+              <Center minH="100px">
+                <Link href={liveWeddingYoutube.value} isExternal>
+                  <SiYoutube size="48px" />
+                </Link>
+              </Center>
+            )}
+
+            {liveWeddingZoom && liveWeddingZoom.is_active && (
+              <Center minH="100px">
+                <Link href={liveWeddingZoom.value} isExternal>
+                  <SiZoom size={100} />
+                </Link>
+              </Center>
+            )}
+
+            {liveWeddingGoogleMeet && liveWeddingGoogleMeet.is_active && (
+              <Center minH="100px">
+                <Link href={liveWeddingGoogleMeet.value} isExternal>
+                  <SiGooglemeet size="48px" />
+                </Link>
+              </Center>
+            )}
+          </SimpleGrid>
         </Box>
       </Container>
     </>

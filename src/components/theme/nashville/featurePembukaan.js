@@ -11,7 +11,10 @@ function FeaturePembukaan({ ...props }) {
     (obj, item) => Object.assign(obj, { [item.code]: item }),
     {}
   )
-  const { [`${codeGeneral}-colorPrimary`]: generalColorPrimary } = general
+  const {
+    [`${codeGeneral}-colorPrimary`]: generalColorPrimary,
+    [`${codeGeneral}-orderGroomBride`]: generalOrderGroomBride,
+  } = general
 
   // Pembukaan
   const codePembukaan = `${props.options.code}-pembukaan`
@@ -71,20 +74,22 @@ function FeaturePembukaan({ ...props }) {
             </Text>
           )}
 
-          {/* Groom */}
+          {/* Groom & Bride */}
           <Box mt="16">
-            {/* Groom Photo */}
             {pembukaanGroomImage && pembukaanGroomImage && (
               <Box position="relative" w="full">
                 <ImageFrame
                   frame={pembukaanFrame}
-                  image={pembukaanGroomImage}
+                  image={
+                    generalOrderGroomBride.value === 'bride'
+                      ? pembukaanBrideImage
+                      : pembukaanGroomImage
+                  }
                   size={200}
                 />
               </Box>
             )}
 
-            {/* Groom Fullname */}
             {pembukaanGroomFullname && pembukaanGroomFullname && (
               <Text
                 mt="5"
@@ -93,18 +98,42 @@ function FeaturePembukaan({ ...props }) {
                 color={generalColorPrimary.value}
                 textTransform="uppercase"
               >
-                {pembukaanGroomFullname.value}
+                {generalOrderGroomBride.value === 'bride'
+                  ? pembukaanBrideFullname.value
+                  : pembukaanGroomFullname.value}
               </Text>
             )}
 
             <Text mt="5" fontStyle="italic">
-              {pembukaanGroomSon.value} {pembukaanGroomSonTo.value}{' '}
-              {pembukaanGroomFromCouple.value}
+              <Text as="span">
+                {generalOrderGroomBride.value === 'bride'
+                  ? pembukaanBrideSon.value
+                  : pembukaanGroomSon.value}{' '}
+              </Text>
+              <Text as="span">
+                {generalOrderGroomBride.value === 'bride'
+                  ? pembukaanBrideSonTo.value
+                  : pembukaanGroomSonTo.value}{' '}
+              </Text>
+              <Text as="span">
+                {generalOrderGroomBride.value === 'bride'
+                  ? pembukaanBrideFromCouple.value
+                  : pembukaanGroomFromCouple.value}
+              </Text>
             </Text>
 
             <Text mt="1" fontWeight="bold" fontStyle="italic">
-              {pembukaanGroomFatherName.value} {pembukaanGroomCoupleAnd.value}{' '}
-              {pembukaanGroomMotherName.value}
+              <Text as="span">
+                {generalOrderGroomBride.value === 'bride'
+                  ? pembukaanBrideFatherName.value
+                  : pembukaanGroomFatherName.value}{' '}
+              </Text>
+              <Text as="span">{pembukaanGroomCoupleAnd.value} </Text>
+              <Text as="span">
+                {generalOrderGroomBride.value === 'bride'
+                  ? pembukaanBrideMotherName.value
+                  : pembukaanGroomMotherName.value}
+              </Text>
             </Text>
           </Box>
 
@@ -119,19 +148,21 @@ function FeaturePembukaan({ ...props }) {
 
           {/* Bride */}
           <Box mt="16">
-            {/* Bride Photo */}
-            {pembukaanBrideImage && pembukaanBrideImage && (
+            {pembukaanGroomImage && pembukaanGroomImage && (
               <Box position="relative" w="full">
                 <ImageFrame
                   frame={pembukaanFrame}
-                  image={pembukaanBrideImage}
+                  image={
+                    generalOrderGroomBride.value !== 'bride'
+                      ? pembukaanBrideImage
+                      : pembukaanGroomImage
+                  }
                   size={200}
                 />
               </Box>
             )}
 
-            {/* Bride Fullname */}
-            {pembukaanBrideFullname && pembukaanBrideFullname && (
+            {pembukaanGroomFullname && pembukaanGroomFullname && (
               <Text
                 mt="5"
                 fontFamily="nashvilleTitle"
@@ -139,18 +170,42 @@ function FeaturePembukaan({ ...props }) {
                 color={generalColorPrimary.value}
                 textTransform="uppercase"
               >
-                {pembukaanBrideFullname.value}
+                {generalOrderGroomBride.value !== 'bride'
+                  ? pembukaanBrideFullname.value
+                  : pembukaanGroomFullname.value}
               </Text>
             )}
 
             <Text mt="5" fontStyle="italic">
-              {pembukaanBrideSon.value} {pembukaanBrideSonTo.value}{' '}
-              {pembukaanBrideFromCouple.value}
+              <Text as="span">
+                {generalOrderGroomBride.value !== 'bride'
+                  ? pembukaanBrideSon.value
+                  : pembukaanGroomSon.value}{' '}
+              </Text>
+              <Text as="span">
+                {generalOrderGroomBride.value !== 'bride'
+                  ? pembukaanBrideSonTo.value
+                  : pembukaanGroomSonTo.value}{' '}
+              </Text>
+              <Text as="span">
+                {generalOrderGroomBride.value !== 'bride'
+                  ? pembukaanBrideFromCouple.value
+                  : pembukaanGroomFromCouple.value}
+              </Text>
             </Text>
 
             <Text mt="1" fontWeight="bold" fontStyle="italic">
-              {pembukaanBrideFatherName.value} {pembukaanBrideCoupleAnd.value}{' '}
-              {pembukaanBrideMotherName.value}
+              <Text as="span">
+                {generalOrderGroomBride.value !== 'bride'
+                  ? pembukaanBrideFatherName.value
+                  : pembukaanGroomFatherName.value}{' '}
+              </Text>
+              <Text as="span">{pembukaanGroomCoupleAnd.value} </Text>
+              <Text as="span">
+                {generalOrderGroomBride.value !== 'bride'
+                  ? pembukaanBrideMotherName.value
+                  : pembukaanGroomMotherName.value}
+              </Text>
             </Text>
           </Box>
         </Box>

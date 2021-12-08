@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { Container, Box, Text } from '@chakra-ui/react'
 import { format, parseISO } from 'date-fns'
@@ -7,6 +8,9 @@ import FeatureKalender from '@/components/theme/nashville/featureKalender'
 import FeatureMap from '@/components/theme/nashville/featureMap'
 
 function FeatureDetailUnduh({ ...props }) {
+  const { from, date } = props.options
+  const [formatDate, setFormatDate] = useState()
+
   // Get Data ==================================================================
   // Feature
   const {
@@ -28,17 +32,12 @@ function FeatureDetailUnduh({ ...props }) {
     [`${codeDetailUnduh}-address`]: detailUnduhAddress,
   } = detailUnduh
 
-  // Function ==================================================================
-  const getDate = () => {
-    let date
-    if (props.options.from === 'theme') {
-      date = props.options.date
-    } else {
-      date = parseISO(detailUnduhDate.value)
-    }
+  const dateWedding = from === 'theme' ? date : parseISO(detailUnduhDate.value)
 
-    return format(date, 'EEEE, d MMMM yyyy', { locale: id })
-  }
+  // Function ==================================================================
+  useEffect(() => {
+    setFormatDate(format(dateWedding, 'EEEE, d MMMM yyyy', { locale: id }))
+  }, [dateWedding])
 
   return (
     <>
@@ -54,7 +53,7 @@ function FeatureDetailUnduh({ ...props }) {
           {/* Detail Unduh Date */}
           {detailUnduhDate && detailUnduhDate.is_active && (
             <Text mt="4" fontWeight="bold" fontStyle="italic">
-              {getDate()}
+              {formatDate}
             </Text>
           )}
 

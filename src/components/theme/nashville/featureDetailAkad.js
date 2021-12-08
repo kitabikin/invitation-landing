@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { Container, Box, Text } from '@chakra-ui/react'
 import { format, parseISO } from 'date-fns'
@@ -7,6 +8,9 @@ import FeatureKalender from '@/components/theme/nashville/featureKalender'
 import FeatureMap from '@/components/theme/nashville/featureMap'
 
 function FeatureDetailAkad({ ...props }) {
+  const { from, date } = props.options
+  const [formatDate, setFormatDate] = useState()
+
   // Get Data ==================================================================
   // Feature
   const {
@@ -28,17 +32,12 @@ function FeatureDetailAkad({ ...props }) {
     [`${codeDetailAkad}-address`]: detailAkadAddress,
   } = detailAkad
 
-  // Function ==================================================================
-  const getDate = () => {
-    let date
-    if (props.options.from === 'theme') {
-      date = props.options.date
-    } else {
-      date = parseISO(detailAkadDate.value)
-    }
+  const dateWedding = from === 'theme' ? date : parseISO(detailAkadDate.value)
 
-    return format(date, 'EEEE, d MMMM yyyy', { locale: id })
-  }
+  // Function ==================================================================
+  useEffect(() => {
+    setFormatDate(format(dateWedding, 'EEEE, d MMMM yyyy', { locale: id }))
+  }, [dateWedding])
 
   return (
     <>
@@ -54,7 +53,7 @@ function FeatureDetailAkad({ ...props }) {
           {/* Detail Akad Date */}
           {detailAkadDate && detailAkadDate.is_active && (
             <Text mt="4" fontWeight="bold" fontStyle="italic">
-              {getDate()}
+              {formatDate}
             </Text>
           )}
 
