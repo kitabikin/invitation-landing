@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import _ from 'lodash'
 import { Container, Box, Text, SimpleGrid, Center } from '@chakra-ui/react'
 
@@ -24,6 +25,19 @@ function FeatureProtokolKesehatan({ ...props }) {
     [`${codeProtokolKesehatan}-guide`]: protokolKesehatanGuide,
   } = protokolKesehatan
 
+  // Function ==================================================================
+  function isValidHttpUrl(string) {
+    let url
+
+    try {
+      url = new URL(string)
+    } catch (_) {
+      return false
+    }
+
+    return url.protocol === 'http:' || url.protocol === 'https:'
+  }
+
   return (
     <>
       <Container h="full" maxW="4xl" centerContent py="14" px="10">
@@ -48,7 +62,16 @@ function FeatureProtokolKesehatan({ ...props }) {
               {JSON.parse(protokolKesehatanGuide.value).map((data, i) => (
                 <Box key={i}>
                   <Center minH="125px">
-                    <Icon iconName={data.image} size={75} />
+                    {!isValidHttpUrl(data.image) ? (
+                      <Icon iconName={data.image} size={75} />
+                    ) : (
+                      <Image
+                        src={data.image}
+                        alt={data.title}
+                        height={75}
+                        width={75}
+                      />
+                    )}
                   </Center>
                   <Text fontStyle="italic">{data.title}</Text>
                 </Box>
