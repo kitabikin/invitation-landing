@@ -12,7 +12,7 @@ function FeatureLoveStory({ ...props }) {
   )
   const { [`${codeGeneral}-bgHr`]: generalBgHr } = general
 
-  // LoveStory
+  // Love Story
   const codeLoveStory = `${props.options.code}-loveStory`
   const loveStory = props.feature[codeLoveStory].column.reduce(
     (obj, item) => Object.assign(obj, { [item.code]: item }),
@@ -20,7 +20,7 @@ function FeatureLoveStory({ ...props }) {
   )
   const {
     [`${codeLoveStory}-title`]: loveStoryTitle,
-    [`${codeLoveStory}-instagram`]: loveStoryInstagram,
+    [`${codeLoveStory}-timeline`]: loveStoryTimeline,
   } = loveStory
 
   return (
@@ -37,12 +37,22 @@ function FeatureLoveStory({ ...props }) {
             />
           </Box>
 
-          {/* Live Wedding Title */}
+          {/* Love Story Title */}
           {loveStoryTitle && loveStoryTitle.is_active && (
             <Text fontFamily="nashvilleHeading" fontSize="3xl">
               {loveStoryTitle.value}
             </Text>
           )}
+
+          {/* Love Story Timeline */}
+          {loveStoryTimeline &&
+            loveStoryTimeline.is_active &&
+            JSON.parse(loveStoryTimeline.value).map((data, i) => (
+              <Box key={i} textAlign="center" mt="4">
+                <Text fontSize="5xl">{data.date}</Text>
+                <Text fontSize="lg">{data.description}</Text>
+              </Box>
+            ))}
         </Box>
       </Container>
     </>
