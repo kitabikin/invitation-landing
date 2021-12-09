@@ -1,7 +1,6 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import _ from 'lodash'
-import { Container, Box, Text } from '@chakra-ui/react'
-import Gallery from 'react-photo-gallery'
+import { Container, Box, Text, Image } from '@chakra-ui/react'
 import Lightbox from 'react-image-lightbox'
 import 'react-image-lightbox/style.css'
 
@@ -29,10 +28,10 @@ function FeatureGalleryPhoto({ ...props }) {
     }
   })
 
-  const openLightbox = useCallback((event, { photo, index }) => {
+  const openLightbox = index => {
     setCurrentImage(index)
     setViewerIsOpen(true)
-  }, [])
+  }
 
   const closeLightbox = () => {
     setCurrentImage(0)
@@ -52,8 +51,22 @@ function FeatureGalleryPhoto({ ...props }) {
 
           {/* Gallery Photo Photo */}
           {galleryPhotoPhoto && galleryPhotoPhoto.is_active && (
-            <Box mt="6">
-              <Gallery photos={photos} onClick={openLightbox} />
+            <>
+              <Box mt="6" sx={{ columnCount: [1, 2, 3], columnGap: '8px' }}>
+                {photos.map((photo, index) => (
+                  <Image
+                    key={index}
+                    w="100%"
+                    mb="2px"
+                    d="inline-block"
+                    cursor="pointer"
+                    src={photo.src}
+                    alt={`Gallery Photo ${index + 1}`}
+                    onClick={() => openLightbox(index)}
+                  />
+                ))}
+              </Box>
+
               {viewerIsOpen && (
                 <Lightbox
                   mainSrc={photos[currentImage].src}
@@ -73,7 +86,7 @@ function FeatureGalleryPhoto({ ...props }) {
                   }
                 />
               )}
-            </Box>
+            </>
           )}
         </Box>
       </Container>

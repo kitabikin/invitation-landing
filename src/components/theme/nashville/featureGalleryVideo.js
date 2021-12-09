@@ -33,7 +33,12 @@ function FeatureGalleryVideo({ ...props }) {
               JSON.parse(galleryVideoVideo.value).map((data, i) => (
                 <Box key={i} mb="8">
                   <AspectRatio ratio={16 / 9}>
-                    <ReactPlayer url={data.video} width="100%" height="100%" />
+                    <ReactPlayer
+                      url={data.video}
+                      width="100%"
+                      height="100%"
+                      controls={true}
+                    />
                   </AspectRatio>
                   <Text mt="2" fontStyle="italic">
                     {data.description}

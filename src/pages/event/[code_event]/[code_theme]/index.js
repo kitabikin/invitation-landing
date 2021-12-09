@@ -44,29 +44,9 @@ function ThemeDetail({ data }) {
   )
 }
 
-export async function getStaticPaths() {
+export async function getServerSideProps({ params }) {
   const pParams = {
-    where: [{ is_delete: false }],
-    with: [{ theme_category: true }, { event: true }],
-  }
-
-  const merge = qs.stringify(pParams)
-  const res = await fetch(`${coreUrl}/v1/theme?${merge}`)
-  const datas = await res.json()
-
-  const paths = datas.data.map(data => ({
-    params: {
-      code_event: data.theme_category.event.code,
-      code_theme: data.code,
-    },
-  }))
-
-  return { paths, fallback: true }
-}
-
-export async function getStaticProps({ params }) {
-  const pParams = {
-    where: [{ is_delete: false }],
+    where: [{ is_delete: false }, { 'event:code': params.code_event }],
     with: [
       { theme_category: true },
       { event: true },
@@ -85,7 +65,7 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  return { props: { data: data.data }, revalidate: 1 }
+  return { props: { data: data.data } }
 }
 
 ThemeDetail.Layout = function getLayout(page) {

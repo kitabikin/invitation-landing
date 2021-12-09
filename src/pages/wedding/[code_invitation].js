@@ -43,26 +43,11 @@ function WeddingDetail({ data }) {
   )
 }
 
-export async function getStaticPaths() {
+export async function getServerSideProps({ params }) {
   const pParams = {
-    where: [{ is_delete: false }, { ['event:code']: 'wedding' }],
-    with: [{ event: true }],
-  }
-
-  const merge = qs.stringify(pParams)
-  const res = await fetch(`${coreUrl}/v1/invitation?${merge}`)
-  const datas = await res.json()
-
-  const paths = datas.data.map(data => ({
-    params: { code_invitation: data.code },
-  }))
-
-  return { paths, fallback: true }
-}
-
-export async function getStaticProps({ params }) {
-  const pParams = {
+    where: [{ 'event:code': 'wedding' }],
     with: [
+      { event: true },
       { theme: true },
       { invitation_feature: true },
       { invitation_feature_data: true },
@@ -81,7 +66,7 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  return { props: { data: data.data }, revalidate: 1 }
+  return { props: { data: data.data } }
 }
 
 WeddingDetail.Layout = function getLayout(page) {
