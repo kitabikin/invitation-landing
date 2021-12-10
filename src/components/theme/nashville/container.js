@@ -83,7 +83,7 @@ function Container({ options, data }) {
       <Head>
         <link rel="stylesheet" href="/fonts/nashville/nashville.css" />
       </Head>
-      <Box color={generalColorBody.value} fontFamily="nashvilleBody">
+      <Box color={generalColorBody.value} fontFamily="nashvilleBody" mb="32">
         {/* Musik */}
         <Box zIndex="400">
           {fMusik && fMusik.is_active && (
@@ -280,7 +280,15 @@ function Container({ options, data }) {
 
           {/* Ucapan Doa */}
           {fUcapanDoa && fUcapanDoa.is_active && (
-            <FeatureUcapanDoa options={options} feature={feature} />
+            <FeatureUcapanDoa
+              options={options}
+              feature={feature}
+              data={
+                options.from === 'theme'
+                  ? data.theme_greeting
+                  : data.invitation_greeting
+              }
+            />
           )}
         </Box>
       </Box>

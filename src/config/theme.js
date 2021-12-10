@@ -9,6 +9,17 @@ const config = {
   },
 }
 
-const theme = extendTheme({ config })
+const customTheme = {
+  styles: {
+    global: {
+      '.swiper-greeting': {
+        width: '100%',
+      },
+    },
+  },
+  ...config,
+}
+
+const theme = extendTheme(customTheme)
 
 export default theme

@@ -23,6 +23,7 @@ function ThemeDetail({ data }) {
   const options = {
     from: 'theme',
     guest: guest,
+    id: data.id_theme,
     code: data.code,
     date: addDays(new Date(), Math.floor(Math.random() * (60 - 30 + 1) + 30)),
   }
@@ -52,6 +53,7 @@ export async function getServerSideProps({ params }) {
       { event: true },
       { theme_feature: true },
       { theme_feature_column: true },
+      { theme_greeting: true },
     ],
   }
 

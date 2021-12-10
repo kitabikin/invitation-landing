@@ -22,6 +22,7 @@ function WeddingDetail({ data }) {
   const options = {
     from: 'invitation',
     guest: guest,
+    id: data.id_invitation,
     code: data.theme.code,
     date: new Date(data.invitation_at),
   }
@@ -51,6 +52,7 @@ export async function getServerSideProps({ params }) {
       { theme: true },
       { invitation_feature: true },
       { invitation_feature_data: true },
+      { invitation_greeting: true },
     ],
   }
 
