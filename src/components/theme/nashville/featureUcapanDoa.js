@@ -95,7 +95,7 @@ function FeatureUcapanDoa({ ...props }) {
     })
     const resData = await res.json()
 
-    if (data.error === 1) {
+    if (resData.error === 1) {
       setData([input, ...data])
     } else {
       setData([resData.data, ...data])
