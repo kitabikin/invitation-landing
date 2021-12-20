@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
 import _ from 'lodash'
-import { Box } from '@chakra-ui/react'
+import { Container, Box } from '@chakra-ui/react'
 
 import FeatureKepada from '@/components/theme/nashville/featureKepada'
 import FeatureMusik from '@/components/theme/nashville/featureMusik'
@@ -24,7 +25,7 @@ import FeatureGalleryVideo from '@/components/theme/nashville/featureGalleryVide
 import FeatureKehadiranUcapan from '@/components/theme/nashville/featureKehadiranUcapan'
 import FeatureUcapanDoa from '@/components/theme/nashville/featureUcapanDoa'
 
-function Container({ options, data }) {
+function ContainerNashville({ options, data }) {
   const [display, setDisplay] = useState('block')
   const [isPlaying, setIsPlaying] = useState(false)
 
@@ -70,6 +71,7 @@ function Container({ options, data }) {
     [`${codeGeneral}-bgSection1`]: generalBgSection1,
     [`${codeGeneral}-bgSection2`]: generalBgSection2,
     [`${codeGeneral}-bgSection3`]: generalBgSection3,
+    [`${codeGeneral}-bgHr`]: generalBgHr,
   } = general
 
   // Function ==================================================================
@@ -229,6 +231,20 @@ function Container({ options, data }) {
             left: { base: '-110px', md: '-260px' },
           }}
         >
+          <Container h="full" maxW="2xl" centerContent pt="14" px="10">
+            <Box position="relative" h="full" w="full" textAlign="center">
+              {/* General Hr */}
+              <Box mb="4">
+                <Image
+                  src={generalBgHr.value}
+                  alt={generalBgHr.label}
+                  width="100"
+                  height="42.77"
+                />
+              </Box>
+            </Box>
+          </Container>
+
           {/* Live Wedding */}
           {fLiveWedding && fLiveWedding.is_active && (
             <FeatureLiveWedding options={options} feature={feature} />
@@ -251,6 +267,20 @@ function Container({ options, data }) {
         </Box>
 
         <Box position="relative" py="24">
+          <Container h="full" maxW="2xl" centerContent pt="14" px="10">
+            <Box position="relative" h="full" w="full" textAlign="center">
+              {/* General Hr */}
+              <Box mb="4">
+                <Image
+                  src={generalBgHr.value}
+                  alt={generalBgHr.label}
+                  width="100"
+                  height="42.77"
+                />
+              </Box>
+            </Box>
+          </Container>
+
           {/* Love Story */}
           {fLoveStory && fLoveStory.is_active && (
             <FeatureLoveStory options={options} feature={feature} />
@@ -273,6 +303,20 @@ function Container({ options, data }) {
         </Box>
 
         <Box position="relative" py="24">
+          <Container h="full" maxW="2xl" centerContent pt="14" px="10">
+            <Box position="relative" h="full" w="full" textAlign="center">
+              {/* General Hr */}
+              <Box mb="4">
+                <Image
+                  src={generalBgHr.value}
+                  alt={generalBgHr.label}
+                  width="100"
+                  height="42.77"
+                />
+              </Box>
+            </Box>
+          </Container>
+
           {/* Kehadiran Ucapan */}
           {fKehadiranUcapan && fKehadiranUcapan.is_active && (
             <FeatureKehadiranUcapan options={options} feature={feature} />
@@ -296,4 +340,4 @@ function Container({ options, data }) {
   )
 }
 
-export default Container
+export default ContainerNashville

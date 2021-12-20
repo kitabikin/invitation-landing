@@ -25,18 +25,8 @@ function FeatureKehadiranUcapan({ ...props }) {
 
   return (
     <>
-      <Container h="full" maxW="4xl" centerContent py="14" px="10">
+      <Container h="full" maxW="4xl" centerContent pb="28" px="10">
         <Box position="relative" h="full" w="full" textAlign="center">
-          {/* General Hr */}
-          <Box mb="4">
-            <Image
-              src={generalBgHr.value}
-              alt={generalBgHr.label}
-              width="100"
-              height="42.77"
-            />
-          </Box>
-
           {/* Live Wedding Title */}
           {kehadiranUcapanTitle && kehadiranUcapanTitle.is_active && (
             <Text fontFamily="nashvilleHeading" fontSize="3xl">

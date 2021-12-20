@@ -16,7 +16,7 @@ function FeatureTurutMengundang({ ...props }) {
 
   return (
     <>
-      <Container h="full" maxW="4xl" centerContent py="14" px="10">
+      <Container h="full" maxW="4xl" centerContent pb="28" px="10">
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Turut Mengundang Title */}
           {turutMengundangTitle && turutMengundangTitle.is_active && (

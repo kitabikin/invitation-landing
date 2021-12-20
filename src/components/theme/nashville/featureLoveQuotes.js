@@ -16,7 +16,7 @@ function FeatureLoveQuotes({ ...props }) {
 
   return (
     <>
-      <Container h="full" maxW="full" centerContent py="14" px="0">
+      <Container h="full" maxW="full" centerContent pb="28" px="0">
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Love Quotes Title */}
           {loveQuotesTitle && loveQuotesTitle.is_active && (
