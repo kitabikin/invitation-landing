@@ -189,7 +189,11 @@ function FeatureKehadiranUcapan({ ...props }) {
                     </Field>
                   </Box>
 
-                  <SimpleGrid columns={2} spacing={4} mb={5}>
+                  <SimpleGrid
+                    columns={{ base: '1', md: '2' }}
+                    spacing={4}
+                    mb={5}
+                  >
                     <Box>
                       <Field name="confirmation">
                         {({ field, form }) => (

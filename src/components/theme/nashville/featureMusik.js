@@ -24,7 +24,7 @@ function FeatureMusik({ ...props }) {
         right="30px"
         border="2px"
         onClick={props.onPlayingChange}
-        zIndex="400"
+        zIndex="500"
       >
         {props.isPlaying ? <MdMusicNote size={20} /> : <MdMusicOff size={20} />}
       </Circle>

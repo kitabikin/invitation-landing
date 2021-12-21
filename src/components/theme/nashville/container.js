@@ -6,6 +6,7 @@ import { Container, Box } from '@chakra-ui/react'
 
 import FeatureKepada from '@/components/theme/nashville/featureKepada'
 import FeatureMusik from '@/components/theme/nashville/featureMusik'
+import FeatureSnowflakes from '@/components/theme/nashville/featureSnowflakes'
 import FeatureSampul from '@/components/theme/nashville/featureSampul'
 import FeaturePembukaan from '@/components/theme/nashville/featurePembukaan'
 import FeatureQuotes from '@/components/theme/nashville/featureQuotes'
@@ -38,6 +39,7 @@ function ContainerNashville({ options, data }) {
   const {
     [`${options.code}-kepada`]: fKepada,
     [`${options.code}-musik`]: fMusik,
+    [`${options.code}-snowflakes`]: fSnowflakes,
     [`${options.code}-sampul`]: fSampul,
     [`${options.code}-pembukaan`]: fPembukaan,
     [`${options.code}-quotes`]: fQuotes,
@@ -83,26 +85,14 @@ function ContainerNashville({ options, data }) {
   return (
     <>
       <Head>
-        <link rel="stylesheet" href="/fonts/nashville/nashville.css" />
+        <link rel="stylesheet" href="/nashville/nashville.css" />
       </Head>
       <Box color={generalColorBody.value} fontFamily="nashvilleBody" mb="32">
-        {/* Musik */}
-        <Box zIndex="400">
-          {fMusik && fMusik.is_active && (
-            <FeatureMusik
-              options={options}
-              feature={feature}
-              isPlaying={isPlaying}
-              onPlayingChange={() => setIsPlaying(!isPlaying)}
-            />
-          )}
-        </Box>
-
         <Box
           position="fixed"
           h="full"
           w="full"
-          zIndex="500"
+          zIndex="600"
           bg={generalBgColor.value}
           opacity="1"
           overflowY="hidden"
@@ -116,6 +106,25 @@ function ContainerNashville({ options, data }) {
               display={display}
               onDisplayChange={handleClickKepada}
             />
+          )}
+        </Box>
+
+        {/* Musik */}
+        <Box zIndex="500">
+          {fMusik && fMusik.is_active && (
+            <FeatureMusik
+              options={options}
+              feature={feature}
+              isPlaying={isPlaying}
+              onPlayingChange={() => setIsPlaying(!isPlaying)}
+            />
+          )}
+        </Box>
+
+        {/* Snowflake */}
+        <Box zIndex="400" position={'relative'}>
+          {fSnowflakes && fSnowflakes.is_active && (
+            <FeatureSnowflakes options={options} feature={feature} />
           )}
         </Box>
 

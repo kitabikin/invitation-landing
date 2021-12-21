@@ -15,7 +15,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/nashville/TheBlacklight.ttf') format('truetype');
+  src: url('/nashville/TheBlacklight.ttf') format('truetype');
 }
 
 @font-face {
@@ -23,7 +23,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/nashville/OptimusPrinceps.ttf') format('truetype');
+  src: url('/nashville/OptimusPrinceps.ttf') format('truetype');
 }
 
 @font-face {
@@ -31,7 +31,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/nashville/StylishCalligraphy.ttf') format('truetype');
+  src: url('/nashville/StylishCalligraphy.ttf') format('truetype');
 }
 
 @font-face {
@@ -39,5 +39,5 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/nashville/Millerstone.ttf') format('truetype');
+  src: url('/nashville/Millerstone.ttf') format('truetype');
 }

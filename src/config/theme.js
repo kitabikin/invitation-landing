@@ -12,6 +12,9 @@ const config = {
 const customTheme = {
   styles: {
     global: {
+      body: {
+        overflowX: 'hidden',
+      },
       '.swiper-greeting': {
         width: '100%',
       },
