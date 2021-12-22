@@ -10,9 +10,9 @@ import theme from '@/config/theme'
 function MyApp({ Component, pageProps }) {
   const getLayout = Component.Layout || (page => page)
 
-  return getLayout(
+  return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </ChakraProvider>
   )
 }
