@@ -1,0 +1,13 @@
+version: '3'
+services:
+  invitation-landing-main:
+    build:
+      context: .
+      dockerfile: .docker/main.dockerfile
+    image: kitabikincom/invitation-landing:main
+    container_name: 'invitation-landing-main'
+    ports:
+      - '18122:3000'
+    env_file:
+      - .env
+    restart: always
