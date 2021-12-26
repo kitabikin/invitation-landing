@@ -76,36 +76,52 @@ function FeatureCountdownTimer({ ...props }) {
             height="42.77"
           />
 
-          <SimpleGrid mt="4" columns={[2, null, 4]}>
+          <SimpleGrid mt="4" columns={4}>
             <Box>
-              <Text fontFamily="Arial" fontSize="6xl" fontWeight="bold">
+              <Text
+                fontFamily="Arial"
+                fontSize={{ base: '5xl', md: '6xl' }}
+                fontWeight="bold"
+              >
                 {leading0(days)}
               </Text>{' '}
-              <Box fontSize="2xl" color={generalColorPrimary.value} mt="-40px">
+              <Box fontSize="2xl" color={generalColorPrimary.value} mt="-35px">
                 Hari
               </Box>
             </Box>
             <Box>
-              <Text fontFamily="Arial" fontSize="6xl" fontWeight="bold">
+              <Text
+                fontFamily="Arial"
+                fontSize={{ base: '5xl', md: '6xl' }}
+                fontWeight="bold"
+              >
                 {leading0(hours)}
               </Text>{' '}
-              <Box fontSize="2xl" color={generalColorPrimary.value} mt="-40px">
+              <Box fontSize="2xl" color={generalColorPrimary.value} mt="-35px">
                 Jam
               </Box>
             </Box>
             <Box>
-              <Text fontFamily="Arial" fontSize="6xl" fontWeight="bold">
+              <Text
+                fontFamily="Arial"
+                fontSize={{ base: '5xl', md: '6xl' }}
+                fontWeight="bold"
+              >
                 {leading0(minutes)}
               </Text>{' '}
-              <Box fontSize="2xl" color={generalColorPrimary.value} mt="-40px">
+              <Box fontSize="2xl" color={generalColorPrimary.value} mt="-35px">
                 Menit
               </Box>
             </Box>
             <Box>
-              <Text fontFamily="Arial" fontSize="6xl" fontWeight="bold">
+              <Text
+                fontFamily="Arial"
+                fontSize={{ base: '5xl', md: '6xl' }}
+                fontWeight="bold"
+              >
                 {leading0(seconds)}
               </Text>{' '}
-              <Box fontSize="2xl" color={generalColorPrimary.value} mt="-40px">
+              <Box fontSize="2xl" color={generalColorPrimary.value} mt="-35px">
                 Detik
               </Box>
             </Box>

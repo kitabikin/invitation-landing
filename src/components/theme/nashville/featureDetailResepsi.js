@@ -151,7 +151,9 @@ function FeatureDetailResepsi({ ...props }) {
                   </Box>
                 ))
               ) : (
-                <Box>{JSON.parse(detailResepsiTime.value)[0].time}</Box>
+                <Box fontWeight="bold" fontStyle="italic">
+                  {JSON.parse(detailResepsiTime.value)[0].time}
+                </Box>
               )}
             </Box>
           )}
