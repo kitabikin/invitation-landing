@@ -52,7 +52,7 @@ function FeatureGalleryPhoto({ ...props }) {
           {/* Gallery Photo Photo */}
           {galleryPhotoPhoto && galleryPhotoPhoto.is_active && (
             <>
-              <Box mt="6" sx={{ columnCount: [1, 2, 3], columnGap: '8px' }}>
+              <Box mt="6" sx={{ columnCount: [2], columnGap: '8px' }}>
                 {photos.map((photo, index) => (
                   <Image
                     key={index}

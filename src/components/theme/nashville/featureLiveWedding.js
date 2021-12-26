@@ -38,7 +38,7 @@ function FeatureLiveWedding({ ...props }) {
           )}
 
           <SimpleGrid
-            minChildWidth={{ base: '180px', md: '120px' }}
+            minChildWidth={{ base: '120px', md: '120px' }}
             spacing="16px"
             mt="6"
           >
