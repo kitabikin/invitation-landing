@@ -14,8 +14,14 @@ function Home() {
   return (
     <>
       <NextSeo
-        title={site.title}
+        title={site.titleHome}
         description={site.description}
+        additionalMetaTags={[
+          {
+            property: 'keywords',
+            content: site.keywords,
+          },
+        ]}
         canonical={canonical}
         noindex={noIndex}
       />

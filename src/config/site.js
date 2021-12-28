@@ -1,6 +1,8 @@
 const site = {
-  title: `Invitation by Kitabikin`,
-  description: `Invitation by Kitabikin`,
+  title: `Kitabikin Undangan`,
+  titleHome: `Kitabikin Undangan: Kelola, Lihat, Bagikan`,
+  description: `Kamu perlu undangan digital? Yuk, Kitabikin. Gratis!`,
+  keywords: `undangan digital, undangan online, undangan pernikahan, undangan gratis, website undangan, contoh undangan online, cara membuat undangan digital, online invitation, wedding invitation`,
   author: `Kitabikin.com`,
   siteUrl:
     process.env.ENVIRONMENT === 'production'

@@ -12,13 +12,7 @@ function ComingSoon() {
         flexDirection="column"
       >
         <Flex alignItems="center">
-          <Box as={'span'} fontSize={{ base: '2xl', md: '3xl' }}>
-            Invitation
-          </Box>
-          <Box as={'span'} ms="2">
-            by
-          </Box>
-          <Flex ms="2" alignItems="center">
+          <Flex alignItems="center">
             <Image
               src="/images/logo/logo180x36.png"
               alt="Logo"
@@ -26,6 +20,9 @@ function ComingSoon() {
               height="26"
             />
           </Flex>
+          <Box as={'span'} ms="2" fontSize={'35px'} letterSpacing={'-3px'}>
+            undangan
+          </Box>
         </Flex>
 
         <Box
@@ -39,7 +36,7 @@ function ComingSoon() {
         </Box>
 
         <Box fontWeight="500" textAlign="center" mt="7">
-          We will celebrating the launch of our new site very soon!
+          Kitabikin akan merayakan peluncuran situs baru kami segera!
         </Box>
       </Flex>
     </>
