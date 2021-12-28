@@ -39,6 +39,12 @@ function ThemeDetail({ data }) {
         description={data.description}
         canonical={canonical}
         noindex={noIndex}
+        openGraph={{
+          url: canonical,
+          title: `Tema ${data.name}`,
+          description: data.description,
+          site_name: site.title,
+        }}
       />
       <SwitchTheme options={options} data={data} />
     </>

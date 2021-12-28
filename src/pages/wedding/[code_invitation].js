@@ -38,6 +38,12 @@ function WeddingDetail({ data }) {
         description={data.description}
         canonical={canonical}
         noindex={noIndex}
+        openGraph={{
+          url: canonical,
+          title: `Pernikahan ${data.name}`,
+          description: data.description,
+          site_name: site.title,
+        }}
       />
       <SwitchTheme options={options} data={data} />
     </>
