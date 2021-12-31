@@ -63,7 +63,7 @@ function FeatureKehadiranUcapan({ ...props }) {
 
   // Form ======================================================================
   const initialValues = {
-    name: '',
+    name: props.options.guest || '',
     address: '',
     confirmation: '',
     total_reservation: '',
