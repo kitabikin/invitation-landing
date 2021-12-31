@@ -1,3 +1,6 @@
+import { format } from 'date-fns'
+import { id as localeID } from 'date-fns/locale'
+
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
 
 export default async function handler(req, res) {
@@ -6,6 +9,9 @@ export default async function handler(req, res) {
     const update = {
       confirmation: 'yes',
       is_checkin: true,
+      checkin_at: format(new Date(), `yyyy-MM-dd HH:mm:ss.SSSxxx`, {
+        locale: localeID,
+      }),
     }
 
     const response = await fetch(`${coreUrl}/v1/invitation-guest-book/${id}`, {
@@ -17,12 +23,10 @@ export default async function handler(req, res) {
     })
     const data = await response.json()
 
-    return res.status(200).send({
-      code: 200,
-      error: 0,
-      message: 'Successfully updated data.',
-      data: data.data,
+    res.writeHead(302, {
+      Location: '/guest-book/' + data.data.id_invitation_guest_book,
     })
+    res.end()
   } catch (err) {
     return res.status(500).send({
       code: 500,
