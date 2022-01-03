@@ -23,21 +23,21 @@ function FeatureCountdownTimer({ ...props }) {
     [`${codeGeneral}-colorPrimary`]: generalColorPrimary,
   } = general
 
-  // // CountdownTimer
-  // const codeCountdownTimer = `${props.options.code}-countdownTimer`
-  // const countdownTimer = props.feature[codeCountdownTimer].column.reduce(
-  //   (obj, item) => Object.assign(obj, { [item.code]: item }),
-  //   {}
-  // )
-  // const {
-  //   [`${codeCountdownTimer}-date`]: countdownTimerDate,
-  //   [`${codeCountdownTimer}-time`]: countdownTimerTime,
-  // } = countdownTimer
+  // CountdownTimer
+  const codeCountdownTimer = `${props.options.code}-countdownTimer`
+  const countdownTimer = props.feature[codeCountdownTimer].column.reduce(
+    (obj, item) => Object.assign(obj, { [item.code]: item }),
+    {}
+  )
+  const {
+    [`${codeCountdownTimer}-date`]: countdownTimerDate,
+    [`${codeCountdownTimer}-time`]: countdownTimerTime,
+  } = countdownTimer
 
-  // const deadline =
-  //   props.options.from === 'theme'
-  //     ? props.options.date
-  //     : new Date(`${countdownTimerDate.value} ${countdownTimerTime.value}`)
+  const deadline =
+    props.options.from === 'theme'
+      ? props.options.date
+      : `${countdownTimerDate.value} ${countdownTimerTime.value}`
 
   const leading0 = num => {
     return num < 10 ? '0' + num : num
@@ -59,10 +59,10 @@ function FeatureCountdownTimer({ ...props }) {
   }
 
   useEffect(() => {
-    setInterval(() => getTimeUntil(props.deadline), 1000)
+    setInterval(() => getTimeUntil(deadline), 1000)
 
-    return () => getTimeUntil(props.deadline)
-  }, [props.deadline])
+    return () => getTimeUntil(deadline)
+  }, [deadline])
 
   return (
     <>
