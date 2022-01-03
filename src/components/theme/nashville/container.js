@@ -76,6 +76,22 @@ function ContainerNashville({ options, data }) {
     [`${codeGeneral}-bgHr`]: generalBgHr,
   } = general
 
+  // // CountdownTimer
+  // const codeCountdownTimer = `${options.code}-countdownTimer`
+  // const countdownTimer = feature[codeCountdownTimer].column.reduce(
+  //   (obj, item) => Object.assign(obj, { [item.code]: item }),
+  //   {}
+  // )
+  // const {
+  //   [`${codeCountdownTimer}-date`]: countdownTimerDate,
+  //   [`${codeCountdownTimer}-time`]: countdownTimerTime,
+  // } = countdownTimer
+
+  // const deadline = options.date
+  // options.from === 'theme'
+  //   ? options.date
+  //   : new Date(`${countdownTimerDate.value}T${countdownTimerTime.value}`)
+
   // Function ==================================================================
   function handleClickKepada() {
     setDisplay('none')

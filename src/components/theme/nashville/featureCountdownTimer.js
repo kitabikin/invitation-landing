@@ -34,17 +34,6 @@ function FeatureCountdownTimer({ ...props }) {
     [`${codeCountdownTimer}-time`]: countdownTimerTime,
   } = countdownTimer
 
-  const deadline = useMemo(
-    () => getDeadline(props.options.from, props.options.date),
-    [props.options.from, props.options.date]
-  )
-
-  function getDeadline(from, date) {
-    return from === 'theme'
-      ? date
-      : new Date(`${countdownTimerDate.value} ${countdownTimerTime.value}`)
-  }
-
   const leading0 = num => {
     return num < 10 ? '0' + num : num
   }
@@ -65,10 +54,10 @@ function FeatureCountdownTimer({ ...props }) {
   }
 
   useEffect(() => {
-    setInterval(() => getTimeUntil(deadline), 1000)
+    setInterval(() => getTimeUntil(props.options.date), 1000)
 
-    return () => getTimeUntil(deadline)
-  }, [deadline])
+    return () => getTimeUntil(props.options.date)
+  }, [props.options.date])
 
   return (
     <>
