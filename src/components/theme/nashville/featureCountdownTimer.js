@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import Image from 'next/image'
 import _ from 'lodash'
+import { format, parseISO } from 'date-fns'
+import { id } from 'date-fns/locale'
 import { Container, Box, SimpleGrid, Text } from '@chakra-ui/react'
 
 function FeatureCountdownTimer({ ...props }) {
@@ -32,13 +34,6 @@ function FeatureCountdownTimer({ ...props }) {
     [`${codeCountdownTimer}-time`]: countdownTimerTime,
   } = countdownTimer
 
-  const deadline =
-    props.options.from === 'theme'
-      ? props.options.date
-      : new Date(
-          `${countdownTimerDate.value} ${countdownTimerTime.value}`
-        ).toUTCString()
-
   const leading0 = num => {
     return num < 10 ? '0' + num : num
   }
@@ -59,10 +54,10 @@ function FeatureCountdownTimer({ ...props }) {
   }
 
   useEffect(() => {
-    setInterval(() => getTimeUntil(deadline), 1000)
+    setInterval(() => getTimeUntil(props.options.date), 1000)
 
-    return () => getTimeUntil(deadline)
-  }, [deadline])
+    return () => getTimeUntil(props.options.date)
+  }, [props.options.date])
 
   return (
     <>
