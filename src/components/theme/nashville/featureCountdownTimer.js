@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import Image from 'next/image'
 import _ from 'lodash'
 import { format, parseISO } from 'date-fns'
@@ -34,10 +34,16 @@ function FeatureCountdownTimer({ ...props }) {
     [`${codeCountdownTimer}-time`]: countdownTimerTime,
   } = countdownTimer
 
-  const deadline =
-    props.options.from === 'theme'
-      ? props.options.date
-      : `${countdownTimerDate.value} ${countdownTimerTime.value}`
+  const deadline = useMemo(
+    () => getDeadline(props.options.from, props.options.date),
+    [props.options.from, props.options.date]
+  )
+
+  function getDeadline(from, date) {
+    return from === 'theme'
+      ? date
+      : new Date(`${countdownTimerDate.value} ${countdownTimerTime.value}`)
+  }
 
   const leading0 = num => {
     return num < 10 ? '0' + num : num
