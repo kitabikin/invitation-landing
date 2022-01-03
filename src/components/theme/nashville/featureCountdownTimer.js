@@ -37,11 +37,7 @@ function FeatureCountdownTimer({ ...props }) {
   const deadline =
     props.options.from === 'theme'
       ? props.options.date
-      : format(
-          new Date(`${countdownTimerDate.value} ${countdownTimerTime.value}`),
-          'yyyy-MM-dd HH:mm',
-          { locale: id }
-        )
+      : new Date(`${countdownTimerDate.value} ${countdownTimerTime.value}`)
 
   const leading0 = num => {
     return num < 10 ? '0' + num : num
@@ -66,7 +62,7 @@ function FeatureCountdownTimer({ ...props }) {
     setInterval(() => getTimeUntil(deadline), 1000)
 
     return () => getTimeUntil(deadline)
-  }, [deadline])
+  })
 
   return (
     <>
