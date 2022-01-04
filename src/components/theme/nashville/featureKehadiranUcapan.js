@@ -62,8 +62,10 @@ function FeatureKehadiranUcapan({ ...props }) {
   } = kehadiranUcapan
 
   // Form ======================================================================
+  const guest = props.options.guest
+
   const initialValues = {
-    name: props.options.guest || '',
+    name: guest || '',
     address: '',
     confirmation: '',
     total_reservation: '',
@@ -145,6 +147,7 @@ function FeatureKehadiranUcapan({ ...props }) {
                         <FormControl
                           isInvalid={form.errors.name && form.touched.name}
                           isRequired
+                          isReadOnly={guest === 'Tamu Undangan' ? false : true}
                         >
                           <FormLabel htmlFor="name" id="name">
                             Nama
