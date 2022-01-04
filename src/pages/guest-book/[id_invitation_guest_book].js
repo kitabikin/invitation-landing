@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 import { Container, Box, Flex, Heading, Badge } from '@chakra-ui/react'
+import qs from 'qs'
 
 import ContainerBlank from '@/layouts/container/containerBlank'
 import site from '@/config/site'
@@ -51,7 +52,7 @@ function GuestBookDetail({ data }) {
               mt="3"
             >
               <Badge borderRadius="full" px="2" colorScheme="blue">
-                {data.type}
+                {data.parent ? data.parent.type : data.type}
               </Badge>
               <Box
                 color="gray.500"
@@ -61,7 +62,7 @@ function GuestBookDetail({ data }) {
                 textTransform="uppercase"
                 ml="2"
               >
-                SESI {data.session}
+                SESI {data.parent ? data.parent.session : data.session}
               </Box>
             </Box>
           </Box>
@@ -72,8 +73,13 @@ function GuestBookDetail({ data }) {
 }
 
 export async function getServerSideProps({ params }) {
+  const pParams = {
+    with: [{ parrent: true }],
+  }
+
+  const merge = qs.stringify(pParams)
   const res = await fetch(
-    `${coreUrl}/v1/invitation-guest-book/${params.id_invitation_guest_book}`
+    `${coreUrl}/v1/invitation-guest-book/${params.id_invitation_guest_book}?${merge}`
   )
   const data = await res.json()
 

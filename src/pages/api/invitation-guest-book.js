@@ -1,9 +1,17 @@
+import _ from 'lodash'
+
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const insert = req.body
+
+      _.assign(insert, {
+        type: null,
+        from: 'landing',
+        session: null,
+      })
 
       const response = await fetch(`${coreUrl}/v1/invitation-guest-book`, {
         method: 'POST',
