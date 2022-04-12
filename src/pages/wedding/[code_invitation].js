@@ -6,7 +6,7 @@ import _ from 'lodash'
 import qs from 'qs'
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
-const isProduction = process.env.ENVIRONMENT === 'production'
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
 
 import SwitchTheme from '@/components/theme/switchTheme'
 import LoadingPage from '@/components/specific/loadingPage'

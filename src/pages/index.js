@@ -2,7 +2,7 @@ import ContainerBlank from '@/layouts/container/containerBlank'
 import { NextSeo } from 'next-seo'
 import site from '@/config/site'
 
-const isProduction = process.env.ENVIRONMENT === 'production'
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
 
 import { Container } from '@chakra-ui/react'
 import ComingSoon from '@/components/specific/comingSoon'
