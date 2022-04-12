@@ -6,7 +6,7 @@ import qs from 'qs'
 import ContainerBlank from '@/layouts/container/containerBlank'
 import site from '@/config/site'
 
-const isProduction = process.env.ENVIRONMENT === 'production'
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
 
 function GuestBookDetail({ data }) {

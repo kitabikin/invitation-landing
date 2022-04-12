@@ -5,7 +5,7 @@ const site = {
   keywords: `undangan digital, undangan online, undangan pernikahan, undangan gratis, website undangan, contoh undangan online, cara membuat undangan digital, online invitation, wedding invitation`,
   author: `Kitabikin.com`,
   siteUrl:
-    process.env.ENVIRONMENT === 'production'
+    process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
       ? `https://invitation.kitabikin.com`
       : `https://invitation-dev.kitabikin.com`,
   image: `vercel.svg`,

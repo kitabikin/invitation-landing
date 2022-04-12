@@ -38,7 +38,7 @@ jobs:
       - name: Create credentials file
         uses: SpicyPizza/create-envfile@v1
         with:
-          envkey_ENVIRONMENT: ${{ secrets.MAIN_ENVIRONMENT }}
+          envkey_NEXT_PUBLIC_ENVIRONMENT: ${{ secrets.MAIN_ENVIRONMENT }}
           envkey_NEXT_PUBLIC_CORE_URL: ${{ secrets.MAIN_CORE_URL }}
           envkey_NEXT_PUBLIC_GA_ID: ${{ secrets.MAIN_GA_ID }}
           envkey_NEXT_PUBLIC_GTM_ID: ${{ secrets.MAIN_GTM_ID }}

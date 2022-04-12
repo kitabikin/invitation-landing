@@ -2,7 +2,7 @@ import { ColorModeScript } from '@chakra-ui/react'
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
 import theme from '@/config/theme'
 
-const isProduction = process.env.ENVIRONMENT === 'production'
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
 
 export default class Document extends NextDocument {
   render() {
