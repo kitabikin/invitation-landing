@@ -1,27 +1,27 @@
-import Image from 'next/image'
-import _ from 'lodash'
-import { Container, Box, Text } from '@chakra-ui/react'
-import ImageFrame from '@/components/theme/nashville/imageFrame'
+import Image from 'next/image';
+import _ from 'lodash';
+import { Box, Container, Flex, Text } from '@chakra-ui/react';
+import ImageFrame from '@/components/theme/nashville/imageFrame';
 
 function FeaturePembukaan({ ...props }) {
   // Get Data ==================================================================
   // General
-  const codeGeneral = `${props.options.code}-general`
+  const codeGeneral = `${props.options.code}-general`;
   const general = props.feature[codeGeneral].column.reduce(
     (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {}
-  )
+    {},
+  );
   const {
     [`${codeGeneral}-colorPrimary`]: generalColorPrimary,
     [`${codeGeneral}-orderGroomBride`]: generalOrderGroomBride,
-  } = general
+  } = general;
 
   // Pembukaan
-  const codePembukaan = `${props.options.code}-pembukaan`
+  const codePembukaan = `${props.options.code}-pembukaan`;
   const pembukaan = props.feature[codePembukaan].column.reduce(
     (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {}
-  )
+    {},
+  );
   const {
     [`${codePembukaan}-saying`]: pembukaanSaying,
     [`${codePembukaan}-greeting`]: pembukaanGreeting,
@@ -44,7 +44,7 @@ function FeaturePembukaan({ ...props }) {
     [`${codePembukaan}-brideFatherName`]: pembukaanBrideFatherName,
     [`${codePembukaan}-brideCoupleAnd`]: pembukaanBrideCoupleAnd,
     [`${codePembukaan}-brideMotherName`]: pembukaanBrideMotherName,
-  } = pembukaan
+  } = pembukaan;
 
   return (
     <>
@@ -122,7 +122,15 @@ function FeaturePembukaan({ ...props }) {
               </Text>
             </Text>
 
-            <Text mt="1" fontWeight="bold" fontStyle="italic">
+            <Flex
+              as={Text}
+              flexDir={{ base: 'column', md: 'row' }}
+              justifyContent={'center'}
+              gridGap={{ base: 0, md: 2 }}
+              mt="1"
+              fontWeight="bold"
+              fontStyle="italic"
+            >
               <Text as="span">
                 {generalOrderGroomBride.value === 'bride'
                   ? pembukaanBrideFatherName.value
@@ -134,7 +142,7 @@ function FeaturePembukaan({ ...props }) {
                   ? pembukaanBrideMotherName.value
                   : pembukaanGroomMotherName.value}
               </Text>
-            </Text>
+            </Flex>
           </Box>
 
           <Text
@@ -194,7 +202,15 @@ function FeaturePembukaan({ ...props }) {
               </Text>
             </Text>
 
-            <Text mt="1" fontWeight="bold" fontStyle="italic">
+            <Flex
+              as={Text}
+              flexDir={{ base: 'column', md: 'row' }}
+              justifyContent={'center'}
+              gridGap={{ base: 0, md: 2 }}
+              mt="1"
+              fontWeight="bold"
+              fontStyle="italic"
+            >
               <Text as="span">
                 {generalOrderGroomBride.value !== 'bride'
                   ? pembukaanBrideFatherName.value
@@ -206,12 +222,12 @@ function FeaturePembukaan({ ...props }) {
                   ? pembukaanBrideMotherName.value
                   : pembukaanGroomMotherName.value}
               </Text>
-            </Text>
+            </Flex>
           </Box>
         </Box>
       </Container>
     </>
-  )
+  );
 }
 
-export default FeaturePembukaan
+export default FeaturePembukaan;
