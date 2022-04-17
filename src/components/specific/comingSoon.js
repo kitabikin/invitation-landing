@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import { Flex, Box } from '@chakra-ui/react'
+import Image from 'next/image';
+import { Flex, Box } from '@chakra-ui/react';
 
 function ComingSoon() {
   return (
@@ -10,6 +10,7 @@ function ComingSoon() {
         alignItems="center"
         justifyContent="center"
         flexDirection="column"
+        px={4}
       >
         <Flex alignItems="center">
           <Flex alignItems="center">
@@ -40,7 +41,7 @@ function ComingSoon() {
         </Box>
       </Flex>
     </>
-  )
+  );
 }
 
-export default ComingSoon
+export default ComingSoon;
