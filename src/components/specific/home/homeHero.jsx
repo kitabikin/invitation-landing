@@ -9,17 +9,15 @@ import TitleHome from '@/components/global/title/titleHome';
 const TITLE_ITEMS = ['invitation', 'happiness', 'love'];
 
 function HomeHero() {
-  const [inView, updateInView] = useState(false);
   const [counter, setCounter] = useState(0);
-  const [title, setTitle] = useState(TITLE_ITEMS[counter]);
 
   useEffect(() => {
-    setTimeout(() => {
-      updateInView(!inView);
-      setCounter(counter < TITLE_ITEMS.length - 1 ? counter + 1 : 0);
-      setTitle(TITLE_ITEMS[counter]);
-    }, 5000);
-  }, [inView, counter, title]);
+    const intervalId = setInterval(
+      () => setCounter((index) => index + 1),
+      5000,
+    );
+    return () => clearTimeout(intervalId);
+  }, []);
 
   return (
     <Box textAlign={'center'} py={{ base: 8, md: 16 }}>
@@ -39,7 +37,9 @@ function HomeHero() {
           gridGap={2}
         >
           <Text as={'span'}>help share</Text>
-          <TitleHome>{` ${title}`}</TitleHome>
+          <TitleHome>{` ${
+            TITLE_ITEMS[counter % TITLE_ITEMS.length]
+          }`}</TitleHome>
         </Flex>
       </Text>
       <Text fontSize={{ base: 'lg', md: 'xl' }} color={'gray.500'} mt={6}>
