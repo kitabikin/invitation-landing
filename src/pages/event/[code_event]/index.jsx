@@ -46,8 +46,6 @@ function EventDetail({ event, theme }) {
             layout="fill"
             objectFit="cover"
             objectPosition={'center 28%'}
-            priority={1}
-            quality={100}
           />
         </Box>
       </Container>

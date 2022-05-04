@@ -28,6 +28,13 @@ function Home() {
         ]}
         canonical={canonical}
         noindex={noIndex}
+        openGraph={{
+          url: canonical,
+          title: site.titleHome,
+          description: site.description,
+          site_name: site.title,
+          images: [{ url: '/images/logo/logo80x80.png' }],
+        }}
       />
       <Container maxW="container.lg" mt={20}>
         <HomeHero />
@@ -48,8 +55,6 @@ function Home() {
             layout="fill"
             objectFit="cover"
             objectPosition={'center 35%'}
-            priority={1}
-            quality={100}
           />
         </Box>
       </Container>

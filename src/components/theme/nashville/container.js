@@ -1,41 +1,41 @@
-import { useState } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
-import _ from 'lodash'
-import { Container, Box } from '@chakra-ui/react'
+import { useState } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
+import _ from 'lodash';
+import { Container, Box } from '@chakra-ui/react';
 
-import FeatureKepada from '@/components/theme/nashville/featureKepada'
-import FeatureMusik from '@/components/theme/nashville/featureMusik'
-import FeatureSnowflakes from '@/components/theme/nashville/featureSnowflakes'
-import FeatureSampul from '@/components/theme/nashville/featureSampul'
-import FeaturePembukaan from '@/components/theme/nashville/featurePembukaan'
-import FeatureQuotes from '@/components/theme/nashville/featureQuotes'
-import FeatureDetailUnduh from '@/components/theme/nashville/featureDetailUnduh'
-import FeatureDetailAkad from '@/components/theme/nashville/featureDetailAkad'
-import FeatureDetailResepsi from '@/components/theme/nashville/featureDetailResepsi'
-import FeatureCountdownTimer from '@/components/theme/nashville/featureCountdownTimer'
-import FeaturePenutupan from '@/components/theme/nashville/featurePenutupan'
-import FeatureLiveWedding from '@/components/theme/nashville/featureLiveWedding'
-import FeatureTurutMengundang from '@/components/theme/nashville/featureTurutMengundang'
-import FeaturePanduanTamu from '@/components/theme/nashville/featurePanduanTamu'
-import FeatureProtokolKesehatan from '@/components/theme/nashville/featureProtokolKesehatan'
-import FeatureLoveStory from '@/components/theme/nashville/featureLoveStory'
-import FeatureLoveQuotes from '@/components/theme/nashville/featureLoveQuotes'
-import FeatureGalleryPhoto from '@/components/theme/nashville/featureGalleryPhoto'
-import FeatureGalleryVideo from '@/components/theme/nashville/featureGalleryVideo'
-import FeatureKehadiranUcapan from '@/components/theme/nashville/featureKehadiranUcapan'
-import FeatureUcapanDoa from '@/components/theme/nashville/featureUcapanDoa'
+import FeatureKepada from '@/components/theme/nashville/featureKepada';
+import FeatureMusik from '@/components/theme/nashville/featureMusik';
+import FeatureSnowflakes from '@/components/theme/nashville/featureSnowflakes';
+import FeatureSampul from '@/components/theme/nashville/featureSampul';
+import FeaturePembukaan from '@/components/theme/nashville/featurePembukaan';
+import FeatureQuotes from '@/components/theme/nashville/featureQuotes';
+import FeatureDetailUnduh from '@/components/theme/nashville/featureDetailUnduh';
+import FeatureDetailAkad from '@/components/theme/nashville/featureDetailAkad';
+import FeatureDetailResepsi from '@/components/theme/nashville/featureDetailResepsi';
+import FeatureCountdownTimer from '@/components/theme/nashville/featureCountdownTimer';
+import FeaturePenutupan from '@/components/theme/nashville/featurePenutupan';
+import FeatureLiveWedding from '@/components/theme/nashville/featureLiveWedding';
+import FeatureTurutMengundang from '@/components/theme/nashville/featureTurutMengundang';
+import FeaturePanduanTamu from '@/components/theme/nashville/featurePanduanTamu';
+import FeatureProtokolKesehatan from '@/components/theme/nashville/featureProtokolKesehatan';
+import FeatureLoveStory from '@/components/theme/nashville/featureLoveStory';
+import FeatureLoveQuotes from '@/components/theme/nashville/featureLoveQuotes';
+import FeatureGalleryPhoto from '@/components/theme/nashville/featureGalleryPhoto';
+import FeatureGalleryVideo from '@/components/theme/nashville/featureGalleryVideo';
+import FeatureKehadiranUcapan from '@/components/theme/nashville/featureKehadiranUcapan';
+import FeatureUcapanDoa from '@/components/theme/nashville/featureUcapanDoa';
 
-function ContainerNashville({ options, data }) {
-  const [display, setDisplay] = useState('block')
-  const [isPlaying, setIsPlaying] = useState(false)
+function ContainerNashville({ options, data, greeting }) {
+  const [display, setDisplay] = useState('block');
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // Get Data ==================================================================
   // Feature
   const feature = data.feature.reduce(
     (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {}
-  )
+    {},
+  );
   const {
     [`${options.code}-kepada`]: fKepada,
     [`${options.code}-musik`]: fMusik,
@@ -58,14 +58,14 @@ function ContainerNashville({ options, data }) {
     [`${options.code}-galleryVideo`]: fGalleryVideo,
     [`${options.code}-kehadiranUcapan`]: fKehadiranUcapan,
     [`${options.code}-ucapanDoa`]: fUcapanDoa,
-  } = feature
+  } = feature;
 
   // General
-  const codeGeneral = `${options.code}-general`
+  const codeGeneral = `${options.code}-general`;
   const general = feature[codeGeneral].column.reduce(
     (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {}
-  )
+    {},
+  );
   const {
     [`${codeGeneral}-bgColor`]: generalBgColor,
     [`${codeGeneral}-colorBody`]: generalColorBody,
@@ -74,7 +74,7 @@ function ContainerNashville({ options, data }) {
     [`${codeGeneral}-bgSection2`]: generalBgSection2,
     [`${codeGeneral}-bgSection3`]: generalBgSection3,
     [`${codeGeneral}-bgHr`]: generalBgHr,
-  } = general
+  } = general;
 
   // // CountdownTimer
   // const codeCountdownTimer = `${options.code}-countdownTimer`
@@ -94,8 +94,8 @@ function ContainerNashville({ options, data }) {
 
   // Function ==================================================================
   function handleClickKepada() {
-    setDisplay('none')
-    setIsPlaying(!isPlaying)
+    setDisplay('none');
+    setIsPlaying(!isPlaying);
   }
 
   return (
@@ -352,17 +352,13 @@ function ContainerNashville({ options, data }) {
             <FeatureUcapanDoa
               options={options}
               feature={feature}
-              data={
-                options.from === 'theme'
-                  ? data.theme_greeting
-                  : data.invitation_greeting
-              }
+              data={options.from === 'theme' ? data.theme_greeting : greeting}
             />
           )}
         </Box>
       </Box>
     </>
-  )
+  );
 }
 
-export default ContainerNashville
+export default ContainerNashville;
