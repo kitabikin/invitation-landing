@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import _ from 'lodash';
 import { Container, Box } from '@chakra-ui/react';
+import FooterTheme from '@/layouts/footer/footerTheme';
 
 import FeatureKepada from '@/components/theme/nashville/featureKepada';
 import FeatureMusik from '@/components/theme/nashville/featureMusik';
@@ -103,7 +104,7 @@ function ContainerNashville({ options, data, greeting }) {
       <Head>
         <link rel="stylesheet" href="/nashville/nashville.css" />
       </Head>
-      <Box color={generalColorBody.value} fontFamily="nashvilleBody" mb="32">
+      <Box color={generalColorBody.value} fontFamily="nashvilleBody">
         <Box
           position="fixed"
           h="full"
@@ -357,6 +358,7 @@ function ContainerNashville({ options, data, greeting }) {
           )}
         </Box>
       </Box>
+      <FooterTheme />
     </>
   );
 }

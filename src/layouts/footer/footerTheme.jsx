@@ -2,7 +2,7 @@ import NextLink from 'next/link';
 import { Box, Container, Flex, Icon, Link } from '@chakra-ui/react';
 import { RiHeart2Fill } from 'react-icons/ri';
 
-export default function FooterDefault() {
+export default function FooterTheme() {
   return (
     <Box as={'footer'} fontSize={'sm'}>
       <Flex bgColor={'gray.50'} py={6}>
@@ -13,11 +13,10 @@ export default function FooterDefault() {
             gridGap={{ base: 1, md: 0 }}
           >
             <Box justifyContent={'center'} textAlign={'center'}>
-              Copyright ©{new Date().getFullYear()}{' '}
+              ©{' '}
               <NextLink href={'/'} passHref>
                 <Link>Kitabikin Undangan</Link>
               </NextLink>
-              .
             </Box>
             <Flex justifyContent={'center'}>
               Made with{' '}

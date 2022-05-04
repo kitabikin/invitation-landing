@@ -112,7 +112,7 @@ function FeatureUcapanDoa({ ...props }) {
 
   return (
     <>
-      <Container h="full" maxW="5xl" centerContent pb="28" px="4">
+      <Container h="full" maxW="5xl" centerContent px="4">
         <Box position="relative" h="full" w="full">
           {/* Ucapan Doa Title */}
           {ucapanDoaTitle && ucapanDoaTitle.is_active && (
