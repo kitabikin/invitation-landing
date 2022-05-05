@@ -61,12 +61,13 @@ export const getServerSideProps = async ({ res }) => {
   await Promise.all(
     eventPages.data.map(async (event) => {
       const theme = await getTheme(event.code);
-      theme.data.map((theme) => {
-        themePages.push({
-          url: `${baseUrl}/event/${event.code}/${theme.code}`,
-          modified_at: theme.modified_at,
+      theme.error === 0 &&
+        theme.data.map((theme) => {
+          themePages.push({
+            url: `${baseUrl}/event/${event.code}/${theme.code}`,
+            modified_at: theme.modified_at,
+          });
         });
-      });
     }),
   );
 
