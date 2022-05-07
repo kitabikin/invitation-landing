@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from 'lodash';
 import {
   Container,
   Box,
@@ -6,25 +6,25 @@ import {
   SimpleGrid,
   Center,
   Link,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import { SiInstagram, SiYoutube, SiZoom, SiGooglemeet } from 'react-icons/si'
+import { SiInstagram, SiYoutube, SiZoom, SiGooglemeet } from 'react-icons/si';
 
 function FeatureLiveWedding({ ...props }) {
   // Get Data ==================================================================
   // LiveWedding
-  const codeLiveWedding = `${props.options.code}-liveWedding`
+  const codeLiveWedding = `${props.options.code}-liveWedding`;
   const liveWedding = props.feature[codeLiveWedding].column.reduce(
     (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {}
-  )
+    {},
+  );
   const {
     [`${codeLiveWedding}-title`]: liveWeddingTitle,
     [`${codeLiveWedding}-instagram`]: liveWeddingInstagram,
     [`${codeLiveWedding}-youtube`]: liveWeddingYoutube,
     [`${codeLiveWedding}-zoom`]: liveWeddingZoom,
     [`${codeLiveWedding}-googleMeet`]: liveWeddingGoogleMeet,
-  } = liveWedding
+  } = liveWedding;
 
   return (
     <>
@@ -44,7 +44,11 @@ function FeatureLiveWedding({ ...props }) {
           >
             {liveWeddingInstagram && liveWeddingInstagram.is_active && (
               <Center minH="100px">
-                <Link href={liveWeddingInstagram.value} isExternal>
+                <Link
+                  href={liveWeddingInstagram.value}
+                  isExternal
+                  aria-label={'Instagram'}
+                >
                   <SiInstagram size="48px" />
                 </Link>
               </Center>
@@ -52,7 +56,11 @@ function FeatureLiveWedding({ ...props }) {
 
             {liveWeddingYoutube && liveWeddingYoutube.is_active && (
               <Center minH="100px">
-                <Link href={liveWeddingYoutube.value} isExternal>
+                <Link
+                  href={liveWeddingYoutube.value}
+                  isExternal
+                  aria-label={'Youtube'}
+                >
                   <SiYoutube size="48px" />
                 </Link>
               </Center>
@@ -60,7 +68,11 @@ function FeatureLiveWedding({ ...props }) {
 
             {liveWeddingZoom && liveWeddingZoom.is_active && (
               <Center minH="100px">
-                <Link href={liveWeddingZoom.value} isExternal>
+                <Link
+                  href={liveWeddingZoom.value}
+                  isExternal
+                  aria-label={'Zoom'}
+                >
                   <SiZoom size={100} />
                 </Link>
               </Center>
@@ -68,7 +80,11 @@ function FeatureLiveWedding({ ...props }) {
 
             {liveWeddingGoogleMeet && liveWeddingGoogleMeet.is_active && (
               <Center minH="100px">
-                <Link href={liveWeddingGoogleMeet.value} isExternal>
+                <Link
+                  href={liveWeddingGoogleMeet.value}
+                  isExternal
+                  aria-label={'Google Meet'}
+                >
                   <SiGooglemeet size="48px" />
                 </Link>
               </Center>
@@ -77,7 +93,7 @@ function FeatureLiveWedding({ ...props }) {
         </Box>
       </Container>
     </>
-  )
+  );
 }
 
-export default FeatureLiveWedding
+export default FeatureLiveWedding;

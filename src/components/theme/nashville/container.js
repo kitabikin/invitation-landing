@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import _ from 'lodash';
 import { Container, Box } from '@chakra-ui/react';
+import { reduceFeature } from '@/libs/utils';
 import FooterTheme from '@/layouts/footer/footerTheme';
 
 import FeatureKepada from '@/components/theme/nashville/featureKepada';
@@ -33,10 +34,7 @@ function ContainerNashville({ options, data, greeting }) {
 
   // Get Data ==================================================================
   // Feature
-  const feature = data.feature.reduce(
-    (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {},
-  );
+  const feature = reduceFeature(data.feature);
   const {
     [`${options.code}-kepada`]: fKepada,
     [`${options.code}-musik`]: fMusik,
@@ -63,10 +61,7 @@ function ContainerNashville({ options, data, greeting }) {
 
   // General
   const codeGeneral = `${options.code}-general`;
-  const general = feature[codeGeneral].column.reduce(
-    (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {},
-  );
+  const general = reduceFeature(feature[codeGeneral].column);
   const {
     [`${codeGeneral}-bgColor`]: generalBgColor,
     [`${codeGeneral}-colorBody`]: generalColorBody,

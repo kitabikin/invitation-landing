@@ -1,42 +1,42 @@
-import { useState } from 'react'
-import _ from 'lodash'
-import { Container, Box, Text, Image } from '@chakra-ui/react'
-import Lightbox from 'react-image-lightbox'
-import 'react-image-lightbox/style.css'
+import { useState } from 'react';
+import _ from 'lodash';
+import { Container, Box, Text, Img } from '@chakra-ui/react';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 function FeatureGalleryPhoto({ ...props }) {
-  const [currentImage, setCurrentImage] = useState(0)
-  const [viewerIsOpen, setViewerIsOpen] = useState(false)
+  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
   // Get Data ==================================================================
   // Gallery Photo
-  const codeGalleryPhoto = `${props.options.code}-galleryPhoto`
+  const codeGalleryPhoto = `${props.options.code}-galleryPhoto`;
   const galleryPhoto = props.feature[codeGalleryPhoto].column.reduce(
     (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {}
-  )
+    {},
+  );
   const {
     [`${codeGalleryPhoto}-title`]: galleryPhotoTitle,
     [`${codeGalleryPhoto}-photo`]: galleryPhotoPhoto,
-  } = galleryPhoto
+  } = galleryPhoto;
 
-  const photos = _.map(JSON.parse(galleryPhotoPhoto.value), result => {
+  const photos = _.map(JSON.parse(galleryPhotoPhoto.value), (result) => {
     return {
       src: result.photo,
       width: Number(result.width),
       height: Number(result.height),
-    }
-  })
+    };
+  });
 
-  const openLightbox = index => {
-    setCurrentImage(index)
-    setViewerIsOpen(true)
-  }
+  const openLightbox = (index) => {
+    setCurrentImage(index);
+    setViewerIsOpen(true);
+  };
 
   const closeLightbox = () => {
-    setCurrentImage(0)
-    setViewerIsOpen(false)
-  }
+    setCurrentImage(0);
+    setViewerIsOpen(false);
+  };
 
   return (
     <>
@@ -54,7 +54,7 @@ function FeatureGalleryPhoto({ ...props }) {
             <>
               <Box mt="6" sx={{ columnCount: [2], columnGap: '8px' }}>
                 {photos.map((photo, index) => (
-                  <Image
+                  <Img
                     key={index}
                     w="100%"
                     mb="2px"
@@ -78,7 +78,7 @@ function FeatureGalleryPhoto({ ...props }) {
                   onCloseRequest={closeLightbox}
                   onMovePrevRequest={() =>
                     setCurrentImage(
-                      (currentImage + photos.length - 1) % photos.length
+                      (currentImage + photos.length - 1) % photos.length,
                     )
                   }
                   onMoveNextRequest={() =>
@@ -91,7 +91,7 @@ function FeatureGalleryPhoto({ ...props }) {
         </Box>
       </Container>
     </>
-  )
+  );
 }
 
-export default FeatureGalleryPhoto
+export default FeatureGalleryPhoto;
