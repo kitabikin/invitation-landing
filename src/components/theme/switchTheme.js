@@ -3,6 +3,7 @@ import _ from 'lodash';
 // Theme Container
 import ContainerGoldenGold from '@/components/theme/golden-gold/container';
 import ContainerNashville from '@/components/theme/nashville/container';
+import ContainerHazel from '@/components/theme/hazel/container';
 
 function SwitchTheme({ options, data, greeting }) {
   const getThemeByCode = (codeTheme) => {
@@ -18,6 +19,14 @@ function SwitchTheme({ options, data, greeting }) {
       case 'nashville':
         return (
           <ContainerNashville
+            options={options}
+            data={modify(data)}
+            greeting={greeting}
+          />
+        );
+      case 'hazel':
+        return (
+          <ContainerHazel
             options={options}
             data={modify(data)}
             greeting={greeting}

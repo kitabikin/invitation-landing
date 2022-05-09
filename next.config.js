@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com', 'avatars.dicebear.com'],
+    domains: ['res.cloudinary.com', 'ik.imagekit.io', 'avatars.dicebear.com'],
   },
-}
+};

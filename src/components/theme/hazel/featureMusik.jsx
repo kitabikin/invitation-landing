@@ -1,16 +1,15 @@
 import _ from 'lodash';
 import { Box, Circle } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
+import { reduceFeature } from '@/libs/utils';
+
 import { MdMusicNote, MdMusicOff } from 'react-icons/md';
 
 function FeatureMusik({ ...props }) {
   // Get Data ==================================================================
   // Musik
   const codeMusik = `${props.options.code}-musik`;
-  const musik = props.feature[codeMusik].column.reduce(
-    (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {},
-  );
+  const musik = reduceFeature(props.feature[codeMusik].column);
   const { [`${codeMusik}-song`]: musikSong } = musik;
 
   return (

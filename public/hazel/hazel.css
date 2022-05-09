@@ -1,0 +1,230 @@
+/* Hazel Body */
+/* 400 Italic */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGWmQSNjdsmc35JDF1K5GRweDs1Zw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 500 Italic */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGWmQSNjdsmc35JDF1K5GRweDs1Zw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 600 Italic */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGWmQSNjdsmc35JDF1K5GRweDs1Zw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 700 Italic */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGWmQSNjdsmc35JDF1K5GRweDs1Zw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 800 Italic */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGWmQSNjdsmc35JDF1K5GRweDs1Zw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 400 Normal */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGUmQSNjdsmc35JDF1K5GR1SDk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 500 Normal */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGUmQSNjdsmc35JDF1K5GR1SDk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 600 Normal */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGUmQSNjdsmc35JDF1K5GR1SDk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 700 Normal */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGUmQSNjdsmc35JDF1K5GR1SDk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 800 Normal */
+@font-face {
+  font-family: 'hazelBody';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ebgaramond/v25/SlGUmQSNjdsmc35JDF1K5GR1SDk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Hazel Heading */
+/* 400 Normal */
+@font-face {
+  font-family: 'hazelHeading';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/hazel/FallInLove.ttf') format('truetype');
+}
+
+/* Hazel Title */
+/* 400 Italic */
+@font-face {
+  font-family: 'hazelTitle';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebodoni/v2/_Xm1-H45qDWDYULr5OfyZud9xDiTk_I.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 500 Itlaic */
+@font-face {
+  font-family: 'hazelTitle';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebodoni/v2/_Xm1-H45qDWDYULr5OfyZud9xDiTk_I.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 600 Itlaic */
+@font-face {
+  font-family: 'hazelTitle';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebodoni/v2/_Xm1-H45qDWDYULr5OfyZud9xDiTk_I.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 700 Itlaic */
+@font-face {
+  font-family: 'hazelTitle';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebodoni/v2/_Xm1-H45qDWDYULr5OfyZud9xDiTk_I.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 400 Normal */
+@font-face {
+  font-family: 'hazelTitle';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebodoni/v2/_Xmr-H45qDWDYULr5OfyZud9wQiR.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 500 Normal */
+@font-face {
+  font-family: 'hazelTitle';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebodoni/v2/_Xmr-H45qDWDYULr5OfyZud9wQiR.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 600 Normal */
+@font-face {
+  font-family: 'hazelTitle';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebodoni/v2/_Xmr-H45qDWDYULr5OfyZud9wQiR.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 700 Normal */
+@font-face {
+  font-family: 'hazelTitle';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebodoni/v2/_Xmr-H45qDWDYULr5OfyZud9wQiR.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Hazel Handwriting */
+/* 400 Normal */
+@font-face {
+  font-family: 'hazelHandwriting';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/hazel/Sienthas.otf') format('truetype');
+}
+
+/* Hazel Theme */
+.theme-red {
+  --hazel-color-body: #333333;
+  --hazel-color-primary: #99081A;
+  --hazel-bg-color: #FFFFFF;
+  --hazel-bg-hr: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/hr-red_fMX0-oMA3.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095618041');
+  --hazel-bg-section-1: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-1-red_0p14761kw.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095616567');
+  --hazel-bg-section-2: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-2-red_9sCM24k3f.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095616513');
+  --hazel-bg-section-3: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-3-red_38Z1-hsNL.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095615824');
+  --hazel-bg-section-4: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-4-red_slg5LHL9eB.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095616537');
+  --hazel-bg-to: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/to-image-red_8A7Ko-BGIS.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095618599');
+  --hazel-bg-frame: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/frame-red_3d18JSrt-x.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095615985');
+  --hazel-bg-snowflake: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/snowflake-red_Qd31M8UlO.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095614676');
+}
+
+/* +107 -63 */
+.theme-green {
+  --hazel-color-body: #333333;
+  --hazel-color-primary: #4F6B53;
+  --hazel-bg-color: #FFFFFF;
+  --hazel-bg-hr: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/hr-green_gXzV8XGQ1.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095617389');
+  --hazel-bg-section-1: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-1-green__4Y-zGp6T.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095616314');
+  --hazel-bg-section-2: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-2-green_ZIoM6oSoQ.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095615137');
+  --hazel-bg-section-3: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-3-green_B353NiEvjK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095614879');
+  --hazel-bg-section-4: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-4-green_L1iYsfiA2S.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095616566');
+  --hazel-bg-to: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/to-image-green_FLF5rcObO.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095618669');
+  --hazel-bg-frame: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/frame-green_EItwe3HLK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095615927');
+  --hazel-bg-snowflake: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/snowflake-green_pzcEJgvmM.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095614782');
+}
+
+/* -150 -10 */
+.theme-blue {
+  --hazel-color-body: #333333;
+  --hazel-color-primary: #24437b;
+  --hazel-bg-color: #FFFFFF;
+  --hazel-bg-hr: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/hr-blue_LXQ1lys_B.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095618022');
+  --hazel-bg-section-1: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-1-blue_fpTVatEdg.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095616356');
+  --hazel-bg-section-2: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-2-blue_HMLMMPAGu.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095616291');
+  --hazel-bg-section-3: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-3-blue_ycU1rOsMn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095614886');
+  --hazel-bg-section-4: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/section-4-blue_EYw0QR9WG2.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095615943');
+  --hazel-bg-to: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/to-image-blue_9dQZf2R6z.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095618594');
+  --hazel-bg-frame: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/frame-blue_oSGYvHcQ5u.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095616010');
+  --hazel-bg-snowflake: url('https://ik.imagekit.io/kitabikincom/invitation/theme/hazel/snowflake-blue_-4ymiHdup.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652095614757');
+}
