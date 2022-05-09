@@ -1,34 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import _ from 'lodash';
 import { Container, Box } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
 import FooterTheme from '@/layouts/footer/footerTheme';
 
-import FeatureKepada from '@/components/theme/nashville/featureKepada';
-import FeatureMusik from '@/components/theme/nashville/featureMusik';
-import FeatureSnowflakes from '@/components/theme/nashville/featureSnowflakes';
-import FeatureSampul from '@/components/theme/nashville/featureSampul';
-import FeaturePembukaan from '@/components/theme/nashville/featurePembukaan';
-import FeatureQuotes from '@/components/theme/nashville/featureQuotes';
-import FeatureDetailUnduh from '@/components/theme/nashville/featureDetailUnduh';
-import FeatureDetailAkad from '@/components/theme/nashville/featureDetailAkad';
-import FeatureDetailResepsi from '@/components/theme/nashville/featureDetailResepsi';
-import FeatureCountdownTimer from '@/components/theme/nashville/featureCountdownTimer';
-import FeaturePenutupan from '@/components/theme/nashville/featurePenutupan';
-import FeatureLiveWedding from '@/components/theme/nashville/featureLiveWedding';
-import FeatureTurutMengundang from '@/components/theme/nashville/featureTurutMengundang';
-import FeaturePanduanTamu from '@/components/theme/nashville/featurePanduanTamu';
-import FeatureProtokolKesehatan from '@/components/theme/nashville/featureProtokolKesehatan';
-import FeatureLoveStory from '@/components/theme/nashville/featureLoveStory';
-import FeatureLoveQuotes from '@/components/theme/nashville/featureLoveQuotes';
-import FeatureGalleryPhoto from '@/components/theme/nashville/featureGalleryPhoto';
-import FeatureGalleryVideo from '@/components/theme/nashville/featureGalleryVideo';
-import FeatureKehadiranUcapan from '@/components/theme/nashville/featureKehadiranUcapan';
-import FeatureUcapanDoa from '@/components/theme/nashville/featureUcapanDoa';
+import FeatureKepada from '@/components/theme/hazel/featureKepada';
+import FeatureMusik from '@/components/theme/hazel/featureMusik';
+import FeatureSnowflakes from '@/components/theme/hazel/featureSnowflakes';
+import FeatureSampul from '@/components/theme/hazel/featureSampul';
+import FeaturePembukaan from '@/components/theme/hazel/featurePembukaan';
+import FeatureQuotes from '@/components/theme/hazel/featureQuotes';
+import FeatureDetailUnduh from '@/components/theme/hazel/featureDetailUnduh';
+import FeatureDetailAkad from '@/components/theme/hazel/featureDetailAkad';
+import FeatureDetailResepsi from '@/components/theme/hazel/featureDetailResepsi';
+import FeatureCountdownTimer from '@/components/theme/hazel/featureCountdownTimer';
+import FeaturePenutupan from '@/components/theme/hazel/featurePenutupan';
+import FeatureLiveWedding from '@/components/theme/hazel/featureLiveWedding';
+import FeatureTurutMengundang from '@/components/theme/hazel/featureTurutMengundang';
+import FeaturePanduanTamu from '@/components/theme/hazel/featurePanduanTamu';
+import FeatureProtokolKesehatan from '@/components/theme/hazel/featureProtokolKesehatan';
+import FeatureLoveStory from '@/components/theme/hazel/featureLoveStory';
+import FeatureLoveQuotes from '@/components/theme/hazel/featureLoveQuotes';
+import FeatureGalleryPhoto from '@/components/theme/hazel/featureGalleryPhoto';
+import FeatureGalleryVideo from '@/components/theme/hazel/featureGalleryVideo';
+import FeatureKehadiranUcapan from '@/components/theme/hazel/featureKehadiranUcapan';
+import FeatureUcapanDoa from '@/components/theme/hazel/featureUcapanDoa';
 
-function ContainerNashville({ options, data, greeting }) {
+function ContainerHazel({ options, data, greeting }) {
+  const [themeColorOld, setThemeColorOld] = useState('theme-red');
+  const [themeColor, setThemeColor] = useState('theme-red');
   const [display, setDisplay] = useState('block');
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -62,18 +63,24 @@ function ContainerNashville({ options, data, greeting }) {
   // General
   const codeGeneral = `${options.code}-general`;
   const general = reduceFeature(feature[codeGeneral].column);
-  const {
-    [`${codeGeneral}-bgColor`]: generalBgColor,
-    [`${codeGeneral}-colorBody`]: generalColorBody,
-    [`${codeGeneral}-bgLeaf`]: generalBgLeaf,
-    [`${codeGeneral}-bgSection1`]: generalBgSection1,
-    [`${codeGeneral}-bgSection2`]: generalBgSection2,
-    [`${codeGeneral}-bgSection3`]: generalBgSection3,
-    [`${codeGeneral}-bgHr`]: generalBgHr,
-  } = general;
+  const { [`${codeGeneral}-theme`]: generalTheme } = general;
+
+  useEffect(() => {
+    const theme = `theme-${generalTheme.value}`;
+    setThemeColor(theme);
+    setThemeColorOld(theme);
+    document.querySelector('body').classList.add(theme);
+  }, [generalTheme.value]);
 
   // Function ==================================================================
-  function handleClickKepada() {
+  function handleClickTheme(theme) {
+    document.querySelector('body').classList.remove(themeColorOld);
+    setThemeColor(theme);
+    setThemeColorOld(theme);
+    document.querySelector('body').classList.add(theme);
+  }
+
+  function handleClickTo() {
     setDisplay('none');
     setIsPlaying(!isPlaying);
   }
@@ -81,26 +88,32 @@ function ContainerNashville({ options, data, greeting }) {
   return (
     <>
       <Head>
-        <link rel="stylesheet" href="/nashville/nashville.css" />
+        <link rel="stylesheet" href="/hazel/hazel.css" />
       </Head>
-      <Box color={generalColorBody.value} fontFamily="nashvilleBody">
+      <Box
+        bg={'var(--hazel-bg-color)'}
+        color={'var(--hazel-color-body)'}
+        fontFamily={'nashvilleBody'}
+        fontSize={{ base: 'md', md: 'lg' }}
+        minH={'100vh'}
+      >
+        {/* Kepada */}
         <Box
-          position="fixed"
-          h="full"
-          w="full"
-          zIndex="600"
-          bg={generalBgColor.value}
-          opacity="1"
-          overflowY="hidden"
+          position={'fixed'}
+          h={'full'}
+          w={'full'}
+          zIndex={600}
+          bg={'var(--hazel-bg-color)'}
+          opacity={1}
+          overflowY={'hidden'}
           display={display}
         >
-          {/* Kepada */}
           {fKepada && fKepada.is_active && (
             <FeatureKepada
               options={options}
               feature={feature}
               display={display}
-              onDisplayChange={handleClickKepada}
+              onDisplayChange={handleClickTo}
             />
           )}
         </Box>
@@ -124,8 +137,8 @@ function ContainerNashville({ options, data, greeting }) {
           )}
         </Box>
 
+        {/* Sampul */}
         <Box zIndex="300">
-          {/* Sampul */}
           {fSampul && fSampul.is_active && (
             <FeatureSampul options={options} feature={feature} />
           )}
@@ -135,17 +148,17 @@ function ContainerNashville({ options, data, greeting }) {
           position="relative"
           py="24"
           _before={{
-            bgImage: `url('${generalBgSection1.value}')`,
+            bgImage: 'var(--hazel-bg-section-1)',
             bgPosition: 'top right',
             bgRepeat: 'no-repeat',
             bgSize: 'contain',
             content: "''",
             display: 'block',
-            height: { base: '234px', md: '160px' },
+            height: { base: '200px', md: '280px' },
             width: { base: 'calc(100% + 130px)', md: '100%' },
             zIndex: '99',
             position: 'absolute',
-            top: { base: '-70px', md: '-100px' },
+            top: { base: '-140px', md: '-200px' },
             right: { base: '-65px', md: '-90px' },
           }}
         >
@@ -164,32 +177,32 @@ function ContainerNashville({ options, data, greeting }) {
           position="relative"
           pt="24"
           _before={{
-            bgImage: `url('${generalBgLeaf.value}')`,
+            bgImage: `var(--hazel-bg-section-2)`,
             bgPosition: 'top left',
             bgRepeat: 'no-repeat',
             bgSize: 'contain',
             content: "''",
             display: 'block',
-            height: { base: '234px', md: '260px' },
+            height: { base: '200px', md: '300px' },
             width: { base: 'calc(100% + 130px)', md: '100%' },
             zIndex: '99',
             position: 'absolute',
-            top: { base: '-90px', md: '-100px' },
-            left: { base: '-65px', md: '-70px' },
+            top: { base: '-100px', md: '-125px' },
+            left: { base: '-25px', md: '0px' },
           }}
           _after={{
-            bgImage: `url('${generalBgSection2.value}')`,
+            bgImage: `var(--hazel-bg-section-3)`,
             bgPosition: 'top right',
             bgRepeat: 'no-repeat',
             bgSize: 'contain',
             content: "''",
             display: 'block',
-            height: { base: '234px', md: '160px' },
+            height: { base: '100px', md: '150px' },
             width: { base: 'calc(100% + 500px)', md: '100%' },
             zIndex: '99',
             position: 'absolute',
-            top: { base: '-90px', md: '-100px' },
-            right: { base: '-650px', md: '-550px' },
+            top: { base: '-65px', md: '-75px' },
+            right: { base: '-25px', md: '0px' },
           }}
         >
           {/* Detail Unduh */}
@@ -222,31 +235,31 @@ function ContainerNashville({ options, data, greeting }) {
           position="relative"
           py="24"
           _before={{
-            bgImage: `url('${generalBgSection3.value}')`,
+            bgImage: `var(--hazel-bg-section-4)`,
             bgPosition: 'top left',
             bgRepeat: 'no-repeat',
             bgSize: 'contain',
             content: "''",
             display: 'block',
-            height: { base: '234px', md: '160px' },
+            height: { base: '150px', md: '190px' },
             width: { base: 'calc(100% + 130px)', md: '100%' },
             zIndex: '99',
             position: 'absolute',
-            top: { base: '10px', md: '-10px' },
-            left: { base: '-110px', md: '-260px' },
+            top: { base: '10px', md: '10px' },
+            left: { base: '-80px', md: 0 },
           }}
         >
-          <Container h="full" maxW="2xl" centerContent pt="14" px="10">
+          <Container h="full" maxW="2xl" centerContent pt="14" px="10" mb={6}>
             <Box position="relative" h="full" w="full" textAlign="center">
               {/* General Hr */}
-              <Box mb="4">
-                <Image
-                  src={generalBgHr.value}
-                  alt={generalBgHr.label}
-                  width="100"
-                  height="42.77"
-                />
-              </Box>
+              <Box
+                mt={6}
+                bgImage={'var(--hazel-bg-hr)'}
+                bgPosition="center"
+                bgRepeat="no-repeat"
+                bgSize="contain"
+                h="75"
+              />
             </Box>
           </Container>
 
@@ -271,18 +284,36 @@ function ContainerNashville({ options, data, greeting }) {
           )}
         </Box>
 
-        <Box position="relative" py="24">
-          <Container h="full" maxW="2xl" centerContent pt="14" px="10">
+        <Box
+          position="relative"
+          py="24"
+          _after={{
+            bgImage: `var(--hazel-bg-section-2)`,
+            bgPosition: 'top left',
+            bgRepeat: 'no-repeat',
+            bgSize: 'contain',
+            content: "''",
+            display: 'block',
+            height: { base: '200px', md: '300px' },
+            width: { base: 'calc(100% + 130px)', md: '100%' },
+            zIndex: '99',
+            position: 'absolute',
+            top: { base: '-100px', md: '-125px' },
+            right: { base: '-25px', md: '0px' },
+            transform: 'scaleX(-1)',
+          }}
+        >
+          <Container h="full" maxW="2xl" centerContent pt="14" px="10" mb={6}>
             <Box position="relative" h="full" w="full" textAlign="center">
               {/* General Hr */}
-              <Box mb="4">
-                <Image
-                  src={generalBgHr.value}
-                  alt={generalBgHr.label}
-                  width="100"
-                  height="42.77"
-                />
-              </Box>
+              <Box
+                mt={6}
+                bgImage={'var(--hazel-bg-hr)'}
+                bgPosition="center"
+                bgRepeat="no-repeat"
+                bgSize="contain"
+                h="75"
+              />
             </Box>
           </Container>
 
@@ -307,18 +338,36 @@ function ContainerNashville({ options, data, greeting }) {
           )}
         </Box>
 
-        <Box position="relative" py="24">
-          <Container h="full" maxW="2xl" centerContent pt="14" px="10">
+        <Box
+          position="relative"
+          py="24"
+          _before={{
+            bgImage: `var(--hazel-bg-section-3)`,
+            bgPosition: 'top right',
+            bgRepeat: 'no-repeat',
+            bgSize: 'contain',
+            content: "''",
+            display: 'block',
+            height: { base: '100px', md: '150px' },
+            width: { base: 'calc(100% + 500px)', md: '100%' },
+            zIndex: '99',
+            position: 'absolute',
+            top: { base: '-65px', md: '-75px' },
+            left: { base: '-25px', md: '0px' },
+            transform: 'scaleX(-1)',
+          }}
+        >
+          <Container h="full" maxW="2xl" centerContent pt="14" px="10" mb={6}>
             <Box position="relative" h="full" w="full" textAlign="center">
               {/* General Hr */}
-              <Box mb="4">
-                <Image
-                  src={generalBgHr.value}
-                  alt={generalBgHr.label}
-                  width="100"
-                  height="42.77"
-                />
-              </Box>
+              <Box
+                mt={6}
+                bgImage={'var(--hazel-bg-hr)'}
+                bgPosition="center"
+                bgRepeat="no-repeat"
+                bgSize="contain"
+                h="75"
+              />
             </Box>
           </Container>
 
@@ -342,4 +391,4 @@ function ContainerNashville({ options, data, greeting }) {
   );
 }
 
-export default ContainerNashville;
+export default ContainerHazel;

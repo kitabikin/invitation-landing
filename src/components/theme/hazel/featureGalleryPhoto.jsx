@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { Container, Box, Text, Img } from '@chakra-ui/react';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import { reduceFeature } from '@/libs/utils';
 
 function FeatureGalleryPhoto({ ...props }) {
   const [currentImage, setCurrentImage] = useState(0);
@@ -11,10 +12,7 @@ function FeatureGalleryPhoto({ ...props }) {
   // Get Data ==================================================================
   // Gallery Photo
   const codeGalleryPhoto = `${props.options.code}-galleryPhoto`;
-  const galleryPhoto = props.feature[codeGalleryPhoto].column.reduce(
-    (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {},
-  );
+  const galleryPhoto = reduceFeature(props.feature[codeGalleryPhoto].column);
   const {
     [`${codeGalleryPhoto}-title`]: galleryPhotoTitle,
     [`${codeGalleryPhoto}-photo`]: galleryPhotoPhoto,
@@ -44,7 +42,7 @@ function FeatureGalleryPhoto({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Gallery Photo Title */}
           {galleryPhotoTitle && galleryPhotoTitle.is_active && (
-            <Text fontFamily="nashvilleHeading" fontSize="3xl">
+            <Text fontFamily="hazelHeading" fontSize="3xl">
               {galleryPhotoTitle.value}
             </Text>
           )}

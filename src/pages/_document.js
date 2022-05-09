@@ -1,8 +1,8 @@
-import { ColorModeScript } from '@chakra-ui/react'
-import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
-import theme from '@/config/theme'
+import { ColorModeScript } from '@chakra-ui/react';
+import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
+import theme from '@/config/theme';
 
-const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
 
 export default class Document extends NextDocument {
   render() {
@@ -12,6 +12,7 @@ export default class Document extends NextDocument {
           <link rel="icon" type="image/png" href="/images/logo/logo36x36.png" />
           {isProduction && (
             <script
+              type="text/partytown"
               dangerouslySetInnerHTML={{
                 __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -28,6 +29,6 @@ export default class Document extends NextDocument {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }

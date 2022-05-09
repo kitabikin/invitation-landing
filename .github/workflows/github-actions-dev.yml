@@ -40,6 +40,7 @@ jobs:
         with:
           envkey_NEXT_PUBLIC_ENVIRONMENT: ${{ secrets.DEV_ENVIRONMENT }}
           envkey_NEXT_PUBLIC_CORE_URL: ${{ secrets.DEV_CORE_URL }}
+          envkey_NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.DEV_SENTRY_DSN }}
 
       - name: Build and push
         id: docker_build

@@ -55,8 +55,8 @@ function FeaturePembukaan({ ...props }) {
             <Image
               src={pembukaanSaying.value}
               alt={pembukaanSaying.label}
-              width="192"
-              height="62"
+              width="300"
+              height="104"
             />
           )}
 

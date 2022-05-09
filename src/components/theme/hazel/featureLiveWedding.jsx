@@ -7,6 +7,7 @@ import {
   Center,
   Link,
 } from '@chakra-ui/react';
+import { reduceFeature } from '@/libs/utils';
 
 import { SiInstagram, SiYoutube, SiZoom, SiGooglemeet } from 'react-icons/si';
 
@@ -14,10 +15,7 @@ function FeatureLiveWedding({ ...props }) {
   // Get Data ==================================================================
   // LiveWedding
   const codeLiveWedding = `${props.options.code}-liveWedding`;
-  const liveWedding = props.feature[codeLiveWedding].column.reduce(
-    (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {},
-  );
+  const liveWedding = reduceFeature(props.feature[codeLiveWedding].column);
   const {
     [`${codeLiveWedding}-title`]: liveWeddingTitle,
     [`${codeLiveWedding}-instagram`]: liveWeddingInstagram,
@@ -32,7 +30,7 @@ function FeatureLiveWedding({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Live Wedding Title */}
           {liveWeddingTitle && liveWeddingTitle.is_active && (
-            <Text fontFamily="nashvilleHeading" fontSize="3xl">
+            <Text fontFamily="hazelHeading" fontSize="3xl">
               {liveWeddingTitle.value}
             </Text>
           )}
@@ -40,10 +38,10 @@ function FeatureLiveWedding({ ...props }) {
           <SimpleGrid
             minChildWidth={{ base: '120px', md: '120px' }}
             spacing="16px"
-            mt="6"
+            mt="8"
           >
             {liveWeddingInstagram && liveWeddingInstagram.is_active && (
-              <Center minH="100px">
+              <Center minH="50px">
                 <Link
                   href={liveWeddingInstagram.value}
                   isExternal
@@ -55,7 +53,7 @@ function FeatureLiveWedding({ ...props }) {
             )}
 
             {liveWeddingYoutube && liveWeddingYoutube.is_active && (
-              <Center minH="100px">
+              <Center minH="50px">
                 <Link
                   href={liveWeddingYoutube.value}
                   isExternal
@@ -67,7 +65,7 @@ function FeatureLiveWedding({ ...props }) {
             )}
 
             {liveWeddingZoom && liveWeddingZoom.is_active && (
-              <Center minH="100px">
+              <Center minH="50px">
                 <Link
                   href={liveWeddingZoom.value}
                   isExternal
@@ -79,7 +77,7 @@ function FeatureLiveWedding({ ...props }) {
             )}
 
             {liveWeddingGoogleMeet && liveWeddingGoogleMeet.is_active && (
-              <Center minH="100px">
+              <Center minH="50px">
                 <Link
                   href={liveWeddingGoogleMeet.value}
                   isExternal

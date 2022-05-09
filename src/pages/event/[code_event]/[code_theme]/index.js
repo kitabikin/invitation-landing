@@ -1,23 +1,23 @@
-import { useRouter } from 'next/router'
-import ContainerBlank from '@/layouts/container/containerBlank'
-import { NextSeo } from 'next-seo'
-import site from '@/config/site'
-import _ from 'lodash'
-import qs from 'qs'
-import { addDays } from 'date-fns'
+import { useRouter } from 'next/router';
+import ContainerBlank from '@/layouts/container/containerBlank';
+import { NextSeo } from 'next-seo';
+import site from '@/config/site';
+import _ from 'lodash';
+import qs from 'qs';
+import { addDays } from 'date-fns';
 
-const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
-const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
+const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
 
-import SwitchTheme from '@/components/theme/switchTheme'
-import LoadingPage from '@/components/specific/loadingPage'
+import SwitchTheme from '@/components/theme/switchTheme';
+import LoadingPage from '@/components/specific/loadingPage';
 
 function ThemeDetail({ data }) {
-  const router = useRouter()
-  const guest = router.query.to || 'Tamu Undangan'
+  const router = useRouter();
+  const guest = router.query.to || 'Tamu Undangan';
 
   if (router.isFallback) {
-    return <LoadingPage />
+    return <LoadingPage />;
   }
 
   const options = {
@@ -26,10 +26,10 @@ function ThemeDetail({ data }) {
     id: data.id_theme,
     code: data.code,
     date: addDays(new Date(), Math.floor(Math.random() * (60 - 30 + 1) + 30)),
-  }
+  };
 
-  const canonical = `${site.siteUrl}/event/${data.theme_category.event.code}/${data.code}`
-  const noIndex = !isProduction
+  const canonical = `${site.siteUrl}/event/${data.theme_category.event.code}/${data.code}`;
+  const noIndex = !isProduction;
 
   return (
     <>
@@ -48,7 +48,7 @@ function ThemeDetail({ data }) {
       />
       <SwitchTheme options={options} data={data} />
     </>
-  )
+  );
 }
 
 export async function getServerSideProps({ params }) {
@@ -61,23 +61,23 @@ export async function getServerSideProps({ params }) {
       { theme_feature_column: true },
       { theme_greeting: true },
     ],
-  }
+  };
 
-  const merge = qs.stringify(pParams)
-  const res = await fetch(`${coreUrl}/v1/theme/${params.code_theme}?${merge}`)
-  const data = await res.json()
+  const merge = qs.stringify(pParams);
+  const res = await fetch(`${coreUrl}/v1/theme/${params.code_theme}?${merge}`);
+  const data = await res.json();
 
   if (data.error === 1) {
     return {
       notFound: true,
-    }
+    };
   }
 
-  return { props: { data: data.data } }
+  return { props: { data: data.data } };
 }
 
 ThemeDetail.Layout = function getLayout(page) {
-  return <ContainerBlank>{page}</ContainerBlank>
-}
+  return <ContainerBlank>{page}</ContainerBlank>;
+};
 
-export default ThemeDetail
+export default ThemeDetail;
