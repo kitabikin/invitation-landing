@@ -42,6 +42,7 @@ jobs:
           envkey_NEXT_PUBLIC_CORE_URL: ${{ secrets.MAIN_CORE_URL }}
           envkey_NEXT_PUBLIC_GA_ID: ${{ secrets.MAIN_GA_ID }}
           envkey_NEXT_PUBLIC_GTM_ID: ${{ secrets.MAIN_GTM_ID }}
+          envkey_NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.MAIN_SENTRY_DSN }}
 
       - name: Build and push
         id: docker_build

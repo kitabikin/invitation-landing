@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import _ from 'lodash';
-import { Container, Box, Button } from '@chakra-ui/react';
+import { Container, Box } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
 import FooterTheme from '@/layouts/footer/footerTheme';
 
