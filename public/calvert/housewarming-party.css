@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Parisienne&family=Yeseva+One&display=swap');
+
+.theme-housewarming-party {
+  --housewarming-party-color-body: #292524;
+  --housewarming-party-color-primary: #0c4a6e;
+  --housewarming-party-bg-color: #f5f5f4;
+  --housewarming-party-bg-to: url('https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/to-image_v1NQ18fej.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656493438080');
+  --housewarming-party-bg-to-illustration: url('https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/to-image-illustration_r0uQT5qNk.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656494120196');
+}

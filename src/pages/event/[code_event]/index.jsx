@@ -27,7 +27,11 @@ function EventDetail({ event, theme }) {
         <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="24px" mb={6}>
           {theme.error !== 1 &&
             theme.data.map((item) => (
-              <ThemePreviewList key={item.code} theme={item} />
+              <ThemePreviewList
+                key={item.code}
+                event={event.data}
+                theme={item}
+              />
             ))}
           <ThemePreviewCommingSoon />
         </SimpleGrid>
