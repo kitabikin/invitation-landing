@@ -1,9 +1,9 @@
 import NextLink from 'next/link';
 import { Badge, Box, Image, Link, Text } from '@chakra-ui/react';
 
-function ThemePreviewCommingSoon({ theme }) {
+function ThemePreviewCommingSoon({ event, theme }) {
   return (
-    <NextLink href={`/event/wedding/${theme.code}`} passHref>
+    <NextLink href={`/event/${event.code}/${theme.code}`} passHref>
       <Box
         as={Link}
         p={6}
