@@ -121,7 +121,7 @@ function HouseBlessingDetail({ data, greeting }) {
           site_name: site.title,
           images: [
             {
-              url: 'https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/cover-2_VwyGuAMrBP.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656501117625',
+              url: 'https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/cover-6__ZE9NkRMt.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1656744390767',
             },
           ],
         }}
@@ -247,7 +247,7 @@ function HouseBlessingDetail({ data, greeting }) {
         {/* Sampul */}
         <Box zIndex="300">
           <Box
-            bgImage={`url('https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/cover-2_VwyGuAMrBP.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656501117625')`}
+            bgImage={`url(https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/cover-6__ZE9NkRMt.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1656744390767)`}
             bgPosition={'center'}
             bgRepeat={'no-repeat'}
             bgSize={'cover'}
@@ -271,15 +271,14 @@ function HouseBlessingDetail({ data, greeting }) {
               >
                 <Text fontStyle={'italic'} mb={5}>
                   Please join us for a housewarming party at the new house of
-                  Sendi & Vivie
                 </Text>
                 <Text
-                  fontFamily={'Parisienne'}
+                  fontFamily={'Birthstone Bounce'}
                   fontSize={'42'}
                   fontWeight={'bold'}
                   color={'var(--housewarming-party-color-primary)'}
                 >
-                  Our New Nest
+                  Sendi &nbsp; & &nbsp; Vivie
                 </Text>
                 <Text fontStyle={'italic'} mt={3}>
                   A House is made of bricks & beams.
@@ -333,13 +332,8 @@ function HouseBlessingDetail({ data, greeting }) {
               w={'full'}
               textAlign={'center'}
             >
-              <Text mt={6} fontStyle={'italic'}>
-                Kindly join us & Warm out New Home with Lovely Presence. Gift us
-                your precious Blessing
-              </Text>
-
               <Text
-                mt={16}
+                mt={6}
                 fontStyle={'italic'}
                 fontWeight={'bold'}
                 lineHeight={1.7}
@@ -348,6 +342,11 @@ function HouseBlessingDetail({ data, greeting }) {
                 in vain.
                 <br />
                 (Psalm 127:1)
+              </Text>
+
+              <Text mt={16} fontStyle={'italic'}>
+                Kindly join us & Warm out New Home with Lovely Presence. Gift us
+                your precious Blessing
               </Text>
 
               <Text mt={16} fontFamily={'Kaushan Script'} fontSize={'3xl'}>
@@ -411,7 +410,7 @@ function HouseBlessingDetail({ data, greeting }) {
               </Grid>
 
               <Text fontWeight={'bold'} fontStyle={'italic'}>
-                Sesi 1: 11:00 WIB
+                Sesi 1: 12:00 WIB
               </Text>
 
               <Text fontWeight={'bold'} fontStyle={'italic'}>
