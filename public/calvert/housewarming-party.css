@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Birthstone+Bounce:wght@500&family=Kaushan+Script&family=Parisienne&family=Yeseva+One&display=swap');
 
+@font-face {
+  font-family: 'calvertHandwriting';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/hazel/Sienthas.otf') format('truetype');
+}
+
 .theme-housewarming-party {
   --housewarming-party-color-body: #292524;
   --housewarming-party-color-primary: #0c4a6e;
