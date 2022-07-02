@@ -282,8 +282,8 @@ function HouseBlessingDetail({ data, greeting }) {
                   Our New Nest
                 </Text>
                 <Text fontStyle={'italic'} mt={3}>
-                  A House is made of bricks & beams. A Home is made of hopes &
-                  dreams
+                  A House is made of bricks & beams.
+                  <br />A Home is made of hopes & dreams.
                 </Text>
 
                 <Flex
@@ -351,7 +351,7 @@ function HouseBlessingDetail({ data, greeting }) {
               </Text>
 
               <Text mt={16} fontFamily={'Kaushan Script'} fontSize={'3xl'}>
-                Ceremonial
+                Housewarming Party
               </Text>
 
               <Grid
