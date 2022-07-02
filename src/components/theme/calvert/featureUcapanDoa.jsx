@@ -38,8 +38,8 @@ function FeatureUcapanDoa({ ...props }) {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required('Harus diisi.'),
-    greeting: Yup.string().required('Harus diisi.'),
+    name: Yup.string().required('Must be filled.'),
+    greeting: Yup.string().required('Must be filled.'),
   });
 
   async function onSubmit(fields) {
@@ -87,7 +87,7 @@ function FeatureUcapanDoa({ ...props }) {
         <Box position="relative" h="full" w="full">
           {/* Ucapan Doa Title */}
           <Text fontFamily="Kaushan Script" fontSize="3xl" textAlign="center">
-            Ucapan & Doa
+            Greetings
           </Text>
 
           <Box mt="6" textAlign="center">
@@ -102,7 +102,7 @@ function FeatureUcapanDoa({ ...props }) {
               onClick={onOpen}
               role={'button'}
             >
-              Berikan Ucapan & Doa
+              Give Words
             </Button>
 
             <Modal
@@ -114,7 +114,7 @@ function FeatureUcapanDoa({ ...props }) {
             >
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>Berikan Ucapan & Doa</ModalHeader>
+                <ModalHeader>Give Words</ModalHeader>
                 <ModalCloseButton />
                 <Formik
                   initialValues={initialValues}
@@ -133,12 +133,12 @@ function FeatureUcapanDoa({ ...props }) {
                                 }
                                 isRequired
                               >
-                                <FormLabel htmlFor="name">Nama</FormLabel>
+                                <FormLabel htmlFor="name">Name</FormLabel>
                                 <Input
                                   ref={initialRef}
                                   {...field}
                                   id="name"
-                                  placeholder="Nama"
+                                  placeholder="Name"
                                   autoComplete="off"
                                 />
                                 <FormErrorMessage>
@@ -158,13 +158,11 @@ function FeatureUcapanDoa({ ...props }) {
                                 }
                                 isRequired
                               >
-                                <FormLabel htmlFor="greeting">
-                                  Ucapan & Doa
-                                </FormLabel>
+                                <FormLabel htmlFor="greeting">Words</FormLabel>
                                 <Textarea
                                   {...field}
                                   id="greeting"
-                                  placeholder="Ucapan & Doa"
+                                  placeholder="Words"
                                   rows={10}
                                 />
                                 <FormErrorMessage>
@@ -179,18 +177,20 @@ function FeatureUcapanDoa({ ...props }) {
                         <Button
                           mr={3}
                           bg={'white'}
-                          color={'var(--hazel-color-body)'}
+                          color={'var(--housewarming-party-color-body)'}
                           border={'2px'}
-                          borderColor={'var(--hazel-color-primary)'}
+                          borderColor={
+                            'var(--housewarming-party-color-primary)'
+                          }
                           borderRadius={'20px'}
                           px={8}
                           _hover={{
-                            bg: 'var(--hazel-color-primary)',
+                            bg: 'var(--housewarming-party-color-primary)',
                             color: 'white',
                           }}
                           onClick={onClose}
                         >
-                          Batal
+                          Cancel
                         </Button>
                         <Button
                           bg={'var(--housewarming-party-color-primary)'}
@@ -204,7 +204,7 @@ function FeatureUcapanDoa({ ...props }) {
                           type="submit"
                           role="button"
                         >
-                          Simpan
+                          Save
                         </Button>
                       </ModalFooter>
                     </Form>
