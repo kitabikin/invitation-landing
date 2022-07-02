@@ -111,13 +111,13 @@ function HouseBlessingDetail({ data, greeting }) {
       <NextSeo
         title={`Housewarming Party`}
         titleTemplate={`%s | ${site.title}`}
-        description={`Please join us for a housewarming party`}
+        description={`Please join us for a housewarming party at the new house of Sendi & Vivie`}
         canonical={canonical}
         noindex={noIndex}
         openGraph={{
           url: canonical,
           title: `Housewarming Party`,
-          description: `Please join us for a housewarming party`,
+          description: `Please join us for a housewarming party at the new house of Sendi & Vivie`,
           site_name: site.title,
           images: [
             {
