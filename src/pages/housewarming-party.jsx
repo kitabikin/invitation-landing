@@ -163,7 +163,7 @@ function HouseBlessingDetail({ data, greeting }) {
               {/* Kepada Image */}
               <Flex overflow={'hidden'}>
                 <Image
-                  src={`https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/to-image-illustration-1_qF43IHaSr.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656734519028`}
+                  src={`https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/to-image-illustration-2_P-y6i1VR2.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656759530574`}
                   alt={`Calvert To Image Illustration`}
                   width={100}
                   height={100}
@@ -273,12 +273,11 @@ function HouseBlessingDetail({ data, greeting }) {
                   Please join us for a housewarming party at the new house of
                 </Text>
                 <Text
-                  fontFamily={'Birthstone Bounce'}
-                  fontSize={'42'}
-                  fontWeight={'bold'}
+                  fontFamily={'calvertHandwriting'}
+                  fontSize={'6xl'}
                   color={'var(--housewarming-party-color-primary)'}
                 >
-                  Sendi &nbsp; & &nbsp; Vivie
+                  Sendi & Vivie
                 </Text>
                 <Text fontStyle={'italic'} mt={3}>
                   A House is made of bricks & beams.
@@ -342,6 +341,14 @@ function HouseBlessingDetail({ data, greeting }) {
                 in vain.
                 <br />
                 (Psalm 127:1)
+              </Text>
+
+              <Text mt={16} fontFamily={'Kaushan Script'} fontSize={'3xl'}>
+                House Blessing
+              </Text>
+
+              <Text mt={2} fontWeight={'bold'} fontStyle={'italic'}>
+                09:00 WIB
               </Text>
 
               <Text mt={16} fontStyle={'italic'}>
