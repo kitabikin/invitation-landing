@@ -7,6 +7,7 @@ import { NextSeo } from 'next-seo';
 import {
   Box,
   Button,
+  Circle,
   Container,
   Flex,
   Grid,
@@ -25,8 +26,10 @@ import {
 import site from '@/config/site';
 import _ from 'lodash';
 import qs from 'qs';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import ReactPlayer from 'react-player';
+import { MdMusicNote, MdMusicOff } from 'react-icons/md';
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
@@ -37,6 +40,7 @@ import FeatureUcapanDoa from '@/components/theme/calvert/featureUcapanDoa';
 
 function HouseBlessingDetail({ data, greeting }) {
   const [display, setDisplay] = useState('block');
+  const [isPlaying, setIsPlaying] = useState(false);
   const [formatDay, setFormatDay] = useState();
   const [formatMonth, setFormatMonth] = useState();
   const [formatYear, setFormatYear] = useState();
@@ -99,6 +103,7 @@ function HouseBlessingDetail({ data, greeting }) {
 
   function handleClickTo() {
     setDisplay('none');
+    setIsPlaying(!isPlaying);
   }
 
   return (
@@ -158,7 +163,7 @@ function HouseBlessingDetail({ data, greeting }) {
               {/* Kepada Image */}
               <Flex overflow={'hidden'}>
                 <Image
-                  src={`https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/to-image-illustration_r0uQT5qNk.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656494120196`}
+                  src={`https://ik.imagekit.io/kitabikincom/invitation/theme/calvert/to-image-illustration-1_qF43IHaSr.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656734519028`}
                   alt={`Calvert To Image Illustration`}
                   width={100}
                   height={100}
@@ -188,7 +193,7 @@ function HouseBlessingDetail({ data, greeting }) {
 
               {/* Kepada Title */}
               <Box mt={6} fontWeight={'bold'} fontStyle={'italic'}>
-                Kepada. Bapak/Ibu/Saudara/i
+                To. Mr./Mrs.
               </Box>
 
               {/* Kepada Button Label */}
@@ -207,10 +212,36 @@ function HouseBlessingDetail({ data, greeting }) {
                 }}
                 onClick={handleClickTo}
               >
-                Buka Undangan
+                Open Invitation
               </Button>
             </Flex>
           </Container>
+        </Box>
+
+        {/* Musik */}
+        <Box zIndex="500">
+          <Circle
+            as={'button'}
+            cursor="pointer"
+            position="fixed"
+            size="50px"
+            bottom="30px"
+            right="30px"
+            border="2px"
+            onClick={() => setIsPlaying(!isPlaying)}
+            zIndex="500"
+            aria-label="Music"
+          >
+            {isPlaying ? <MdMusicNote size={20} /> : <MdMusicOff size={20} />}
+          </Circle>
+          <ReactPlayer
+            url={
+              'https://www.youtube.com/watch?v=GOiPjl6KGxM&ab_channel=INDlyrics17'
+            }
+            playing={isPlaying}
+            loop={true}
+            style={{ display: 'none' }}
+          />
         </Box>
 
         {/* Sampul */}
@@ -233,11 +264,15 @@ function HouseBlessingDetail({ data, greeting }) {
               <Box
                 position={'relative'}
                 px={4}
-                py={16}
+                py={12}
                 h={'full'}
                 w={'full'}
                 textAlign={'center'}
               >
+                <Text fontStyle={'italic'} mb={5}>
+                  Please join us for a housewarming party at the new house of
+                  Sendi & Vivie
+                </Text>
                 <Text
                   fontFamily={'Parisienne'}
                   fontSize={'42'}
@@ -246,7 +281,10 @@ function HouseBlessingDetail({ data, greeting }) {
                 >
                   Our New Nest
                 </Text>
-                <Text fontStyle={'italic'}>join us for a housewarming</Text>
+                <Text fontStyle={'italic'} mt={3}>
+                  A House is made of bricks & beams. A Home is made of hopes &
+                  dreams
+                </Text>
 
                 <Flex
                   mt={6}
@@ -254,8 +292,9 @@ function HouseBlessingDetail({ data, greeting }) {
                   fontWeight={'bold'}
                   alignItems={'center'}
                   justifyContent={'center'}
+                  style={{ gap: '10px' }}
                 >
-                  <Text fontSize={'xl'} w={'70px'} align={'right'}>
+                  <Text fontSize={'2xl'} w={'70px'} align={'right'}>
                     {formatMonth}
                   </Text>
                   <Flex
@@ -268,7 +307,7 @@ function HouseBlessingDetail({ data, greeting }) {
                       border={'1px'}
                       borderColor={'var(--housewarming-party-color-primary)'}
                     ></Box>
-                    <Text my={1} mx={8} fontSize={'4xl'}>
+                    <Text my={1} mx={8} fontSize={'5xl'}>
                       {formatDay}
                     </Text>
                     <Box
@@ -277,7 +316,7 @@ function HouseBlessingDetail({ data, greeting }) {
                       borderColor={'var(--housewarming-party-color-primary)'}
                     ></Box>
                   </Flex>
-                  <Text fontSize={'xl'} w={'70px'} align={'left'}>
+                  <Text fontSize={'2xl'} w={'70px'} align={'left'}>
                     {formatYear}
                   </Text>
                 </Flex>
@@ -295,24 +334,24 @@ function HouseBlessingDetail({ data, greeting }) {
               textAlign={'center'}
             >
               <Text mt={6} fontStyle={'italic'}>
-                Dengan hormat, Kami mengundang untuk menghadiri pemberkatan
-                rumah kami:
+                Kindly join us & Warm out New Home with Lovely Presence. Gift us
+                your precious Blessing
+              </Text>
+
+              <Text
+                mt={16}
+                fontStyle={'italic'}
+                fontWeight={'bold'}
+                lineHeight={1.7}
+              >
+                If the Lord does not build a house, then those who build it work
+                in vain.
+                <br />
+                (Psalm 127:1)
               </Text>
 
               <Text mt={16} fontFamily={'Kaushan Script'} fontSize={'3xl'}>
-                Pemberkatan
-              </Text>
-
-              <Text mt={4} fontWeight={'bold'} fontStyle={'italic'}>
-                {format(dateWedding, 'EEEE, d MMMM yyyy', { locale: id })}
-              </Text>
-
-              <Text mt="2" fontWeight={'bold'} fontStyle={'italic'}>
-                09:00 WIB
-              </Text>
-
-              <Text mt={16} fontFamily={'Kaushan Script'} fontSize={'3xl'}>
-                Syukuran
+                Ceremonial
               </Text>
 
               <Grid
@@ -346,6 +385,7 @@ function HouseBlessingDetail({ data, greeting }) {
                   <Text
                     flexShrink="1"
                     fontFamily="Inter"
+                    fontWeight={'bold'}
                     fontSize="6xl"
                     lineHeight="1"
                   >
@@ -371,11 +411,15 @@ function HouseBlessingDetail({ data, greeting }) {
               </Grid>
 
               <Text fontWeight={'bold'} fontStyle={'italic'}>
-                Sesi 1: 12:00 WIB
+                Sesi 1: 11:00 WIB
               </Text>
 
               <Text fontWeight={'bold'} fontStyle={'italic'}>
-                Sesi 2: 16:00 WIB
+                Sesi 2: 14:00 WIB
+              </Text>
+
+              <Text fontWeight={'bold'} fontStyle={'italic'}>
+                Sesi 3: 17:00 WIB
               </Text>
 
               <Text mt="4" fontStyle="italic">
@@ -394,19 +438,13 @@ function HouseBlessingDetail({ data, greeting }) {
                   onClick={onOpen}
                   role={'button'}
                 >
-                  Lihat Lokasi
+                  View Location
                 </Button>
 
                 <Modal onClose={onClose} isOpen={isOpen} size={'xl'} isCentered>
                   <ModalOverlay />
                   <ModalContent>
-                    <ModalHeader>
-                      Lokasi <br />
-                      <Box as={'p'} fontWeight="normal" fontSize="14px">
-                        Pilih salah satu media di bawah untuk petunjuk arah ke
-                        lokasi
-                      </Box>
-                    </ModalHeader>
+                    <ModalHeader>Location</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                       <SimpleGrid columns={1} spacingX="4">
@@ -447,7 +485,13 @@ function HouseBlessingDetail({ data, greeting }) {
                 </Modal>
               </Box>
 
-              <Container h="full" maxW="xl" centerContent py="6">
+              <Container
+                h="full"
+                maxW="xl"
+                centerContent
+                py={6}
+                px={{ base: '0', md: '6' }}
+              >
                 <Box position="relative" h="full" w="full" textAlign="center">
                   <SimpleGrid mt="4" columns={4}>
                     <Box>
@@ -459,11 +503,11 @@ function HouseBlessingDetail({ data, greeting }) {
                         {leading0(days)}
                       </Text>{' '}
                       <Box
-                        fontSize="xl"
+                        fontSize={{ base: 'sm', md: 'xl' }}
                         color={'var(--hazel-color-primary)'}
                         mt="-15px"
                       >
-                        Hari
+                        Days
                       </Box>
                     </Box>
                     <Box>
@@ -475,11 +519,11 @@ function HouseBlessingDetail({ data, greeting }) {
                         {leading0(hours)}
                       </Text>{' '}
                       <Box
-                        fontSize="xl"
+                        fontSize={{ base: 'sm', md: 'xl' }}
                         color={'var(--hazel-color-primary)'}
                         mt="-15px"
                       >
-                        Jam
+                        Hours
                       </Box>
                     </Box>
                     <Box>
@@ -491,11 +535,11 @@ function HouseBlessingDetail({ data, greeting }) {
                         {leading0(minutes)}
                       </Text>{' '}
                       <Box
-                        fontSize="xl"
+                        fontSize={{ base: 'sm', md: 'xl' }}
                         color={'var(--hazel-color-primary)'}
                         mt="-15px"
                       >
-                        Menit
+                        Minutes
                       </Box>
                     </Box>
                     <Box>
@@ -507,31 +551,30 @@ function HouseBlessingDetail({ data, greeting }) {
                         {leading0(seconds)}
                       </Text>{' '}
                       <Box
-                        fontSize="xl"
+                        fontSize={{ base: 'sm', md: 'xl' }}
                         color={'var(--hazel-color-primary)'}
                         mt="-15px"
                       >
-                        Detik
+                        Seconds
                       </Box>
                     </Box>
                   </SimpleGrid>
                 </Box>
               </Container>
 
-              <Text mt={6} fontStyle={'italic'}>
-                Besar harapan kami atas kehadiran Bapak/Ibu/Saudara/i
-              </Text>
-
-              <Text mt={2} fontStyle={'italic'}>
-                Atas kehadirannya kami ucapkan terima kasih.
+              <Text mt={16} fontStyle={'italic'} lineHeight={1.7}>
+                Yet He filled their houses with good things, but the counsel of
+                the wicked is far from me.
+                <br />
+                (Job 22:18)
               </Text>
             </Box>
           </Container>
         </Box>
 
-        <Box position="relative" py="16">
+        {/* <Box position="relative" py="16">
           <FeatureGalleryPhoto options={options} />
-        </Box>
+        </Box> */}
 
         <Box position="relative" py="16">
           <FeatureUcapanDoa options={options} data={greeting} />
