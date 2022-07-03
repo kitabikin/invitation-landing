@@ -280,8 +280,8 @@ function HouseBlessingDetail({ data, greeting }) {
                   Sendi & Vivie
                 </Text>
                 <Text fontStyle={'italic'} mt={3}>
-                  A House is made of bricks & beams.
-                  <br />A Home is made of hopes & dreams.
+                  A House is made of bricks & beams
+                  <br />A Home is made of hopes & dreams
                 </Text>
 
                 <Flex
@@ -353,7 +353,7 @@ function HouseBlessingDetail({ data, greeting }) {
 
               <Text mt={16} fontStyle={'italic'}>
                 Kindly join us & Warm out New Home with Lovely Presence. Gift us
-                your precious Blessing
+                your precious Blessing.
               </Text>
 
               <Text mt={16} fontFamily={'Kaushan Script'} fontSize={'3xl'}>
@@ -429,7 +429,8 @@ function HouseBlessingDetail({ data, greeting }) {
               </Text>
 
               <Text mt="4" fontStyle="italic">
-                Taman Kopo Indah 2 Blok C3 No.38 (Patung Kuda)
+                Taman Kopo Indah 2 Blok C3 No.38 <br />
+                (Patung Kuda)
               </Text>
 
               <Box mt="4">
