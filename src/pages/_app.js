@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import '@/styles/globals.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/600.css';
@@ -17,6 +18,10 @@ function MyApp({ Component, pageProps }) {
       <ChakraProvider theme={theme}>
         {getLayout(<Component {...pageProps} />)}
       </ChakraProvider>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+        strategy="worker"
+      />
     </>
   );
 }
