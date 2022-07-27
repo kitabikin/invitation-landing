@@ -14,7 +14,16 @@ export default class Document extends NextDocument {
               __html: `
                 partytown = {
                   lib: "/_next/static/~partytown/",
-                  forward: ["gtag"]
+                  forward: ["gtag"],
+                  resolveUrl: function (url, location, type) {
+                    if (type === 'script') {
+                      const proxyUrl = new URL('https://cdn.builder.codes/api/v1/js-proxy');
+                      proxyUrl.searchParams.append('url', url.href);
+                      proxyUrl.searchParams.append('apiKey', '${process.env.NEXT_PUBLIC_BUILDER_ID}');  
+                      return proxyUrl;
+                    }
+                    return url;
+                  }                
                 };
               `,
             }}
