@@ -8,6 +8,7 @@ export default class Document extends NextDocument {
       <Html lang="en">
         <Head>
           <link rel="icon" type="image/png" href="/images/logo/logo36x36.png" />
+          <link rel="preconnect" href="https://ik.imagekit.io" />
           <script
             data-partytown-config
             dangerouslySetInnerHTML={{
