@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { useAtom } from 'jotai';
+import { useHydrateAtoms } from 'jotai/utils';
 import _ from 'lodash';
 import { Container, Box } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
+import NavbarTheme from '@/layouts/navbar/navbarTheme';
 import FooterTheme from '@/layouts/footer/footerTheme';
 
 import FeatureKepada from '@/components/theme/hazel/featureKepada';
@@ -27,11 +30,28 @@ import FeatureGalleryVideo from '@/components/theme/hazel/featureGalleryVideo';
 import FeatureKehadiranUcapan from '@/components/theme/hazel/featureKehadiranUcapan';
 import FeatureUcapanDoa from '@/components/theme/hazel/featureUcapanDoa';
 
+import { themeAtom, overflowYAtom } from '@/store/hazelStore';
+
+const THEME = [
+  {
+    value: 'theme-blue',
+    label: 'Biru',
+  },
+  {
+    value: 'theme-red',
+    label: 'Merah',
+  },
+  {
+    value: 'theme-green',
+    label: 'Hijau',
+  },
+];
+
 function ContainerHazel({ options, data, greeting }) {
-  const [themeColorOld, setThemeColorOld] = useState('theme-red');
-  const [themeColor, setThemeColor] = useState('theme-red');
+  const isFromTheme = options.from === 'theme';
   const [display, setDisplay] = useState('block');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [overflowY, setOverflowY] = useAtom(overflowYAtom);
 
   // Get Data ==================================================================
   // Feature
@@ -65,24 +85,22 @@ function ContainerHazel({ options, data, greeting }) {
   const general = reduceFeature(feature[codeGeneral].column);
   const { [`${codeGeneral}-theme`]: generalTheme } = general;
 
+  const initialTheme = `theme-${generalTheme.value}`;
+  useHydrateAtoms([[themeAtom, initialTheme]]);
+
   useEffect(() => {
-    const theme = `theme-${generalTheme.value}`;
-    setThemeColor(theme);
-    setThemeColorOld(theme);
-    document.querySelector('body').classList.add(theme);
-  }, [generalTheme.value]);
+    document.querySelector('body').classList.add(initialTheme);
+  }, []);
+
+  useEffect(() => {
+    document.querySelector('body').style.overflowY = overflowY;
+  }, [overflowY]);
 
   // Function ==================================================================
-  function handleClickTheme(theme) {
-    document.querySelector('body').classList.remove(themeColorOld);
-    setThemeColor(theme);
-    setThemeColorOld(theme);
-    document.querySelector('body').classList.add(theme);
-  }
-
   function handleClickTo() {
     setDisplay('none');
     setIsPlaying(!isPlaying);
+    setOverflowY('auto');
   }
 
   return (
@@ -90,7 +108,14 @@ function ContainerHazel({ options, data, greeting }) {
       <Head>
         <link rel="stylesheet" href="/hazel/hazel.css" />
       </Head>
+      {isFromTheme && (
+        <NavbarTheme atom={themeAtom} theme={'Hazel'} options={THEME} />
+      )}
       <Box
+        mt={{
+          base: isFromTheme ? '8rem' : 0,
+          md: isFromTheme ? '5.5rem' : 0,
+        }}
         bg={'var(--hazel-bg-color)'}
         color={'var(--hazel-color-body)'}
         fontFamily={'nashvilleBody'}

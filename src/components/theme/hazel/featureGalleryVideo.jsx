@@ -1,9 +1,20 @@
+import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { Container, Box, Text, AspectRatio } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
 import { reduceFeature } from '@/libs/utils';
 
 function FeatureGalleryVideo({ ...props }) {
+  const [showChild, setShowChild] = useState(false);
+
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
+
   // Get Data ==================================================================
   // Gallery Video
   const codeGalleryVideo = `${props.options.code}-galleryVideo`;

@@ -1,0 +1,21 @@
+/* +5 +40 */
+.theme-blue {
+  --conifer-color-body: #333333;
+  --conifer-color-primary: #2e64b9;
+  --conifer-bg-color: #F5F5F5;
+  --conifer-bg-to: url('/conifer/to-image-blue.webp');
+}
+
+.theme-red {
+  --conifer-color-body: #333333;
+  --conifer-color-primary: #b82e28;
+  --conifer-bg-color: #F5F5F5;
+  --conifer-bg-to: url('/conifer/to-image-red.webp');
+}
+
+.theme-green {
+  --conifer-color-body: #333333;
+  --conifer-color-primary: #2bb78c;
+  --conifer-bg-color: #F5F5F5;
+  --conifer-bg-to: url('/conifer/to-image-green.webp');
+}
