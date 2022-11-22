@@ -1,19 +1,30 @@
-import _ from 'lodash'
-import { Container, Box, Text, AspectRatio } from '@chakra-ui/react'
-import ReactPlayer from 'react-player'
+import { useEffect, useState } from 'react';
+import _ from 'lodash';
+import { Container, Box, Text, AspectRatio } from '@chakra-ui/react';
+import ReactPlayer from 'react-player';
 
 function FeatureGalleryVideo({ ...props }) {
+  const [showChild, setShowChild] = useState(false);
+
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
+
   // Get Data ==================================================================
   // Gallery Video
-  const codeGalleryVideo = `${props.options.code}-galleryVideo`
+  const codeGalleryVideo = `${props.options.code}-galleryVideo`;
   const galleryVideo = props.feature[codeGalleryVideo].column.reduce(
     (obj, item) => Object.assign(obj, { [item.code]: item }),
-    {}
-  )
+    {},
+  );
   const {
     [`${codeGalleryVideo}-title`]: galleryVideoTitle,
     [`${codeGalleryVideo}-video`]: galleryVideoVideo,
-  } = galleryVideo
+  } = galleryVideo;
 
   return (
     <>
@@ -49,7 +60,7 @@ function FeatureGalleryVideo({ ...props }) {
         </Box>
       </Container>
     </>
-  )
+  );
 }
 
-export default FeatureGalleryVideo
+export default FeatureGalleryVideo;

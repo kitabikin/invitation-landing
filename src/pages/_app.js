@@ -10,6 +10,8 @@ import '@fontsource/lora/700.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/config/theme';
 
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
+
 function MyApp({ Component, pageProps }) {
   const getLayout = Component.Layout || ((page) => page);
 
@@ -18,10 +20,12 @@ function MyApp({ Component, pageProps }) {
       <ChakraProvider theme={theme}>
         {getLayout(<Component {...pageProps} />)}
       </ChakraProvider>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-        strategy="worker"
-      />
+      {isProduction && (
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          strategy="worker"
+        />
+      )}
     </>
   );
 }

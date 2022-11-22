@@ -1,9 +1,20 @@
+import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { Box, Circle } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
 import { MdMusicNote, MdMusicOff } from 'react-icons/md';
 
 function FeatureMusik({ ...props }) {
+  const [showChild, setShowChild] = useState(false);
+
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
+
   // Get Data ==================================================================
   // Musik
   const codeMusik = `${props.options.code}-musik`;

@@ -2,6 +2,8 @@ import { ColorModeScript } from '@chakra-ui/react';
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
 import theme from '@/config/theme';
 
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
+
 export default class Document extends NextDocument {
   render() {
     return (
@@ -9,10 +11,15 @@ export default class Document extends NextDocument {
         <Head>
           <link rel="icon" type="image/png" href="/images/logo/logo36x36.png" />
           <link rel="preconnect" href="https://ik.imagekit.io" />
-          <script
-            data-partytown-config
-            dangerouslySetInnerHTML={{
-              __html: `
+          <link rel="preconnect" href="https://res.cloudinary.com" />
+          <link rel="preconnect" href="https://avatars.dicebear.com" />
+
+          {isProduction && (
+            <>
+              <script
+                data-partytown-config
+                dangerouslySetInnerHTML={{
+                  __html: `
                 partytown = {
                   lib: "/_next/static/~partytown/",
                   forward: ["gtag"],
@@ -27,12 +34,12 @@ export default class Document extends NextDocument {
                   }                
                 };
               `,
-            }}
-          />
-          <script
-            type="text/partytown"
-            dangerouslySetInnerHTML={{
-              __html: `
+                }}
+              />
+              <script
+                type="text/partytown"
+                dangerouslySetInnerHTML={{
+                  __html: `
                 window.dataLayer = window.dataLayer || [];
                 window.gtag = function gtag(){window.dataLayer.push(arguments);}
                 gtag('js', new Date());
@@ -41,8 +48,10 @@ export default class Document extends NextDocument {
                   page_path: window.location.pathname,
                 });
               `,
-            }}
-          />
+                }}
+              />
+            </>
+          )}
         </Head>
         <body>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />

@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { Container, Box, Text, Img } from '@chakra-ui/react';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
 function FeatureGalleryPhoto({ ...props }) {
+  const [showChild, setShowChild] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
 
   // Get Data ==================================================================
   // Gallery Photo
