@@ -5,6 +5,7 @@ import { Container, Box, Text } from '@chakra-ui/react';
 import PhotoAlbum from 'react-photo-album';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import ImageAlbum from '@/components/global/imageAlbum';
 
 function FeatureGalleryPhoto({ ...props }) {
   const [currentImage, setCurrentImage] = useState(-1);
@@ -50,7 +51,7 @@ function FeatureGalleryPhoto({ ...props }) {
                   photos={photos}
                   targetRowHeight={300}
                   onClick={(event, photo, index) => setCurrentImage(index)}
-                  componentsProps={{ imageProps: { loading: 'lazy' } }}
+                  renderPhoto={ImageAlbum}
                 />
               </Box>
 

@@ -12,6 +12,7 @@ function ImageAlbum({
           position: 'relative',
           width: '100%',
           height: '100%',
+          cursor: 'pointer',
         }}
       >
         <Image
@@ -22,6 +23,7 @@ function ImageAlbum({
           sizes={sizes}
           className={className}
           onClick={onClick}
+          objectFit={'cover'}
         />
       </div>
     </div>
