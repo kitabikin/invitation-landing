@@ -10,6 +10,13 @@ export default class Document extends NextDocument {
       <Html lang="en">
         <Head>
           <link rel="icon" type="image/png" href="/images/logo/logo36x36.png" />
+
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="true"
+          />
           <link rel="preconnect" href="https://ik.imagekit.io" />
           <link rel="preconnect" href="https://res.cloudinary.com" />
           <link rel="preconnect" href="https://avatars.dicebear.com" />
