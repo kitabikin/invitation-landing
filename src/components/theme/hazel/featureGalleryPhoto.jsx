@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import _ from 'lodash';
-import { Container, Box, Text, Img } from '@chakra-ui/react';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
+import { Container, Box, Text } from '@chakra-ui/react';
+import PhotoAlbum from 'react-photo-album';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 import { reduceFeature } from '@/libs/utils';
 
 function FeatureGalleryPhoto({ ...props }) {
-  const [currentImage, setCurrentImage] = useState(0);
-  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(-1);
 
   // Get Data ==================================================================
   // Gallery Photo
@@ -18,23 +19,14 @@ function FeatureGalleryPhoto({ ...props }) {
     [`${codeGalleryPhoto}-photo`]: galleryPhotoPhoto,
   } = galleryPhoto;
 
-  const photos = _.map(JSON.parse(galleryPhotoPhoto.value), (result) => {
+  const photos = _.map(JSON.parse(galleryPhotoPhoto.value), (result, index) => {
     return {
       src: result.photo,
+      key: index,
       width: Number(result.width),
       height: Number(result.height),
     };
   });
-
-  const openLightbox = (index) => {
-    setCurrentImage(index);
-    setViewerIsOpen(true);
-  };
-
-  const closeLightbox = () => {
-    setCurrentImage(0);
-    setViewerIsOpen(false);
-  };
 
   return (
     <>
@@ -50,40 +42,57 @@ function FeatureGalleryPhoto({ ...props }) {
           {/* Gallery Photo Photo */}
           {galleryPhotoPhoto && galleryPhotoPhoto.is_active && (
             <>
-              <Box mt="6" sx={{ columnCount: [2], columnGap: '8px' }}>
-                {photos.map((photo, index) => (
-                  <Img
-                    key={index}
-                    w="100%"
-                    mb="2px"
-                    d="inline-block"
-                    cursor="pointer"
-                    src={photo.src}
-                    alt={`Gallery Photo ${index + 1}`}
-                    onClick={() => openLightbox(index)}
-                  />
-                ))}
+              <Box mt="6">
+                <PhotoAlbum
+                  layout="rows"
+                  photos={photos}
+                  targetRowHeight={300}
+                  onClick={(event, photo, index) => setCurrentImage(index)}
+                  componentsProps={{ imageProps: { loading: 'lazy' } }}
+                />
               </Box>
 
-              {viewerIsOpen && (
-                <Lightbox
-                  mainSrc={photos[currentImage].src}
-                  nextSrc={photos[(currentImage + 1) % photos.length].src}
-                  prevSrc={
-                    photos[(currentImage + photos.length - 1) % photos.length]
-                      .src
-                  }
-                  onCloseRequest={closeLightbox}
-                  onMovePrevRequest={() =>
-                    setCurrentImage(
-                      (currentImage + photos.length - 1) % photos.length,
-                    )
-                  }
-                  onMoveNextRequest={() =>
-                    setCurrentImage((currentImage + 1) % photos.length)
-                  }
-                />
-              )}
+              <Lightbox
+                open={currentImage >= 0}
+                index={currentImage}
+                close={() => setCurrentImage(-1)}
+                slides={photos}
+                render={{
+                  slide: (image, offset, rect) => {
+                    const width = Math.round(
+                      Math.min(
+                        rect.width,
+                        (rect.height / image.height) * image.width,
+                      ),
+                    );
+                    const height = Math.round(
+                      Math.min(
+                        rect.height,
+                        (rect.width / image.width) * image.height,
+                      ),
+                    );
+
+                    return (
+                      <div style={{ position: 'relative', width, height }}>
+                        <Image
+                          src={image}
+                          layout="fill"
+                          loading="eager"
+                          objectFit="contain"
+                          alt={'alt' in image ? image.alt : ''}
+                          sizes={
+                            typeof window !== 'undefined'
+                              ? `${Math.ceil(
+                                  (width / window.innerWidth) * 100,
+                                )}vw`
+                              : `${width}px`
+                          }
+                        />
+                      </div>
+                    );
+                  },
+                }}
+              />
             </>
           )}
         </Box>

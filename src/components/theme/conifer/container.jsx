@@ -26,6 +26,8 @@ const THEME = [
 ];
 
 function ContainerConifer() {
+  // const isFromTheme = options.from === 'theme';
+  const isFromTheme = true;
   const [display] = useAtom(displayAtom);
 
   const initialTheme = 'theme-green';
@@ -42,6 +44,10 @@ function ContainerConifer() {
       </Head>
       <NavbarTheme atom={themeAtom} theme={'Conifer'} options={THEME} />
       <Box
+        mt={{
+          base: isFromTheme ? '8rem' : 0,
+          md: isFromTheme ? '5.5rem' : 0,
+        }}
         bg={'var(--conifer-bg-color)'}
         color={'var(--conifer-color-body)'}
         fontSize={{ base: 'md', md: 'lg' }}
