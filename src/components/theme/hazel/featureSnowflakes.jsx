@@ -44,7 +44,7 @@ function FeatureSnowflakes({ ...props }) {
 
     function animm(elm) {
       gsap.to(elm, {
-        y: h + 100,
+        y: h + 200,
         ease: 'Linear.easeNone',
         repeat: -1,
         delay: -15,
@@ -52,20 +52,14 @@ function FeatureSnowflakes({ ...props }) {
       });
       gsap.to(elm, {
         x: '+=100',
+        rotationX: R(0, 360),
+        rotationY: R(0, 360),
         rotationZ: R(0, 180),
         repeat: -1,
         yoyo: true,
-        ease: 'Sine.easeInOut',
+        ease: 'Sine.easeOut',
         duration: R(4, 8),
-      });
-      gsap.to(elm, {
-        rotationX: R(0, 360),
-        rotationY: R(0, 360),
-        repeat: -1,
-        yoyo: true,
-        ease: 'Sine.easeInOut',
-        delay: -5,
-        duration: R(4, 8),
+        opacity: 0.5,
       });
     }
 

@@ -112,20 +112,17 @@ function ContainerHazel({ options, data, greeting }) {
         <NavbarTheme atom={themeAtom} theme={'Hazel'} options={THEME} />
       )}
       <Box
-        mt={{
-          base: isFromTheme ? '8rem' : 0,
-          md: isFromTheme ? '5.5rem' : 0,
-        }}
+        mt={isFromTheme ? '73px' : 0}
+        minH={'100vh'}
         bg={'var(--hazel-bg-color)'}
         color={'var(--hazel-color-body)'}
         fontFamily={'nashvilleBody'}
         fontSize={{ base: 'md', md: 'lg' }}
-        minH={'100vh'}
       >
         {/* Kepada */}
         <Box
           position={'fixed'}
-          h={'full'}
+          h={isFromTheme ? 'calc(100vh - 73px)' : '100vh'}
           w={'full'}
           zIndex={600}
           bg={'var(--hazel-bg-color)'}

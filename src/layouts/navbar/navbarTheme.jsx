@@ -20,20 +20,14 @@ function NavbarTheme({ atom, theme, options }) {
       borderBottomWidth={1}
       borderBottomColor={'gray.300'}
     >
-      <Flex bgColor={'gray.50'} py={6}>
+      <Flex bgColor={'gray.50'} py={4}>
         <Container maxW="container.lg">
-          <Flex
-            flexDir={{ base: 'column', md: 'row' }}
-            gridGap={4}
-            justify={'space-between'}
-            alignItems={'center'}
-          >
+          <Flex gridGap={4} justify={'space-between'} alignItems={'center'}>
             <Heading as="h4" size="md">
               Tema {theme}
             </Heading>
             <Select
-              w={270}
-              placeholder="Pilih Tema"
+              w={{ base: 125, md: 270 }}
               onChange={(event) => handleClickTheme(event.target.value)}
               defaultValue={themeColor}
             >
