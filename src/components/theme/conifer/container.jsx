@@ -8,7 +8,7 @@ import FooterTheme from '@/layouts/footer/footerTheme';
 
 import FeatureTo from '@/components/theme/conifer/featureTo';
 
-import { themeAtom, displayAtom } from '@/store/coniferStore';
+import { themeAtom, isOverflowYAtom } from '@/store/coniferStore';
 
 const THEME = [
   {
@@ -28,43 +28,50 @@ const THEME = [
 function ContainerConifer() {
   // const isFromTheme = options.from === 'theme';
   const isFromTheme = true;
-  const [display] = useAtom(displayAtom);
+  const [isOverflowY] = useAtom(isOverflowYAtom);
 
   const initialTheme = 'theme-green';
   useHydrateAtoms([[themeAtom, initialTheme]]);
 
   useEffect(() => {
-    document.querySelector('body').classList.add(initialTheme);
+    const body = document.querySelector('body');
+    body.classList.add(initialTheme);
   }, []);
+
+  useEffect(() => {
+    const body = document.querySelector('body');
+    body.style.overflowY = isOverflowY ? 'auto' : 'hidden';
+  }, [isOverflowY]);
 
   return (
     <>
       <Head>
         <link rel="stylesheet" href="/conifer/conifer.css" />
       </Head>
-      <NavbarTheme atom={themeAtom} theme={'Conifer'} options={THEME} />
+      {isFromTheme && (
+        <NavbarTheme atom={themeAtom} theme={'Conifer'} options={THEME} />
+      )}
       <Box
-        mt={{
-          base: isFromTheme ? '8rem' : 0,
-          md: isFromTheme ? '5.5rem' : 0,
-        }}
+        mt={isFromTheme ? '73px' : 0}
+        minH={'100vh'}
         bg={'var(--conifer-bg-color)'}
         color={'var(--conifer-color-body)'}
         fontSize={{ base: 'md', md: 'lg' }}
-        minH={'100vh'}
       >
         <Box
+          className="conifer-to"
           position={'fixed'}
-          h={'full'}
+          h={isFromTheme ? 'calc(100vh - 73px)' : '100vh'}
           w={'full'}
           zIndex={600}
           bg={'var(--conifer-bg-color)'}
           opacity={1}
           overflowY={'hidden'}
-          display={display}
         >
           <FeatureTo />
         </Box>
+
+        <Box>Conifer Layout</Box>
       </Box>
       <FooterTheme />
     </>
