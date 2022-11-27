@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
+import ContainerClient from '@/layouts/container/containerClient';
 import { User } from 'pages/api/user';
 
 import { InferGetServerSidePropsType } from 'next';
@@ -9,11 +10,11 @@ const Dashboard = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <>
+    <ContainerClient title="Dashboard">
       <div>Dashboard!</div>
       <Link href={'/api/logout'}>Logout</Link>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-    </>
+      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+    </ContainerClient>
   );
 };
 
