@@ -23,7 +23,7 @@ import { MdMenuBook } from 'react-icons/md';
 import ContainerClient from '@/layouts/container/containerClient';
 import PreviewDevice from '@/components/global/previewDevice';
 import { User } from '@/pages/api/user';
-import useGuestbook from '@/libs/useGuestbook';
+import useGuestbook from '@/hooks/useGuestbook';
 
 import { InferGetServerSidePropsType } from 'next';
 

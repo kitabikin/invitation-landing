@@ -3,13 +3,15 @@ import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
 import debounce from 'lodash/debounce';
+import qs from 'qs';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
+import { useQuery } from '@tanstack/react-query';
+
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
 import { User } from '@/pages/api/user';
-import useGreeting from '@/libs/useGreeting';
 import {
   Box,
   Card,
@@ -24,6 +26,21 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { MdSearch, MdMessage } from 'react-icons/md';
+
+const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
+
+const getAllGreeting = async (user: User | undefined, { params = {} }) => {
+  const merge = qs.stringify(params);
+  return await fetch(`${coreUrl}/v1/invitation-greeting?${merge}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => res.data);
+};
 
 const Words = ({
   user,
@@ -47,7 +64,10 @@ const Words = ({
     search,
     sort: 'created_at:desc',
   };
-  const { greeting, isLoading } = useGreeting(user, { params });
+  const { isLoading, data: greeting } = useQuery({
+    queryKey: ['greeting'],
+    queryFn: () => getAllGreeting(user, { params }),
+  });
 
   // Effect
   useEffect(() => {
@@ -92,14 +112,14 @@ const Words = ({
               <SkeletonList />
             ) : (
               <Fragment>
-                {_.isEmpty(greeting.data) ? (
+                {_.isEmpty(greeting) ? (
                   <EmptyList
                     label={'Ucapan & Doa'}
                     icon={<MdMessage size={30} />}
                   />
                 ) : (
                   <Stack>
-                    {greeting.data.map((res, index) => (
+                    {greeting.map((res, index) => (
                       <Card key={index} variant={'outline'} bg={'white'}>
                         <CardBody>
                           <Heading

@@ -56,7 +56,7 @@ function Login() {
       if (res.error === 1) {
         setErrorMsg(res.message);
       } else {
-        mutateUser({ isLoggedIn: true, ...res.data });
+        mutateUser.mutate({ isLoggedIn: true, ...res.data });
       }
     } catch (error) {
       if (error) {

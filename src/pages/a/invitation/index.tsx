@@ -1,15 +1,18 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
+import { InferGetServerSidePropsType } from 'next';
 import NextLink from 'next/link';
 import _ from 'lodash';
 import debounce from 'lodash/debounce';
+import qs from 'qs';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
+import { useQuery } from '@tanstack/react-query';
+
+import site from '@/config/site';
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
-import site from '@/config/site';
 import { User } from '@/pages/api/user';
-import { useInvitation } from '@/hooks/useInvitation';
 import {
   Box,
   Card,
@@ -28,7 +31,20 @@ import {
 } from '@chakra-ui/react';
 import { MdEmail, MdSearch, MdEvent, MdWeb } from 'react-icons/md';
 
-import { InferGetServerSidePropsType } from 'next';
+const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
+
+const getAllInvitation = async (user: User | undefined, { params = {} }) => {
+  const merge = qs.stringify(params);
+  return await fetch(`${coreUrl}/v1/invitation?${merge}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => res.data);
+};
 
 const Invitation = ({
   user,
@@ -45,7 +61,10 @@ const Invitation = ({
     with: [{ event: true }, { theme: true }],
     search,
   };
-  const { invitation, isLoading } = useInvitation(user, { params });
+  const { isLoading, data: invitation } = useQuery({
+    queryKey: ['invitation'],
+    queryFn: () => getAllInvitation(user, { params }),
+  });
 
   // Effect
   useEffect(() => {
@@ -89,11 +108,11 @@ const Invitation = ({
               </SimpleGrid>
             ) : (
               <Fragment>
-                {_.isEmpty(invitation.data) ? (
+                {_.isEmpty(invitation) ? (
                   <EmptyList label={'Undangan'} icon={<MdEmail size={30} />} />
                 ) : (
                   <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
-                    {invitation.data.map((res, index) => (
+                    {invitation.map((res, index) => (
                       <NextLink
                         key={index}
                         href={`/a/invitation/${res.code}/analytics`}

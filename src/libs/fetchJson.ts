@@ -35,7 +35,7 @@ export default async function fetchJson<JSON = unknown>(
   const data = await response.json();
 
   if (response.ok) {
-    return data;
+    return data.data;
   }
 
   throw new FetchError({

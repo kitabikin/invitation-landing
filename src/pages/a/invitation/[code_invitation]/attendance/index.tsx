@@ -3,15 +3,17 @@ import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
 import debounce from 'lodash/debounce';
+import qs from 'qs';
 import { format, parseISO } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
+import { useQuery } from '@tanstack/react-query';
+
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
 import { User } from '@/pages/api/user';
-import useGuestbook from '@/libs/useGuestbook';
 import {
   Badge,
   Box,
@@ -37,6 +39,21 @@ import {
   MdAccessTimeFilled,
 } from 'react-icons/md';
 
+const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
+
+const getAllGuestbook = async (user: User | undefined, { params = {} }) => {
+  const merge = qs.stringify(params);
+  return await fetch(`${coreUrl}/v1/invitation-guest-book?${merge}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => res.data);
+};
+
 const Attendance = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -59,7 +76,10 @@ const Attendance = ({
     with: [{ invitation: true }, { parrent: true }],
     search,
   };
-  const { guestbook, isLoading } = useGuestbook(user, { params });
+  const { isLoading, data: guestbook } = useQuery({
+    queryKey: ['attendance'],
+    queryFn: () => getAllGuestbook(user, { params }),
+  });
 
   // Effect
   useEffect(() => {
@@ -123,14 +143,14 @@ const Attendance = ({
               <SkeletonList />
             ) : (
               <Fragment>
-                {_.isEmpty(guestbook.data) ? (
+                {_.isEmpty(guestbook) ? (
                   <EmptyList
                     label={'Konfirmasi Kehadiran'}
                     icon={<MdPeople size={30} />}
                   />
                 ) : (
                   <Stack>
-                    {guestbook.data.map((res, index) => (
+                    {guestbook.map((res, index) => (
                       <Card key={index} variant={'outline'} bg={'white'}>
                         <CardBody>
                           <Flex
