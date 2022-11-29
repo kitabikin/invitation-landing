@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useAtom } from 'jotai';
 import { useHydrateAtoms } from 'jotai/utils';
@@ -48,10 +49,14 @@ const THEME = [
 ];
 
 function ContainerHazel({ options, data, greeting }) {
+  const router = useRouter();
   const isFromTheme = options.from === 'theme';
   const [display, setDisplay] = useState('block');
   const [isPlaying, setIsPlaying] = useState(false);
   const [overflowY, setOverflowY] = useAtom(overflowYAtom);
+
+  const scroll = router.query.scroll || 'true';
+  const isScroll = scroll === 'true';
 
   // Get Data ==================================================================
   // Feature
@@ -90,6 +95,9 @@ function ContainerHazel({ options, data, greeting }) {
 
   useEffect(() => {
     document.querySelector('body').classList.add(initialTheme);
+    document
+      .querySelector('body')
+      .classList.add(!isScroll ? 'no-scroll' : null);
   }, []);
 
   useEffect(() => {

@@ -20,8 +20,6 @@ import {
 } from '@chakra-ui/react';
 import { RiMenuLine, RiCloseLine } from 'react-icons/ri';
 
-const navigation = [{ name: 'Undangan', href: '/a/invitation' }];
-
 const NavItem = (props) => {
   const router = useRouter();
   const isActive = router.asPath === props.href;
@@ -80,6 +78,8 @@ const NavbarClient = () => {
   const router = useRouter();
   const { isOpen, onToggle } = useDisclosure();
 
+  const { code_invitation } = router.query;
+
   const handleLogout = () => {
     router.push('/api/logout');
   };
@@ -128,9 +128,26 @@ const NavbarClient = () => {
                 alignItems={'center'}
                 display={{ base: 'none', md: 'flex' }}
               >
-                {navigation.map((nav, index) => (
-                  <NavItem key={index} href={nav.href} text={nav.name} />
-                ))}
+                <NavItem
+                  href={`/a/invitation/${code_invitation}/analytics`}
+                  text={'Analitik'}
+                />
+                <NavItem
+                  href={`/a/invitation/${code_invitation}/appearance`}
+                  text={'Tampilan'}
+                />
+                <NavItem
+                  href={`/a/invitation/${code_invitation}/guestbook`}
+                  text={'Buku Tamu'}
+                />
+                <NavItem
+                  href={`/a/invitation/${code_invitation}/attendance`}
+                  text={'Konfirmasi Kehadiran'}
+                />
+                <NavItem
+                  href={`/a/invitation/${code_invitation}/words`}
+                  text={'Ucapan & Doa'}
+                />
               </HStack>
             </HStack>
             <Flex alignItems={'center'}>
@@ -165,9 +182,26 @@ const NavbarClient = () => {
             py={4}
           >
             <VStack spacing={1} alignItems={'flex-start'}>
-              {navigation.map((nav, index) => (
-                <NavItemMobile key={index} href={nav.href} text={nav.name} />
-              ))}
+              <NavItemMobile
+                href={`/a/invitation/${code_invitation}/analytics`}
+                text={'Analitik'}
+              />
+              <NavItemMobile
+                href={`/a/invitation/${code_invitation}/appearance`}
+                text={'Tampilan'}
+              />
+              <NavItemMobile
+                href={`/a/invitation/${code_invitation}/guestbook`}
+                text={'Buku Tamu'}
+              />
+              <NavItemMobile
+                href={`/a/invitation/${code_invitation}/attendance`}
+                text={'Konfirmasi Kehadiran'}
+              />
+              <NavItemMobile
+                href={`/a/invitation/${code_invitation}/words`}
+                text={'Ucapan & Doa'}
+              />
             </VStack>
           </Box>
         )}

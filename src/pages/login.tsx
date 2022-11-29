@@ -21,10 +21,11 @@ import {
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import site from '@/config/site';
-import useUser from '@/libs/useUser';
+import useUser from '@/hooks/useUser';
+
 function Login() {
   const { mutateUser } = useUser({
-    redirectTo: '/a/dashboard',
+    redirectTo: '/a/invitation',
     redirectIfFound: true,
   });
 

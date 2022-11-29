@@ -1,19 +1,24 @@
-import Link from 'next/link';
+import { InferGetServerSidePropsType } from 'next';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
 import ContainerClient from '@/layouts/container/containerClient';
-import { User } from 'pages/api/user';
+import { User } from '@/pages/api/user';
+import { Box, Container, Flex, Heading } from '@chakra-ui/react';
 
-import { InferGetServerSidePropsType } from 'next';
-
-const Dashboard = ({
+const Analytics = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <ContainerClient title="Dashboard">
-      <div>Dashboard!</div>
-      <Link href={'/api/logout'}>Logout</Link>
-      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+    <ContainerClient type={'invitation'} title={'Analitik'}>
+      <Box bg={'gray.50'} minH={'100vh'}>
+        <Container maxW={'8xl'}>
+          <Flex flexDir={'column'} gap={4} py={8}>
+            <Heading as={'h3'} size={'lg'}>
+              Analitik
+            </Heading>
+          </Flex>
+        </Container>
+      </Box>
     </ContainerClient>
   );
 };
@@ -47,4 +52,4 @@ export const getServerSideProps = withIronSessionSsr(async function ({
 },
 sessionOptions);
 
-export default Dashboard;
+export default Analytics;
