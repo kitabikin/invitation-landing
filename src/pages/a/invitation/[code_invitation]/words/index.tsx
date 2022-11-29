@@ -1,7 +1,8 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
+import debounce from 'lodash/debounce';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
 import ContainerClient from '@/layouts/container/containerClient';
@@ -16,17 +17,25 @@ import {
   Container,
   Flex,
   Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { MdMessage } from 'react-icons/md';
+import { MdSearch, MdMessage } from 'react-icons/md';
 
 const Words = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  // Settings
   const router = useRouter();
   const { code_invitation } = router.query;
 
+  // State
+  const [search, setSearch] = useState('');
+
+  // Get Greeting
   const params = {
     where: [
       { is_active: true },
@@ -35,9 +44,24 @@ const Words = ({
       { 'invitation:id_user': user.id_user },
     ],
     with: [{ invitation: true }],
+    search,
     sort: 'created_at:desc',
   };
   const { greeting, isLoading } = useGreeting(user, { params });
+
+  // Effect
+  useEffect(() => {
+    return () => {
+      debouncedChangeHandler.cancel();
+    };
+  }, []);
+
+  // Action
+  const handleSearch = ({ target }) => {
+    setSearch(target.value);
+  };
+
+  const debouncedChangeHandler = useMemo(() => debounce(handleSearch, 500), []);
 
   return (
     <ContainerClient type={'invitation'} title={'Ucapan & Doa'}>
@@ -48,6 +72,20 @@ const Words = ({
             <Heading as={'h3'} size={'lg'} mb={4}>
               Ucapan & Doa
             </Heading>
+
+            {/* Filter */}
+            <InputGroup bg={'white'}>
+              <InputLeftElement
+                pointerEvents="none"
+                // eslint-disable-next-line react/no-children-prop
+                children={<MdSearch size={20} color={'gray'} />}
+              />
+              <Input
+                type="text"
+                placeholder="Search..."
+                onChange={debouncedChangeHandler}
+              />
+            </InputGroup>
 
             {/* List */}
             {isLoading ? (
