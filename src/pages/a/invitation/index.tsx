@@ -3,7 +3,6 @@ import { InferGetServerSidePropsType } from 'next';
 import NextLink from 'next/link';
 import _ from 'lodash';
 import debounce from 'lodash/debounce';
-import qs from 'qs';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +12,7 @@ import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
 import { User } from '@/pages/api/user';
+import { getAllInvitation } from '@/libs/fetchQuery';
 import {
   Box,
   Card,
@@ -31,21 +31,6 @@ import {
 } from '@chakra-ui/react';
 import { MdEmail, MdSearch, MdEvent, MdWeb } from 'react-icons/md';
 
-const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
-
-const getAllInvitation = async (user: User | undefined, { params = {} }) => {
-  const merge = qs.stringify(params);
-  return await fetch(`${coreUrl}/v1/invitation?${merge}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => res.data);
-};
-
 const Invitation = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -58,11 +43,15 @@ const Invitation = ({
   // Get Invitation
   const params = {
     where: [{ id_user: user.id_user }, { is_delete: false }],
-    with: [{ event: true }, { theme: true }],
+    with: [
+      { event: true },
+      { theme: true },
+      { invitation_guest_book_template: true },
+    ],
     search,
   };
   const { isLoading, data: invitation } = useQuery({
-    queryKey: ['invitation'],
+    queryKey: ['invitation', search],
     queryFn: () => getAllInvitation(user, { params }),
   });
 

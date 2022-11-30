@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
-import qs from 'qs';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import ContainerClient from '@/layouts/container/containerClient';
 import { User } from '@/pages/api/user';
+import { getInvitation, createGuestbook } from '@/libs/fetchQuery';
 import {
   Box,
   Button,
@@ -30,37 +29,6 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-
-const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
-
-const getInvitation = async (user: User | undefined, { id, params = {} }) => {
-  const merge = qs.stringify(params);
-  return await fetch(`${coreUrl}/v1/invitation/${id}?${merge}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => res.data);
-};
-
-const createGuestbook = async (
-  user: User | undefined,
-  { body, params = {} },
-) => {
-  const merge = qs.stringify(params);
-  return await fetch(`${coreUrl}/v1/invitation-guest-book?${merge}`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
-    .then((res) => res.json())
-    .then((res) => res.data);
-};
 
 const Add = ({
   user,

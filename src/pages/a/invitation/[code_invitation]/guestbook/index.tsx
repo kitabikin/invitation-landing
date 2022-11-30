@@ -4,7 +4,6 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
 import debounce from 'lodash/debounce';
-import qs from 'qs';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,9 @@ import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
 import GuestbookSend from '@/components/specific/guestbook/guestbookSend';
+import GuestbookMessage from '@/components/specific/guestbook/guestbookMessage';
 import { User } from '@/pages/api/user';
+import { getAllGuestbook, getInvitation } from '@/libs/fetchQuery';
 import {
   Badge,
   Box,
@@ -21,6 +22,12 @@ import {
   Card,
   CardBody,
   Container,
+  Drawer,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
   Flex,
   Grid,
   GridItem,
@@ -34,6 +41,7 @@ import {
   Stack,
   Text,
   Tooltip,
+  useDisclosure,
 } from '@chakra-ui/react';
 import {
   MdAdd,
@@ -46,21 +54,6 @@ import {
   MdArrowForward,
 } from 'react-icons/md';
 
-const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
-
-const getAllGuestbook = async (user: User | undefined, { params = {} }) => {
-  const merge = qs.stringify(params);
-  return await fetch(`${coreUrl}/v1/invitation-guest-book?${merge}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => res.data);
-};
-
 const Guestbook = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -72,6 +65,8 @@ const Guestbook = ({
   const [search, setSearch] = useState('');
   const [type, setType] = useState<any>(['vip', 'keluarga', 'biasa']);
   const [send, setSend] = useState<any>([true, false]);
+  const [guest, setGuest] = useState('Tamu Undangan');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Get Guestbook
   const params = {
@@ -87,8 +82,18 @@ const Guestbook = ({
     search,
   };
   const { isLoading, data: guestbook } = useQuery({
-    queryKey: ['guestbook'],
+    queryKey: ['guestbook', search, type, send],
     queryFn: () => getAllGuestbook(user, { params }),
+  });
+
+  const paramsInvitation = {
+    where: [{ id_user: user.id_user }, { is_delete: false }],
+    with: [{ invitation_guest_book_template: true }],
+  };
+  const { isLoading: isLoadingInvitation, data: invitation } = useQuery({
+    queryKey: ['invitation', code_invitation],
+    queryFn: () =>
+      getInvitation(user, { id: code_invitation, params: paramsInvitation }),
   });
 
   // Effect
@@ -208,11 +213,7 @@ const Guestbook = ({
                               gap={4}
                               mb={3}
                             >
-                              <Heading
-                                as={'h5'}
-                                size="sm"
-                                textTransform="uppercase"
-                              >
+                              <Heading as={'h5'} size="sm">
                                 {res.name}
                               </Heading>
 
@@ -324,10 +325,28 @@ const Guestbook = ({
                                   </Link>
                                 </NextLink>
                                 <Button
+                                  display={{ base: 'none', md: 'block' }}
                                   size={'xs'}
                                   variant="outline"
                                   colorScheme="teal"
                                   rightIcon={<MdArrowForward />}
+                                  onClick={() => {
+                                    setGuest(res.name);
+                                  }}
+                                >
+                                  Lihat Pesan
+                                </Button>
+
+                                <Button
+                                  display={{ base: 'block', md: 'none' }}
+                                  size={'xs'}
+                                  variant="outline"
+                                  colorScheme="teal"
+                                  rightIcon={<MdArrowForward />}
+                                  onClick={() => {
+                                    setGuest(res.name);
+                                    onOpen();
+                                  }}
                                 >
                                   Lihat Pesan
                                 </Button>
@@ -355,8 +374,45 @@ const Guestbook = ({
               display={{ base: 'none', md: 'block' }}
               w={{ base: 0, md: '300px', lg: '435px', xl: '570px' }}
             >
-              Kanan
+              <Box
+                position={'fixed'}
+                display={'inline-block'}
+                w={'inherit'}
+                maxW={'inherit'}
+                h={'calc(100vh - 65px)'}
+              >
+                {isLoadingInvitation ? (
+                  <Box>Loading...</Box>
+                ) : (
+                  <GuestbookMessage
+                    user={user}
+                    id={invitation.template.id_invitation_guest_book_template}
+                    guest={guest}
+                  />
+                )}
+              </Box>
             </Box>
+
+            {/* Drawer */}
+            <Drawer placement={'bottom'} onClose={onClose} isOpen={isOpen}>
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerCloseButton />
+                <DrawerHeader>Pesan</DrawerHeader>
+
+                <DrawerBody py={6}>
+                  {isLoadingInvitation ? (
+                    <Box>Loading...</Box>
+                  ) : (
+                    <GuestbookMessage
+                      user={user}
+                      id={invitation.template.id_invitation_guest_book_template}
+                      guest={guest}
+                    />
+                  )}
+                </DrawerBody>
+              </DrawerContent>
+            </Drawer>
           </Flex>
         </Container>
       </Box>

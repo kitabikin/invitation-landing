@@ -7,7 +7,6 @@ import '@fontsource/inter/900.css';
 import '@fontsource/lora/400.css';
 import '@fontsource/lora/700.css';
 
-import { SWRConfig } from 'swr';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/config/theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

@@ -3,7 +3,6 @@ import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
 import debounce from 'lodash/debounce';
-import qs from 'qs';
 import { format, parseISO } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { withIronSessionSsr } from 'iron-session/next';
@@ -14,6 +13,7 @@ import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
 import { User } from '@/pages/api/user';
+import { getAllGuestbook } from '@/libs/fetchQuery';
 import {
   Badge,
   Box,
@@ -39,21 +39,6 @@ import {
   MdAccessTimeFilled,
 } from 'react-icons/md';
 
-const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
-
-const getAllGuestbook = async (user: User | undefined, { params = {} }) => {
-  const merge = qs.stringify(params);
-  return await fetch(`${coreUrl}/v1/invitation-guest-book?${merge}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => res.data);
-};
-
 const Attendance = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -77,7 +62,7 @@ const Attendance = ({
     search,
   };
   const { isLoading, data: guestbook } = useQuery({
-    queryKey: ['attendance'],
+    queryKey: ['attendance', search, confirmation],
     queryFn: () => getAllGuestbook(user, { params }),
   });
 
