@@ -39,9 +39,14 @@ const Add = ({
   const { code_invitation } = router.query;
 
   // Get Data
+  const paramsInvitation = {
+    where: [{ id_user: user.id_user }, { is_delete: false }],
+    with: [{ invitation_guest_book_template: true }],
+  };
   const { isLoading, data: invitation } = useQuery({
     queryKey: ['invitation', code_invitation],
-    queryFn: () => getInvitation(user, { id: code_invitation }),
+    queryFn: () =>
+      getInvitation(user, { id: code_invitation, params: paramsInvitation }),
   });
 
   const mutation = useMutation({
