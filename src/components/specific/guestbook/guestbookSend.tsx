@@ -11,7 +11,7 @@ const GuestbookSend = ({ user, id, isSend }) => {
   const mutation = useMutation({
     mutationFn: (body: any) => updateGuestbook(user, { id, body, params }),
     onSuccess: () => {
-      queryClient.invalidateQueries(['guestbook']);
+      queryClient.invalidateQueries({ queryKey: ['guestbook'] });
     },
   });
 
@@ -23,6 +23,7 @@ const GuestbookSend = ({ user, id, isSend }) => {
 
   return (
     <Button
+      type={'button'}
       size={'xs'}
       variant="outline"
       colorScheme="gray"

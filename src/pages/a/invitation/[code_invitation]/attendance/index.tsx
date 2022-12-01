@@ -1,13 +1,13 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
-import _ from 'lodash';
+import { assign, isEmpty } from 'lodash';
 import debounce from 'lodash/debounce';
 import { format, parseISO } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
@@ -17,6 +17,7 @@ import { getAllGuestbook } from '@/libs/fetchQuery';
 import {
   Badge,
   Box,
+  Button,
   Card,
   CardBody,
   Container,
@@ -43,10 +44,13 @@ const Attendance = ({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Settings
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { code_invitation } = router.query;
 
   // State
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('modified_at:desc');
   const [search, setSearch] = useState('');
   const [confirmation, setConfirmation] = useState<any>(['yes', 'no']);
 
@@ -60,27 +64,75 @@ const Attendance = ({
     ],
     with: [{ invitation: true }, { parrent: true }],
     search,
+    sort,
+    page,
   };
-  const { isLoading, data: guestbook } = useQuery({
-    queryKey: ['attendance', search, confirmation],
+  const {
+    isLoading,
+    data: guestbook,
+    isPreviousData,
+  } = useQuery({
+    queryKey: ['attendance', page, sort, search, confirmation],
     queryFn: () => getAllGuestbook(user, { params }),
+    keepPreviousData: true,
+    staleTime: 5000,
   });
 
   // Effect
   useEffect(() => {
+    if (!isPreviousData && guestbook?.hasMore) {
+      queryClient.prefetchQuery(
+        ['attendance', page + 1, sort, search, confirmation],
+        () => {
+          assign(params, {
+            page: page + 1,
+          });
+          return getAllGuestbook(user, { params });
+        },
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    guestbook,
+    isPreviousData,
+    sort,
+    page,
+    search,
+    confirmation,
+    queryClient,
+  ]);
+
+  useEffect(() => {
     return () => {
       debouncedChangeHandler.cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Action
+  const handleSort = ({ target }) => {
+    setPage(1);
+    switch (target.value) {
+      case 'modified_at':
+        setSort('modified_at:desc');
+        break;
+      case 'name':
+        setSort('name:asc');
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSearch = ({ target }) => {
+    setPage(1);
     setSearch(target.value);
   };
 
   const debouncedChangeHandler = useMemo(() => debounce(handleSearch, 500), []);
 
   const handleConfirmation = ({ target }) => {
+    setPage(1);
     if (target.value === 'all') {
       setConfirmation(['yes', 'no']);
     } else {
@@ -90,8 +142,8 @@ const Attendance = ({
 
   return (
     <ContainerClient type={'invitation'} title={'Konfirmasi Kehadiran'}>
-      <Box bg={'gray.50'} minH={'100vh'}>
-        <Container maxW={'8xl'}>
+      <Box bg={'gray.50'} minH={'calc(100vh - 65px)'}>
+        <Container maxW={'8xl'} pb={8}>
           <Flex flexDir={'column'} gap={4} py={8}>
             {/* Header */}
             <Heading as={'h3'} size={'lg'} mb={4}>
@@ -100,7 +152,7 @@ const Attendance = ({
 
             {/* Filter */}
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-              <GridItem colSpan={{ base: 12, md: 9 }}>
+              <GridItem colSpan={{ base: 12, md: 8 }}>
                 <InputGroup bg={'white'}>
                   <InputLeftElement
                     pointerEvents="none"
@@ -114,11 +166,17 @@ const Attendance = ({
                   />
                 </InputGroup>
               </GridItem>
-              <GridItem colSpan={{ base: 12, md: 3 }}>
+              <GridItem colSpan={{ base: 12, md: 2 }}>
                 <Select bg={'white'} onChange={handleConfirmation}>
                   <option value="all">Semua</option>
                   <option value="yes">Hadir</option>
                   <option value="no">Tidak Hadir</option>
+                </Select>
+              </GridItem>
+              <GridItem colSpan={{ base: 12, md: 2 }}>
+                <Select bg={'white'} onChange={handleSort}>
+                  <option value="modified_at">Terbaru</option>
+                  <option value="name">Abjad</option>
                 </Select>
               </GridItem>
             </Grid>
@@ -128,92 +186,116 @@ const Attendance = ({
               <SkeletonList />
             ) : (
               <Fragment>
-                {_.isEmpty(guestbook) ? (
+                {isEmpty(guestbook.data) ? (
                   <EmptyList
                     label={'Konfirmasi Kehadiran'}
                     icon={<MdPeople size={30} />}
                   />
                 ) : (
-                  <Stack>
-                    {guestbook.map((res, index) => (
-                      <Card key={index} variant={'outline'} bg={'white'}>
-                        <CardBody>
-                          <Flex
-                            flexDir={{ base: 'column', md: 'row' }}
-                            alignItems={'flex-start'}
-                            justifyContent={'space-between'}
-                            gap={4}
-                            mb={3}
-                          >
-                            <Heading
-                              as={'h5'}
-                              size="sm"
-                              textTransform="uppercase"
+                  <>
+                    <Stack>
+                      {guestbook.data.map((res, index) => (
+                        <Card key={index} variant={'outline'} bg={'white'}>
+                          <CardBody>
+                            <Flex
+                              flexDir={{ base: 'column', md: 'row' }}
+                              alignItems={'flex-start'}
+                              justifyContent={'space-between'}
+                              gap={4}
+                              mb={3}
                             >
-                              {res.name}
-                            </Heading>
-                            {res.confirmation === 'yes' ? (
-                              <Badge colorScheme="green">Hadir</Badge>
-                            ) : (
-                              <Badge colorScheme="red">Tidak Hadir</Badge>
-                            )}
-                          </Flex>
-
-                          <Flex
-                            flexDir={{ base: 'column', md: 'row' }}
-                            gap={{ base: 2, md: 6 }}
-                            mb={2}
-                          >
-                            <Tooltip
-                              hasArrow
-                              placement="top"
-                              label="Tanggal Konfirmasi"
-                              aria-label="Tanggal Konfirmasi"
-                            >
-                              <Flex
-                                alignItems={'center'}
-                                gap={2}
-                                color={'red.300'}
+                              <Heading
+                                as={'h5'}
+                                size="sm"
+                                textTransform="uppercase"
                               >
-                                <MdAccessTimeFilled size={20} />
-                                <Text fontSize="sm" color={'gray.600'}>
-                                  {format(
-                                    parseISO(res.modified_at),
-                                    'd MMMM yyyy - HH:mm',
-                                    {
-                                      locale: id,
-                                    },
-                                  )}
-                                </Text>
-                              </Flex>
-                            </Tooltip>
+                                {res.name}
+                              </Heading>
+                              {res.confirmation === 'yes' ? (
+                                <Badge colorScheme="green">Hadir</Badge>
+                              ) : (
+                                <Badge colorScheme="red">Tidak Hadir</Badge>
+                              )}
+                            </Flex>
 
-                            <Tooltip
-                              hasArrow
-                              placement="top"
-                              label="Jumlah Reservasi"
-                              aria-label="Jumlah Reservasi"
+                            <Flex
+                              flexDir={{ base: 'column', md: 'row' }}
+                              gap={{ base: 2, md: 6 }}
+                              mb={2}
                             >
-                              <Flex
-                                alignItems={'center'}
-                                gap={2}
-                                color={'blue.300'}
+                              <Tooltip
+                                hasArrow
+                                placement="top"
+                                label="Tanggal Konfirmasi"
+                                aria-label="Tanggal Konfirmasi"
                               >
-                                <MdSupervisedUserCircle size={20} />
-                                <Text fontSize="sm" color={'gray.600'}>
-                                  {res.total_reservation
-                                    ? res.total_reservation
-                                    : '-'}
-                                </Text>
-                              </Flex>
-                            </Tooltip>
-                          </Flex>
+                                <Flex
+                                  alignItems={'center'}
+                                  gap={2}
+                                  color={'red.300'}
+                                >
+                                  <MdAccessTimeFilled size={20} />
+                                  <Text fontSize="sm" color={'gray.600'}>
+                                    {format(
+                                      parseISO(res.modified_at),
+                                      'd MMMM yyyy - HH:mm',
+                                      {
+                                        locale: id,
+                                      },
+                                    )}
+                                  </Text>
+                                </Flex>
+                              </Tooltip>
 
-                          <Text fontSize="sm">{res.address}</Text>
-                        </CardBody>
-                      </Card>
-                    ))}
-                  </Stack>
+                              <Tooltip
+                                hasArrow
+                                placement="top"
+                                label="Jumlah Reservasi"
+                                aria-label="Jumlah Reservasi"
+                              >
+                                <Flex
+                                  alignItems={'center'}
+                                  gap={2}
+                                  color={'blue.300'}
+                                >
+                                  <MdSupervisedUserCircle size={20} />
+                                  <Text fontSize="sm" color={'gray.600'}>
+                                    {res.total_reservation
+                                      ? res.total_reservation
+                                      : '-'}
+                                  </Text>
+                                </Flex>
+                              </Tooltip>
+                            </Flex>
+
+                            <Text fontSize="sm">{res.address}</Text>
+                          </CardBody>
+                        </Card>
+                      ))}
+                    </Stack>
+                    <Flex justifyContent={'space-between'}>
+                      <Button
+                        size={'sm'}
+                        colorScheme={'pink'}
+                        onClick={() => setPage((old) => Math.max(old - 1, 0))}
+                        disabled={page === 1}
+                      >
+                        Sebelumnya
+                      </Button>
+                      <Button
+                        size={'sm'}
+                        colorScheme={'pink'}
+                        onClick={() => {
+                          setPage((old) =>
+                            guestbook?.hasMore ? old + 1 : old,
+                          );
+                        }}
+                        disabled={isPreviousData || !guestbook?.hasMore}
+                      >
+                        Selanjutnya
+                      </Button>
+                    </Flex>
+                  </>
                 )}
               </Fragment>
             )}

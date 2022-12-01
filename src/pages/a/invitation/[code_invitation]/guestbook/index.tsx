@@ -2,7 +2,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { InferGetServerSidePropsType } from 'next';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import _ from 'lodash';
+import { assign, isEmpty } from 'lodash';
 import debounce from 'lodash/debounce';
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '@/libs/session';
@@ -62,6 +62,8 @@ const Guestbook = ({
   const { code_invitation } = router.query;
 
   // State
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('modified_at:desc');
   const [search, setSearch] = useState('');
   const [type, setType] = useState<any>(['vip', 'keluarga', 'biasa']);
   const [send, setSend] = useState<any>([true, false]);
@@ -80,10 +82,18 @@ const Guestbook = ({
     ],
     with: [{ invitation: true }, { parrent: true }],
     search,
+    sort,
+    page,
   };
-  const { isLoading, data: guestbook } = useQuery({
-    queryKey: ['guestbook', search, type, send],
+  const {
+    isLoading,
+    data: guestbook,
+    isPreviousData,
+  } = useQuery({
+    queryKey: ['guestbook', page, sort, search, type, send],
     queryFn: () => getAllGuestbook(user, { params }),
+    keepPreviousData: true,
+    staleTime: 5000,
   });
 
   const paramsInvitation = {
@@ -101,16 +111,33 @@ const Guestbook = ({
     return () => {
       debouncedChangeHandler.cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Action
+  const handleSort = ({ target }) => {
+    setPage(1);
+    switch (target.value) {
+      case 'modified_at':
+        setSort('modified_at:desc');
+        break;
+      case 'name':
+        setSort('name:asc');
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSearch = ({ target }) => {
+    setPage(1);
     setSearch(target.value);
   };
 
   const debouncedChangeHandler = useMemo(() => debounce(handleSearch, 500), []);
 
   const handleType = ({ target }) => {
+    setPage(1);
     if (target.value === 'all') {
       setType(['vip', 'keluarga', 'biasa']);
     } else {
@@ -119,6 +146,7 @@ const Guestbook = ({
   };
 
   const handleSend = ({ target }) => {
+    setPage(1);
     if (target.value === 'all') {
       setSend([true, false]);
     } else {
@@ -128,8 +156,8 @@ const Guestbook = ({
 
   return (
     <ContainerClient type={'invitation'} title={'Buku Tamu'}>
-      <Box bg={'gray.50'} minH={'100vh'}>
-        <Container maxW={'8xl'}>
+      <Box bg={'gray.50'} minH={'calc(100vh - 65px)'}>
+        <Container maxW={'8xl'} pb={8}>
           <Flex>
             {/* Main */}
             <Flex flex={'1 0 0%'} flexDir={'column'} gap={4} py={8}>
@@ -174,7 +202,7 @@ const Guestbook = ({
                     />
                   </InputGroup>
                 </GridItem>
-                <GridItem colSpan={{ base: 12, md: 3 }}>
+                <GridItem colSpan={{ base: 12, md: 2 }}>
                   <Select bg={'white'} onChange={handleType}>
                     <option value="all">Semua</option>
                     <option value="vip">VIP</option>
@@ -182,11 +210,17 @@ const Guestbook = ({
                     <option value="biasa">Biasa</option>
                   </Select>
                 </GridItem>
-                <GridItem colSpan={{ base: 12, md: 3 }}>
+                <GridItem colSpan={{ base: 12, md: 2 }}>
                   <Select bg={'white'} onChange={handleSend}>
                     <option value="all">Semua</option>
                     <option value="true">Terkirim</option>
                     <option value="false">Belum Terkirim</option>
+                  </Select>
+                </GridItem>
+                <GridItem colSpan={{ base: 12, md: 2 }}>
+                  <Select bg={'white'} onChange={handleSort}>
+                    <option value="modified_at">Terbaru</option>
+                    <option value="name">Abjad</option>
                   </Select>
                 </GridItem>
               </Grid>
@@ -196,174 +230,200 @@ const Guestbook = ({
                 <SkeletonList />
               ) : (
                 <Fragment>
-                  {_.isEmpty(guestbook) ? (
+                  {isEmpty(guestbook.data) ? (
                     <EmptyList
                       label={'Konfirmasi Kehadiran'}
                       icon={<MdPeople size={30} />}
                     />
                   ) : (
-                    <Stack>
-                      {guestbook.map((res, index) => (
-                        <Card key={index} variant={'outline'} bg={'white'}>
-                          <CardBody>
-                            <Flex
-                              flexDir={{ base: 'column', md: 'row' }}
-                              alignItems={'flex-start'}
-                              justifyContent={'space-between'}
-                              gap={4}
-                              mb={3}
-                            >
-                              <Heading as={'h5'} size="sm">
-                                {res.name}
-                              </Heading>
-
-                              {res.is_send ? (
-                                <Badge colorScheme="green">Terkirim</Badge>
-                              ) : (
-                                <Badge colorScheme="red">Belum Terkirim</Badge>
-                              )}
-                            </Flex>
-
-                            <Flex
-                              flexDir={{ base: 'column', md: 'row' }}
-                              gap={{ base: 2, md: 6 }}
-                              mb={2}
-                            >
-                              <Tooltip
-                                hasArrow
-                                placement="top"
-                                label="Jenis Tamu"
-                                aria-label="Jenis Tamu"
+                    <>
+                      <Stack>
+                        {guestbook.data.map((res, index) => (
+                          <Card key={index} variant={'outline'} bg={'white'}>
+                            <CardBody>
+                              <Flex
+                                flexDir={{ base: 'column', md: 'row' }}
+                                alignItems={'flex-start'}
+                                justifyContent={'space-between'}
+                                gap={4}
+                                mb={3}
                               >
-                                <Flex
-                                  alignItems={'center'}
-                                  gap={2}
-                                  color={'teal.300'}
-                                >
-                                  <MdPerson size={20} />
-                                  <Text fontSize="sm" color={'gray.600'}>
-                                    {(() => {
-                                      switch (res.type) {
-                                        case 'vip':
-                                          return 'VIP';
-                                        case 'keluarga':
-                                          return 'Keluarga';
-                                        case 'biasa':
-                                          return 'Biasa';
-                                        default:
-                                          return null;
-                                      }
-                                    })()}
-                                  </Text>
-                                </Flex>
-                              </Tooltip>
+                                <Heading as={'h5'} size="sm">
+                                  {res.name}
+                                </Heading>
 
-                              <Tooltip
-                                hasArrow
-                                placement="top"
-                                label="Sesi"
-                                aria-label="Sesi"
+                                {res.is_send ? (
+                                  <Badge colorScheme="green">Terkirim</Badge>
+                                ) : (
+                                  <Badge colorScheme="red">
+                                    Belum Terkirim
+                                  </Badge>
+                                )}
+                              </Flex>
+
+                              <Flex
+                                flexDir={{ base: 'column', md: 'row' }}
+                                gap={{ base: 2, md: 6 }}
+                                mb={2}
                               >
-                                <Flex
-                                  alignItems={'center'}
-                                  gap={2}
-                                  color={'red.300'}
+                                <Tooltip
+                                  hasArrow
+                                  placement="top"
+                                  label="Jenis Tamu"
+                                  aria-label="Jenis Tamu"
                                 >
-                                  <MdAccessTimeFilled size={20} />
-                                  <Text fontSize="sm" color={'gray.600'}>
-                                    Sesi {res.session ? res.session : '-'}
-                                  </Text>
-                                </Flex>
-                              </Tooltip>
+                                  <Flex
+                                    alignItems={'center'}
+                                    gap={2}
+                                    color={'teal.300'}
+                                  >
+                                    <MdPerson size={20} />
+                                    <Text fontSize="sm" color={'gray.600'}>
+                                      {(() => {
+                                        switch (res.type) {
+                                          case 'vip':
+                                            return 'VIP';
+                                          case 'keluarga':
+                                            return 'Keluarga';
+                                          case 'biasa':
+                                            return 'Biasa';
+                                          default:
+                                            return null;
+                                        }
+                                      })()}
+                                    </Text>
+                                  </Flex>
+                                </Tooltip>
 
-                              <Tooltip
-                                hasArrow
-                                placement="top"
-                                label="No. Telepon"
-                                aria-label="No. Telepon"
+                                <Tooltip
+                                  hasArrow
+                                  placement="top"
+                                  label="Sesi"
+                                  aria-label="Sesi"
+                                >
+                                  <Flex
+                                    alignItems={'center'}
+                                    gap={2}
+                                    color={'red.300'}
+                                  >
+                                    <MdAccessTimeFilled size={20} />
+                                    <Text fontSize="sm" color={'gray.600'}>
+                                      Sesi {res.session ? res.session : '-'}
+                                    </Text>
+                                  </Flex>
+                                </Tooltip>
+
+                                <Tooltip
+                                  hasArrow
+                                  placement="top"
+                                  label="No. Telepon"
+                                  aria-label="No. Telepon"
+                                >
+                                  <Flex
+                                    alignItems={'center'}
+                                    gap={2}
+                                    color={'blue.300'}
+                                  >
+                                    <MdLocalPhone size={20} />
+                                    <Text fontSize="sm" color={'gray.600'}>
+                                      {res.no_telp ? res.no_telp : '-'}
+                                    </Text>
+                                  </Flex>
+                                </Tooltip>
+                              </Flex>
+
+                              <Text fontSize="sm" mb={4}>
+                                {res.address}
+                              </Text>
+
+                              <Flex
+                                flexDir={{ base: 'column', md: 'row' }}
+                                justifyContent={'space-between'}
+                                gap={{ base: 2, md: 6 }}
                               >
-                                <Flex
-                                  alignItems={'center'}
-                                  gap={2}
-                                  color={'blue.300'}
-                                >
-                                  <MdLocalPhone size={20} />
-                                  <Text fontSize="sm" color={'gray.600'}>
-                                    {res.no_telp ? res.no_telp : '-'}
-                                  </Text>
-                                </Flex>
-                              </Tooltip>
-                            </Flex>
-
-                            <Text fontSize="sm" mb={4}>
-                              {res.address}
-                            </Text>
-
-                            <Flex
-                              flexDir={{ base: 'column', md: 'row' }}
-                              justifyContent={'space-between'}
-                              gap={{ base: 2, md: 6 }}
-                            >
-                              <HStack spacing="16px">
-                                <NextLink
-                                  href={`/a/invitation/${code_invitation}/guestbook/edit/${res.id_invitation_guest_book}`}
-                                  passHref
-                                >
-                                  <Link
-                                    _hover={{
-                                      textDecoration: 'none',
+                                <HStack spacing="16px">
+                                  <NextLink
+                                    href={`/a/invitation/${code_invitation}/guestbook/edit/${res.id_invitation_guest_book}`}
+                                    passHref
+                                  >
+                                    <Link
+                                      _hover={{
+                                        textDecoration: 'none',
+                                      }}
+                                    >
+                                      <Button
+                                        size={'xs'}
+                                        variant="solid"
+                                        colorScheme="pink"
+                                        leftIcon={<MdModeEdit />}
+                                      >
+                                        Ubah
+                                      </Button>
+                                    </Link>
+                                  </NextLink>
+                                  <Button
+                                    display={{ base: 'none', md: 'block' }}
+                                    size={'xs'}
+                                    variant="outline"
+                                    colorScheme="teal"
+                                    rightIcon={<MdArrowForward />}
+                                    onClick={() => {
+                                      setGuest(res.name);
                                     }}
                                   >
-                                    <Button
-                                      size={'xs'}
-                                      variant="solid"
-                                      colorScheme="pink"
-                                      leftIcon={<MdModeEdit />}
-                                    >
-                                      Ubah
-                                    </Button>
-                                  </Link>
-                                </NextLink>
-                                <Button
-                                  display={{ base: 'none', md: 'block' }}
-                                  size={'xs'}
-                                  variant="outline"
-                                  colorScheme="teal"
-                                  rightIcon={<MdArrowForward />}
-                                  onClick={() => {
-                                    setGuest(res.name);
-                                  }}
-                                >
-                                  Lihat Pesan
-                                </Button>
+                                    Lihat Pesan
+                                  </Button>
 
-                                <Button
-                                  display={{ base: 'block', md: 'none' }}
-                                  size={'xs'}
-                                  variant="outline"
-                                  colorScheme="teal"
-                                  rightIcon={<MdArrowForward />}
-                                  onClick={() => {
-                                    setGuest(res.name);
-                                    onOpen();
-                                  }}
-                                >
-                                  Lihat Pesan
-                                </Button>
-                              </HStack>
+                                  <Button
+                                    display={{ base: 'block', md: 'none' }}
+                                    size={'xs'}
+                                    variant="outline"
+                                    colorScheme="teal"
+                                    rightIcon={<MdArrowForward />}
+                                    onClick={() => {
+                                      setGuest(res.name);
+                                      onOpen();
+                                    }}
+                                  >
+                                    Lihat Pesan
+                                  </Button>
+                                </HStack>
 
-                              <HStack spacing="16px">
-                                <GuestbookSend
-                                  user={user}
-                                  id={res.id_invitation_guest_book}
-                                  isSend={res.is_send}
-                                />
-                              </HStack>
-                            </Flex>
-                          </CardBody>
-                        </Card>
-                      ))}
-                    </Stack>
+                                <HStack spacing="16px">
+                                  <GuestbookSend
+                                    user={user}
+                                    id={res.id_invitation_guest_book}
+                                    isSend={res.is_send}
+                                  />
+                                </HStack>
+                              </Flex>
+                            </CardBody>
+                          </Card>
+                        ))}
+                      </Stack>
+                      <Flex justifyContent={'space-between'}>
+                        <Button
+                          size={'sm'}
+                          colorScheme={'pink'}
+                          onClick={() => setPage((old) => Math.max(old - 1, 0))}
+                          disabled={page === 1}
+                        >
+                          Sebelumnya
+                        </Button>
+                        <Button
+                          size={'sm'}
+                          colorScheme={'pink'}
+                          onClick={() => {
+                            setPage((old) =>
+                              guestbook?.hasMore ? old + 1 : old,
+                            );
+                          }}
+                          disabled={isPreviousData || !guestbook?.hasMore}
+                        >
+                          Selanjutnya
+                        </Button>
+                      </Flex>
+                    </>
                   )}
                 </Fragment>
               )}
