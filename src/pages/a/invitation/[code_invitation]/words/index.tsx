@@ -10,7 +10,6 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
-import { User } from '@/pages/api/user';
 import { getAllGreeting } from '@/libs/fetchQuery';
 import {
   Box,
