@@ -1,12 +1,11 @@
 import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
-import { withIronSessionSsr } from 'iron-session/next';
-import { sessionOptions } from '@/libs/session';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
-import { User } from '@/pages/api/user';
 import { getGuestbook, updateGuestbook } from '@/libs/fetchQuery';
 import {
   Box,
@@ -32,7 +31,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 const Edit = ({
-  user,
+  session,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Settings
   const queryClient = useQueryClient();
@@ -42,12 +41,16 @@ const Edit = ({
   // Get Data
   const { isLoading, data: guestbook } = useQuery({
     queryKey: ['guestbook', id_invitation_guest_book],
-    queryFn: () => getGuestbook(user, { id: id_invitation_guest_book }),
+    queryFn: () =>
+      getGuestbook(session?.accessToken, { id: id_invitation_guest_book }),
   });
 
   const mutation = useMutation({
     mutationFn: (body: any) =>
-      updateGuestbook(user, { id: id_invitation_guest_book, body }),
+      updateGuestbook(session?.accessToken, {
+        id: id_invitation_guest_book,
+        body,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries(['guestbook']);
     },
@@ -111,6 +114,7 @@ const Edit = ({
                                   id="name"
                                   placeholder="Nama"
                                   autoComplete="off"
+                                  variant="filled"
                                 />
                                 <FormErrorMessage>
                                   {form.errors.name}
@@ -135,6 +139,7 @@ const Edit = ({
                                   {...field}
                                   id="address"
                                   placeholder="Alamat"
+                                  variant="filled"
                                 />
                                 <FormErrorMessage>
                                   {form.errors.address}
@@ -159,6 +164,7 @@ const Edit = ({
                                   {...field}
                                   id="no_telp"
                                   placeholder="No. Telepon"
+                                  variant="filled"
                                 />
                                 <FormErrorMessage>
                                   {form.errors.no_telp}
@@ -184,6 +190,7 @@ const Edit = ({
                                   {...field}
                                   id="type"
                                   placeholder="Jenis Tamu"
+                                  variant="filled"
                                 >
                                   <option value="vip">VIP</option>
                                   <option value="keluarga">Keluarga</option>
@@ -213,6 +220,7 @@ const Edit = ({
                                   defaultValue={guestbook.session}
                                   min={1}
                                   max={5}
+                                  variant="filled"
                                 >
                                   <NumberInputField
                                     {...field}
@@ -250,33 +258,27 @@ const Edit = ({
   );
 };
 
-export const getServerSideProps = withIronSessionSsr(async function ({
-  req,
-  res,
-}) {
-  const user = req.session.user;
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions,
+  );
 
-  if (user === undefined) {
-    res.setHeader('location', '/login');
-    res.statusCode = 302;
-    res.end();
+  if (!session) {
     return {
-      props: {
-        user: {
-          isLoggedIn: false,
-          id_user: null,
-          username: null,
-          profile: null,
-          token: null,
-        } as User,
+      redirect: {
+        destination: '/a/invitation',
+        permanent: false,
       },
     };
   }
 
   return {
-    props: { user: req.session.user },
+    props: {
+      session,
+    },
   };
-},
-sessionOptions);
+}
 
 export default Edit;

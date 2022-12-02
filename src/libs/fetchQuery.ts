@@ -6,15 +6,12 @@ import { User } from '@/pages/api/user';
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
 // Invitation ==================================================================
-export const getAllInvitation = async (
-  user: User | undefined,
-  { params = {} },
-) => {
+export const getAllInvitation = async (accessToken, { params = {} }) => {
   const merge = qs.stringify(params);
   return await fetch(`${coreUrl}/v1/invitation?${merge}`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
   })
@@ -22,10 +19,7 @@ export const getAllInvitation = async (
     .then((res) => res.data);
 };
 
-export const getInvitation = async (
-  user: User | undefined,
-  { id, params = {} },
-) => {
+export const getInvitation = async (accessToken, { id, params = {} }) => {
   const merge = qs.stringify(params);
   return await fetch(`${coreUrl}/v1/invitation/${id}?${merge}`, {
     method: 'GET',
@@ -38,10 +32,7 @@ export const getInvitation = async (
 };
 
 // Guest Book ==================================================================
-export const getAllGuestbook = async (
-  user: User | undefined,
-  { params = {} }: any,
-) => {
+export const getAllGuestbook = async (accessToken, { params = {} }: any) => {
   let page = 1;
   if (!isEmpty(params)) {
     page = params.page;
@@ -55,7 +46,7 @@ export const getAllGuestbook = async (
   const options = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
     url: `${coreUrl}/v1/invitation-guest-book?${merge}`,
@@ -65,15 +56,12 @@ export const getAllGuestbook = async (
   return { data: data.data, hasMore: page < hasMore };
 };
 
-export const getGuestbook = async (
-  user: User | undefined,
-  { id, params = {} },
-) => {
+export const getGuestbook = async (accessToken, { id, params = {} }) => {
   const merge = qs.stringify(params);
   return await fetch(`${coreUrl}/v1/invitation-guest-book/${id}?${merge}`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
   })
@@ -81,15 +69,12 @@ export const getGuestbook = async (
     .then((res) => res.data);
 };
 
-export const createGuestbook = async (
-  user: User | undefined,
-  { body, params = {} },
-) => {
+export const createGuestbook = async (accessToken, { body, params = {} }) => {
   const merge = qs.stringify(params);
   return await fetch(`${coreUrl}/v1/invitation-guest-book?${merge}`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
@@ -99,14 +84,14 @@ export const createGuestbook = async (
 };
 
 export const updateGuestbook = async (
-  user: User | undefined,
+  accessToken,
   { id, body, params = {} },
 ) => {
   const merge = qs.stringify(params);
   return await fetch(`${coreUrl}/v1/invitation-guest-book/${id}?${merge}`, {
     method: 'PUT',
     headers: {
-      Authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
@@ -116,10 +101,7 @@ export const updateGuestbook = async (
 };
 
 // Greeting ====================================================================
-export const getAllGreeting = async (
-  user: User | undefined,
-  { params = {} }: any,
-) => {
+export const getAllGreeting = async (accessToken, { params = {} }: any) => {
   let page = 1;
   if (!isEmpty(params)) {
     page = params.page;
@@ -133,7 +115,7 @@ export const getAllGreeting = async (
   const options = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
     url: `${coreUrl}/v1/invitation-greeting?${merge}`,
@@ -145,7 +127,7 @@ export const getAllGreeting = async (
 
 // Invitation Guest Book Template ==============================================
 export const getGuestbookTemplate = async (
-  user: User | undefined,
+  accessToken,
   { id, params = {} },
 ) => {
   const merge = qs.stringify(params);
@@ -154,7 +136,7 @@ export const getGuestbookTemplate = async (
     {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
     },
@@ -164,7 +146,7 @@ export const getGuestbookTemplate = async (
 };
 
 export const updateGuestbookTemplate = async (
-  user: User | undefined,
+  accessToken,
   { id, body, params = {} },
 ) => {
   const merge = qs.stringify(params);
@@ -173,12 +155,44 @@ export const updateGuestbookTemplate = async (
     {
       method: 'PUT',
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     },
   )
+    .then((res) => res.json())
+    .then((res) => res.data);
+};
+
+// Appearance ==================================================================
+export const getAllAppearance = async (accessToken, { params = {} }: any) => {
+  const merge = qs.stringify(params);
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    url: `${coreUrl}/v1/appearance?${merge}`,
+  };
+  const { data } = await axios(options);
+  return { data: data.data };
+};
+
+export const updateAppearanceFeature = async (
+  accessToken,
+  { id, body, params = {} },
+) => {
+  const merge = qs.stringify(params);
+  return await fetch(`${coreUrl}/v1/invitation-feature/${id}?${merge}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
     .then((res) => res.json())
     .then((res) => res.data);
 };

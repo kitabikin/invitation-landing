@@ -1,5 +1,6 @@
 import { Fragment, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import {
   getGuestbookTemplate,
@@ -24,8 +25,9 @@ const replaceTemplate = (template, data) => {
   return template.replace(pattern, (_, token) => data[token] || '');
 };
 
-const GuestbookMessage = ({ user, id, guest = 'Tamu Undangan' }) => {
+const GuestbookMessage = ({ id, guest = 'Tamu Undangan' }) => {
   // Settings
+  const { data: session, status } = useSession();
   const queryClient = useQueryClient();
   const toast = useToast();
   const router = useRouter();
@@ -39,11 +41,12 @@ const GuestbookMessage = ({ user, id, guest = 'Tamu Undangan' }) => {
   // Get Data
   const { isLoading, data: guestbookTemplate } = useQuery({
     queryKey: ['guestbook-template', id],
-    queryFn: () => getGuestbookTemplate(user, { id }),
+    queryFn: () => getGuestbookTemplate(session?.accessToken, { id }),
   });
 
   const mutation = useMutation({
-    mutationFn: (body: any) => updateGuestbookTemplate(user, { id, body }),
+    mutationFn: (body: any) =>
+      updateGuestbookTemplate(session?.accessToken, { id, body }),
     onSuccess: () => {
       queryClient.invalidateQueries(['guestbook-template']);
     },

@@ -3,15 +3,14 @@ import { InferGetServerSidePropsType } from 'next';
 import NextLink from 'next/link';
 import _ from 'lodash';
 import debounce from 'lodash/debounce';
-import { withIronSessionSsr } from 'iron-session/next';
-import { sessionOptions } from '@/libs/session';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { useQuery } from '@tanstack/react-query';
 
 import site from '@/config/site';
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
-import { User } from '@/pages/api/user';
 import { getAllInvitation } from '@/libs/fetchQuery';
 import {
   Box,
@@ -32,7 +31,7 @@ import {
 import { MdEmail, MdSearch, MdEvent, MdWeb } from 'react-icons/md';
 
 const Invitation = ({
-  user,
+  session,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Settings
   const siteUrl = site.siteUrl.replace(/^https?:\/\//, '');
@@ -42,7 +41,7 @@ const Invitation = ({
 
   // Get Invitation
   const params = {
-    where: [{ id_user: user.id_user }, { is_delete: false }],
+    where: [{ id_user: session?.user.id_user }, { is_delete: false }],
     with: [
       { event: true },
       { theme: true },
@@ -52,7 +51,7 @@ const Invitation = ({
   };
   const { isLoading, data: invitation } = useQuery({
     queryKey: ['invitation', search],
-    queryFn: () => getAllInvitation(user, { params }),
+    queryFn: () => getAllInvitation(session?.accessToken, { params }),
   });
 
   // Effect
@@ -185,33 +184,27 @@ const Invitation = ({
   );
 };
 
-export const getServerSideProps = withIronSessionSsr(async function ({
-  req,
-  res,
-}) {
-  const user = req.session.user;
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions,
+  );
 
-  if (user === undefined) {
-    res.setHeader('location', '/login');
-    res.statusCode = 302;
-    res.end();
+  if (!session) {
     return {
-      props: {
-        user: {
-          isLoggedIn: false,
-          id_user: null,
-          username: null,
-          profile: null,
-          token: null,
-        } as User,
+      redirect: {
+        destination: '/a/invitation',
+        permanent: false,
       },
     };
   }
 
   return {
-    props: { user: req.session.user },
+    props: {
+      session,
+    },
   };
-},
-sessionOptions);
+}
 
 export default Invitation;

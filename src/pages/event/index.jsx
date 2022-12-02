@@ -14,7 +14,7 @@ const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
 function Event({ event }) {
   return (
-    <>
+    <ContainerDefault>
       <NextSeo
         title="Acara"
         titleTemplate={`%s | ${site.title}`}
@@ -48,7 +48,7 @@ function Event({ event }) {
       </Container>
 
       <CallOut />
-    </>
+    </ContainerDefault>
   );
 }
 
@@ -69,9 +69,5 @@ export async function getServerSideProps() {
 
   return { props: { event: data } };
 }
-
-Event.Layout = function getLayout(page) {
-  return <ContainerDefault>{page}</ContainerDefault>;
-};
 
 export default Event;

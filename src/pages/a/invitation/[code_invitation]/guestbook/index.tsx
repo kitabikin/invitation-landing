@@ -4,8 +4,8 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { assign, isEmpty } from 'lodash';
 import debounce from 'lodash/debounce';
-import { withIronSessionSsr } from 'iron-session/next';
-import { sessionOptions } from '@/libs/session';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { useQuery } from '@tanstack/react-query';
 
 import ContainerClient from '@/layouts/container/containerClient';
@@ -13,7 +13,6 @@ import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
 import GuestbookSend from '@/components/specific/guestbook/guestbookSend';
 import GuestbookMessage from '@/components/specific/guestbook/guestbookMessage';
-import { User } from '@/pages/api/user';
 import { getAllGuestbook, getInvitation } from '@/libs/fetchQuery';
 import {
   Badge,
@@ -55,7 +54,7 @@ import {
 } from 'react-icons/md';
 
 const Guestbook = ({
-  user,
+  session,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Settings
   const router = useRouter();
@@ -78,7 +77,7 @@ const Guestbook = ({
       { type },
       { is_send: send },
       { 'invitation:code': code_invitation },
-      { 'invitation:id_user': user.id_user },
+      { 'invitation:id_user': session?.user.id_user },
     ],
     with: [{ invitation: true }, { parrent: true }],
     search,
@@ -91,19 +90,22 @@ const Guestbook = ({
     isPreviousData,
   } = useQuery({
     queryKey: ['guestbook', page, sort, search, type, send],
-    queryFn: () => getAllGuestbook(user, { params }),
+    queryFn: () => getAllGuestbook(session?.accessToken, { params }),
     keepPreviousData: true,
     staleTime: 5000,
   });
 
   const paramsInvitation = {
-    where: [{ id_user: user.id_user }, { is_delete: false }],
+    where: [{ id_user: session?.user.id_user }, { is_delete: false }],
     with: [{ invitation_guest_book_template: true }],
   };
   const { isLoading: isLoadingInvitation, data: invitation } = useQuery({
     queryKey: ['invitation', code_invitation],
     queryFn: () =>
-      getInvitation(user, { id: code_invitation, params: paramsInvitation }),
+      getInvitation(session?.accessToken, {
+        id: code_invitation,
+        params: paramsInvitation,
+      }),
   });
 
   // Effect
@@ -333,7 +335,7 @@ const Guestbook = ({
                               </Flex>
 
                               <Text fontSize="sm" mb={4}>
-                                {res.address}
+                                {res.address ? res.address : '-'}
                               </Text>
 
                               <Flex
@@ -391,7 +393,6 @@ const Guestbook = ({
 
                                 <HStack spacing="16px">
                                   <GuestbookSend
-                                    user={user}
                                     id={res.id_invitation_guest_book}
                                     isSend={res.is_send}
                                   />
@@ -445,7 +446,6 @@ const Guestbook = ({
                   <Box>Loading...</Box>
                 ) : (
                   <GuestbookMessage
-                    user={user}
                     id={invitation.template.id_invitation_guest_book_template}
                     guest={guest}
                   />
@@ -465,7 +465,6 @@ const Guestbook = ({
                     <Box>Loading...</Box>
                   ) : (
                     <GuestbookMessage
-                      user={user}
                       id={invitation.template.id_invitation_guest_book_template}
                       guest={guest}
                     />
@@ -480,33 +479,27 @@ const Guestbook = ({
   );
 };
 
-export const getServerSideProps = withIronSessionSsr(async function ({
-  req,
-  res,
-}) {
-  const user = req.session.user;
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions,
+  );
 
-  if (user === undefined) {
-    res.setHeader('location', '/login');
-    res.statusCode = 302;
-    res.end();
+  if (!session) {
     return {
-      props: {
-        user: {
-          isLoggedIn: false,
-          id_user: null,
-          username: null,
-          profile: null,
-          token: null,
-        } as User,
+      redirect: {
+        destination: '/a/invitation',
+        permanent: false,
       },
     };
   }
 
   return {
-    props: { user: req.session.user },
+    props: {
+      session,
+    },
   };
-},
-sessionOptions);
+}
 
 export default Guestbook;

@@ -5,8 +5,8 @@ import { assign, isEmpty } from 'lodash';
 import debounce from 'lodash/debounce';
 import { format, parseISO } from 'date-fns';
 import { id } from 'date-fns/locale';
-import { withIronSessionSsr } from 'iron-session/next';
-import { sessionOptions } from '@/libs/session';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import ContainerClient from '@/layouts/container/containerClient';
@@ -41,7 +41,7 @@ import {
 } from 'react-icons/md';
 
 const Attendance = ({
-  user,
+  session,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Settings
   const queryClient = useQueryClient();
@@ -60,7 +60,7 @@ const Attendance = ({
       { is_delete: false },
       { confirmation },
       { 'invitation:code': code_invitation },
-      { 'invitation:id_user': user.id_user },
+      { 'invitation:id_user': session?.user.id_user },
     ],
     with: [{ invitation: true }, { parrent: true }],
     search,
@@ -73,7 +73,7 @@ const Attendance = ({
     isPreviousData,
   } = useQuery({
     queryKey: ['attendance', page, sort, search, confirmation],
-    queryFn: () => getAllGuestbook(user, { params }),
+    queryFn: () => getAllGuestbook(session?.accessToken, { params }),
     keepPreviousData: true,
     staleTime: 5000,
   });
@@ -87,7 +87,7 @@ const Attendance = ({
           assign(params, {
             page: page + 1,
           });
-          return getAllGuestbook(user, { params });
+          return getAllGuestbook(session?.accessToken, { params });
         },
       );
     }
@@ -306,33 +306,27 @@ const Attendance = ({
   );
 };
 
-export const getServerSideProps = withIronSessionSsr(async function ({
-  req,
-  res,
-}) {
-  const user = req.session.user;
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions,
+  );
 
-  if (user === undefined) {
-    res.setHeader('location', '/login');
-    res.statusCode = 302;
-    res.end();
+  if (!session) {
     return {
-      props: {
-        user: {
-          isLoggedIn: false,
-          id_user: null,
-          username: null,
-          profile: null,
-          token: null,
-        } as User,
+      redirect: {
+        destination: '/a/invitation',
+        permanent: false,
       },
     };
   }
 
   return {
-    props: { user: req.session.user },
+    props: {
+      session,
+    },
   };
-},
-sessionOptions);
+}
 
 export default Attendance;

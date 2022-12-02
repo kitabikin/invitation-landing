@@ -31,7 +31,7 @@ function WeddingDetail({ data, greeting }) {
   const noIndex = !isProduction;
 
   return (
-    <>
+    <ContainerBlank>
       <NextSeo
         title={`Pernikahan ${data.name}`}
         titleTemplate={`%s | ${site.title}`}
@@ -46,7 +46,7 @@ function WeddingDetail({ data, greeting }) {
         }}
       />
       <SwitchTheme options={options} data={data} greeting={greeting} />
-    </>
+    </ContainerBlank>
   );
 }
 
@@ -100,9 +100,5 @@ export async function getServerSideProps({ params }) {
 
   return { props: { data: data.data, greeting: greeting.data } };
 }
-
-WeddingDetail.Layout = function getLayout(page) {
-  return <ContainerBlank>{page}</ContainerBlank>;
-};
 
 export default WeddingDetail;

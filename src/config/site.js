@@ -7,7 +7,7 @@ const site = {
   siteUrl:
     process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
       ? `https://invitation.kitabikin.com`
-      : `https://invitation-dev.kitabikin.com`,
+      : `http://localhost:1802`,
   image: `vercel.svg`,
   twitterUsername: `@kitabikincom`,
   whatsappNumber: `+6281917240030`,

@@ -1,12 +1,11 @@
 import { InferGetServerSidePropsType } from 'next';
-import { withIronSessionSsr } from 'iron-session/next';
-import { sessionOptions } from '@/libs/session';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import ContainerClient from '@/layouts/container/containerClient';
-import { User } from '@/pages/api/user';
 import { Box, Container, Flex, Heading } from '@chakra-ui/react';
 
 const Analytics = ({
-  user,
+  session,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <ContainerClient type={'invitation'} title={'Analitik'}>
@@ -23,33 +22,27 @@ const Analytics = ({
   );
 };
 
-export const getServerSideProps = withIronSessionSsr(async function ({
-  req,
-  res,
-}) {
-  const user = req.session.user;
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions,
+  );
 
-  if (user === undefined) {
-    res.setHeader('location', '/login');
-    res.statusCode = 302;
-    res.end();
+  if (!session) {
     return {
-      props: {
-        user: {
-          isLoggedIn: false,
-          id_user: null,
-          username: null,
-          profile: null,
-          token: null,
-        } as User,
+      redirect: {
+        destination: '/a/invitation',
+        permanent: false,
       },
     };
   }
 
   return {
-    props: { user: req.session.user },
+    props: {
+      session,
+    },
   };
-},
-sessionOptions);
+}
 
 export default Analytics;

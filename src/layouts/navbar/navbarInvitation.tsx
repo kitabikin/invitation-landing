@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import NextLink from 'next/link';
+import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+
 import {
   Avatar,
   Box,
@@ -76,12 +79,13 @@ const NavItemMobile = (props) => {
 
 const NavbarClient = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const { isOpen, onToggle } = useDisclosure();
 
   const { code_invitation } = router.query;
 
   const handleLogout = () => {
-    router.push('/api/logout');
+    signOut({ callbackUrl: '/login' });
   };
 
   return (
@@ -159,7 +163,7 @@ const NavbarClient = () => {
                   cursor={'pointer'}
                   minW={0}
                 >
-                  <Avatar size={'sm'} bg={'#073B57'} />
+                  <Avatar size={'sm'} src={session?.user.image} />
                 </MenuButton>
                 <MenuList zIndex={30}>
                   <MenuItem onClick={handleLogout}>Keluar</MenuItem>

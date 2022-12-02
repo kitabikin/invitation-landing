@@ -32,7 +32,7 @@ function ThemeDetail({ data }) {
   const noIndex = !isProduction;
 
   return (
-    <>
+    <ContainerBlank>
       <NextSeo
         title={`Tema ${data.name}`}
         titleTemplate={`%s | ${site.title}`}
@@ -47,7 +47,7 @@ function ThemeDetail({ data }) {
         }}
       />
       <SwitchTheme options={options} data={data} />
-    </>
+    </ContainerBlank>
   );
 }
 
@@ -75,9 +75,5 @@ export async function getServerSideProps({ params }) {
 
   return { props: { data: data.data } };
 }
-
-ThemeDetail.Layout = function getLayout(page) {
-  return <ContainerBlank>{page}</ContainerBlank>;
-};
 
 export default ThemeDetail;

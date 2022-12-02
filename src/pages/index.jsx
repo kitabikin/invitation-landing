@@ -15,7 +15,7 @@ function Home() {
   const noIndex = !isProduction;
 
   return (
-    <>
+    <ContainerDefault>
       <NextSeo
         title={site.titleHome}
         titleTemplate={`%s`}
@@ -64,12 +64,8 @@ function Home() {
           <HomeStatistic />
         </Container>
       </Box> */}
-    </>
+    </ContainerDefault>
   );
 }
-
-Home.Layout = function getLayout(page) {
-  return <ContainerDefault>{page}</ContainerDefault>;
-};
 
 export default Home;

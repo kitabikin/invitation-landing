@@ -1,15 +1,18 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { Button } from '@chakra-ui/react';
+import { useSession } from 'next-auth/react';
 import { updateGuestbook } from '@/libs/fetchQuery';
 
-const GuestbookSend = ({ user, id, isSend }) => {
+const GuestbookSend = ({ id, isSend }) => {
+  const { data: session, status } = useSession();
   const queryClient = useQueryClient();
 
   const params = {
     modified_at: false,
   };
   const mutation = useMutation({
-    mutationFn: (body: any) => updateGuestbook(user, { id, body, params }),
+    mutationFn: (body: any) =>
+      updateGuestbook(session?.accessToken, { id, body, params }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['guestbook'] });
     },

@@ -19,7 +19,7 @@ import { RiWhatsappLine, RiMailSendLine } from 'react-icons/ri';
 
 function Contact() {
   return (
-    <>
+    <ContainerDefault>
       <NextSeo
         title="Kontak"
         titleTemplate={`%s | ${site.title}`}
@@ -158,12 +158,8 @@ function Contact() {
           />
         </Flex>
       </Container>
-    </>
+    </ContainerDefault>
   );
 }
-
-Contact.Layout = function getLayout(page) {
-  return <ContainerDefault>{page}</ContainerDefault>;
-};
 
 export default Contact;

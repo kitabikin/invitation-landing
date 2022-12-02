@@ -107,7 +107,7 @@ function HouseBlessingDetail({ data, greeting }) {
   }
 
   return (
-    <>
+    <ContainerBlank>
       <NextSeo
         title={`Housewarming Party`}
         titleTemplate={`%s | ${site.title}`}
@@ -587,7 +587,7 @@ function HouseBlessingDetail({ data, greeting }) {
           <FeatureUcapanDoa options={options} data={greeting} />
         </Box>
       </Box>
-    </>
+    </ContainerBlank>
   );
 }
 
@@ -642,9 +642,5 @@ export async function getServerSideProps() {
 
   return { props: { data: data.data, greeting: greeting.data } };
 }
-
-HouseBlessingDetail.Layout = function getLayout(page) {
-  return <ContainerBlank>{page}</ContainerBlank>;
-};
 
 export default HouseBlessingDetail;

@@ -1,7 +1,4 @@
-import type { User } from './user';
-
-import { withIronSessionApiRoute } from 'iron-session/next';
-import { sessionOptions } from '@/libs/session';
+import { serialize } from 'cookie';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
@@ -24,24 +21,23 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
       const data = await response.json();
 
       if (data.error === 0) {
-        const result = data.data;
-        const user: User = {
-          isLoggedIn: true,
-          id_user: result.id_user,
-          username: result.username,
-          profile: result.profile,
-          token: result.token,
-        };
+        const serialised = serialize('kitabikin-cookie', data.data.token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV !== 'development',
+          sameSite: 'strict',
+          maxAge: 60 * 60 * 24 * 30,
+          path: '/',
+        });
 
-        req.session.user = user;
-        await req.session.save();
+        res.setHeader('Set-Cookie', serialised);
+        res.status(200).json(data);
+      } else {
+        res.status(401).json({ message: 'Invalid credentials!' });
       }
-
-      return res.status(200).send(data);
     } catch (error) {
       res.status(500).json({ message: (error as Error).message });
     }
   }
 }
 
-export default withIronSessionApiRoute(loginRoute, sessionOptions);
+export default loginRoute;

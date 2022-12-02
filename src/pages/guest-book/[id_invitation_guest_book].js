@@ -1,21 +1,21 @@
-import Image from 'next/image'
-import { NextSeo } from 'next-seo'
-import { Container, Box, Flex, Heading, Badge } from '@chakra-ui/react'
-import qs from 'qs'
+import Image from 'next/image';
+import { NextSeo } from 'next-seo';
+import { Container, Box, Flex, Heading, Badge } from '@chakra-ui/react';
+import qs from 'qs';
 
-import ContainerBlank from '@/layouts/container/containerBlank'
-import site from '@/config/site'
+import ContainerBlank from '@/layouts/container/containerBlank';
+import site from '@/config/site';
 
-const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
-const coreUrl = process.env.NEXT_PUBLIC_CORE_URL
+const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
+const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
 function GuestBookDetail({ data }) {
-  const canonical = `${site.siteUrl}/guest-book/${data.id_invitation_guest_book}}`
-  const noIndex = true
-  const seed = Math.floor(Math.random() * 100 + 1)
+  const canonical = `${site.siteUrl}/guest-book/${data.id_invitation_guest_book}}`;
+  const noIndex = true;
+  const seed = Math.floor(Math.random() * 100 + 1);
 
   return (
-    <>
+    <ContainerBlank>
       <NextSeo
         title={`Buku Tamu`}
         titleTemplate={`%s | ${site.title}`}
@@ -68,32 +68,28 @@ function GuestBookDetail({ data }) {
           </Box>
         </Box>
       </Container>
-    </>
-  )
+    </ContainerBlank>
+  );
 }
 
 export async function getServerSideProps({ params }) {
   const pParams = {
     with: [{ parrent: true }],
-  }
+  };
 
-  const merge = qs.stringify(pParams)
+  const merge = qs.stringify(pParams);
   const res = await fetch(
-    `${coreUrl}/v1/invitation-guest-book/${params.id_invitation_guest_book}?${merge}`
-  )
-  const data = await res.json()
+    `${coreUrl}/v1/invitation-guest-book/${params.id_invitation_guest_book}?${merge}`,
+  );
+  const data = await res.json();
 
   if (data.error === 1) {
     return {
       notFound: true,
-    }
+    };
   }
 
-  return { props: { data: data.data } }
+  return { props: { data: data.data } };
 }
 
-GuestBookDetail.Layout = function getLayout(page) {
-  return <ContainerBlank>{page}</ContainerBlank>
-}
-
-export default GuestBookDetail
+export default GuestBookDetail;

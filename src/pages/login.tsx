@@ -1,7 +1,12 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { signIn, getCsrfToken } from 'next-auth/react';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from 'pages/api/auth/[...nextauth]';
+
 import ContainerBlank from '@/layouts/container/containerBlank';
 import {
   Container,
@@ -21,13 +26,9 @@ import {
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import site from '@/config/site';
-import useUser from '@/hooks/useUser';
 
-function Login() {
-  const { mutateUser } = useUser({
-    redirectTo: '/a/invitation',
-    redirectIfFound: true,
-  });
+function Login({ csrfToken }) {
+  const router = useRouter();
 
   const [show, setShow] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -42,29 +43,24 @@ function Login() {
     password: Yup.string().required('Harus diisi.'),
   });
 
-  async function onSubmit(fields) {
-    try {
-      const response = await fetch(`/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(fields),
-      });
-      const res = await response.json();
+  async function onSubmit(fields, { setSubmitting }) {
+    const res = await signIn('credentials', {
+      redirect: false,
+      username: fields.username,
+      password: fields.password,
+      application: 'invitation',
+      callbackUrl: `${window.location.origin}/a/invitation`,
+    });
 
-      if (res.error === 1) {
-        setErrorMsg(res.message);
-      } else {
-        mutateUser.mutate({ isLoggedIn: true, ...res.data });
-      }
-    } catch (error) {
-      if (error) {
-        setErrorMsg(error.data.message);
-      } else {
-        console.error('An unexpected error happened:', error);
-      }
+    if (res?.error) {
+      setErrorMsg(res.error);
+    } else {
+      setErrorMsg(null);
     }
+
+    if (res.url) router.push(res.url);
+
+    setSubmitting(false);
   }
 
   return (
@@ -115,8 +111,14 @@ function Login() {
               validationSchema={validationSchema}
               onSubmit={onSubmit}
             >
-              {(props) => (
+              {({ isSubmitting }) => (
                 <Form>
+                  <input
+                    name="csrfToken"
+                    type="hidden"
+                    defaultValue={csrfToken}
+                  />
+
                   <Box mb={4}>
                     <Field name="username">
                       {({ field, form }) => (
@@ -182,7 +184,7 @@ function Login() {
 
                   <Box display={'grid'}>
                     <Button colorScheme={'green'} type="submit">
-                      Masuk
+                      {isSubmitting ? 'Loading...' : 'Masuk'}
                     </Button>
                   </Box>
                 </Form>
@@ -193,6 +195,29 @@ function Login() {
       </Box>
     </ContainerBlank>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions,
+  );
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/a/invitation',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
 }
 
 export default Login;
