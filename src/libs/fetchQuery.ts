@@ -1,7 +1,6 @@
 import { assign, isEmpty } from 'lodash';
 import qs from 'qs';
 import axios from 'axios';
-import { User } from '@/pages/api/user';
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
