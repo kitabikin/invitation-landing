@@ -4,8 +4,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { signIn, getCsrfToken } from 'next-auth/react';
-import { unstable_getServerSession } from 'next-auth/next';
-import { authOptions } from 'pages/api/auth/[...nextauth]';
 
 import ContainerBlank from '@/layouts/container/containerBlank';
 import {
@@ -198,21 +196,6 @@ function Login({ csrfToken }) {
 }
 
 export async function getServerSideProps(context) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions,
-  );
-
-  if (session) {
-    return {
-      redirect: {
-        destination: '/a/invitation',
-        permanent: false,
-      },
-    };
-  }
-
   return {
     props: {
       csrfToken: await getCsrfToken(context),
