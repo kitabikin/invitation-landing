@@ -70,20 +70,24 @@ const Guestbook = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Get Guestbook
-  const params = {
+  const params: any = {
     where: [
       { is_delete: false },
       { from: 'admin' },
       { type },
       { is_send: send },
       { 'invitation:code': code_invitation },
-      { 'invitation:id_user': session?.user.id_user },
     ],
     with: [{ invitation: true }, { parrent: true }],
     search,
     sort,
     page,
   };
+
+  if (session?.user.role === 'event-client') {
+    params.where.push({ 'invitation:id_user': session?.user.id_user });
+  }
+
   const {
     isLoading,
     data: guestbook,
@@ -95,10 +99,15 @@ const Guestbook = ({
     staleTime: 5000,
   });
 
-  const paramsInvitation = {
-    where: [{ id_user: session?.user.id_user }, { is_delete: false }],
+  const paramsInvitation: any = {
+    where: [{ is_delete: false }],
     with: [{ invitation_guest_book_template: true }],
   };
+
+  if (session?.user.role === 'event-client') {
+    paramsInvitation.where.push({ id_user: session?.user.id_user });
+  }
+
   const { isLoading: isLoadingInvitation, data: invitation } = useQuery({
     queryKey: ['invitation', code_invitation],
     queryFn: () =>

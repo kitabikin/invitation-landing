@@ -39,6 +39,7 @@ export const authOptions = {
         token.id_user = user?.id_user;
         token.username = user?.username;
         token.name = user?.profile?.name;
+        token.role = user?.role[0]?.code;
       }
 
       return Promise.resolve(token);
@@ -57,6 +58,7 @@ export const authOptions = {
       session.user.name = token.name;
       session.user.email = `${token.username}@kitabikin.com`;
       session.user.image = image;
+      session.user.role = token.role;
       session.accessToken = token.accessToken;
 
       return Promise.resolve(session);

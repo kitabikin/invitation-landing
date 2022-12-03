@@ -195,3 +195,20 @@ export const updateAppearanceFeature = async (
     .then((res) => res.json())
     .then((res) => res.data);
 };
+
+export const updateAppearanceFeatureData = async (
+  accessToken,
+  { id, body, params = {} },
+) => {
+  const merge = qs.stringify(params);
+  return await fetch(`${coreUrl}/v1/invitation-feature-data/${id}?${merge}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+    .then((res) => res.json())
+    .then((res) => res.data);
+};

@@ -54,18 +54,22 @@ const Attendance = ({
   const [confirmation, setConfirmation] = useState<any>(['yes', 'no']);
 
   // Get Guestbook
-  const params = {
+  const params: any = {
     where: [
       { is_delete: false },
       { confirmation },
       { 'invitation:code': code_invitation },
-      { 'invitation:id_user': session?.user.id_user },
     ],
     with: [{ invitation: true }, { parrent: true }],
     search,
     sort,
     page,
   };
+
+  if (session?.user.role === 'event-client') {
+    params.where.push({ 'invitation:id_user': session?.user.id_user });
+  }
+
   const {
     isLoading,
     data: guestbook,

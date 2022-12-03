@@ -4,32 +4,21 @@ import { useRouter } from 'next/router';
 import { isEmpty } from 'lodash';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
 import PreviewDevice from '@/components/global/previewDevice';
 import AppearanceForm from '@/components/specific/appearance/appearanceForm';
-import { getAllAppearance, updateAppearanceFeature } from '@/libs/fetchQuery';
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  Container,
-  Flex,
-  Heading,
-  Stack,
-  Switch,
-} from '@chakra-ui/react';
+import { getAllAppearance } from '@/libs/fetchQuery';
+import { Box, Container, Flex, Heading } from '@chakra-ui/react';
 import { MdWeb } from 'react-icons/md';
 
 const Appearance = ({
   session,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Settings
-  const queryClient = useQueryClient();
   const router = useRouter();
   const { code_invitation } = router.query;
 
@@ -45,25 +34,9 @@ const Appearance = ({
     queryFn: () => getAllAppearance(session?.accessToken, { params }),
   });
 
-  const mutationFeature = useMutation({
-    mutationFn: (body: any) =>
-      updateAppearanceFeature(session?.accessToken, {
-        id: body.id_invitation_feature,
-        body,
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['appearance'] });
-      resetIframe();
-    },
-  });
-
   // Action
   const resetIframe = () => {
     setRandom(random + 1);
-  };
-
-  const changeFeatureActive = (fields) => {
-    mutationFeature.mutate(fields);
   };
 
   return (
@@ -86,44 +59,10 @@ const Appearance = ({
                   {isEmpty(appearance.data) ? (
                     <EmptyList label={'Tampilan'} icon={<MdWeb size={30} />} />
                   ) : (
-                    <>
-                      <Stack spacing="60px">
-                        {appearance.data.map((res, index) => (
-                          <Box key={index}>
-                            <Flex
-                              justifyContent={'space-between'}
-                              alignItems={'center'}
-                              mb={4}
-                            >
-                              <Heading as={'h4'} size={'md'}>
-                                {res.label}
-                              </Heading>
-
-                              <Switch
-                                colorScheme="pink"
-                                defaultChecked={res.is_active}
-                                onChange={(e) =>
-                                  changeFeatureActive({
-                                    id_invitation_feature:
-                                      res.id_invitation_feature,
-                                    is_active: e.target.checked,
-                                  })
-                                }
-                              />
-                            </Flex>
-                            <Card variant={'outline'} bg={'white'}>
-                              <CardBody>
-                                {res.data.map((dat, index) => (
-                                  <Box key={index} mb={4}>
-                                    <AppearanceForm data={dat} />
-                                  </Box>
-                                ))}
-                              </CardBody>
-                            </Card>
-                          </Box>
-                        ))}
-                      </Stack>
-                    </>
+                    <AppearanceForm
+                      data={appearance.data}
+                      onResetIframe={resetIframe}
+                    />
                   )}
                 </Fragment>
               )}

@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { InferGetServerSidePropsType } from 'next';
 import NextLink from 'next/link';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import debounce from 'lodash/debounce';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
@@ -40,8 +40,8 @@ const Invitation = ({
   const [search, setSearch] = useState('');
 
   // Get Invitation
-  const params = {
-    where: [{ id_user: session?.user.id_user }, { is_delete: false }],
+  const params: any = {
+    where: [{ is_delete: false }],
     with: [
       { event: true },
       { theme: true },
@@ -49,6 +49,11 @@ const Invitation = ({
     ],
     search,
   };
+
+  if (session?.user.role === 'event-client') {
+    params.where.push({ id_user: session?.user.id_user });
+  }
+
   const { isLoading, data: invitation } = useQuery({
     queryKey: ['invitation', search],
     queryFn: () => getAllInvitation(session?.accessToken, { params }),
@@ -96,7 +101,7 @@ const Invitation = ({
               </SimpleGrid>
             ) : (
               <Fragment>
-                {_.isEmpty(invitation) ? (
+                {isEmpty(invitation) ? (
                   <EmptyList label={'Undangan'} icon={<MdEmail size={30} />} />
                 ) : (
                   <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>

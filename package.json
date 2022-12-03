@@ -23,6 +23,8 @@
     "formik": "^2.2.9",
     "framer-motion": "^6.5.1",
     "gsap": "^3.9.0",
+    "imagekit": "^4.1.2",
+    "imagekitio-react": "^2.0.0",
     "jose": "^4.11.1",
     "jotai": "^1.10.0",
     "lodash": "^4.17.21",

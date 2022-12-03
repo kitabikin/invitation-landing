@@ -4,7 +4,12 @@ const moduleExports = {
   swcMinify: true,
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com', 'ik.imagekit.io', 'avatars.dicebear.com'],
+    domains: [
+      'res.cloudinary.com',
+      'ik.imagekit.io',
+      'avatars.dicebear.com',
+      'placehold.co',
+    ],
   },
   experimental: {
     nextScriptWorkers: true,

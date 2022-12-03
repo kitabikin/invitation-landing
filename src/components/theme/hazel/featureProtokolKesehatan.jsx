@@ -68,6 +68,7 @@ function FeatureProtokolKesehatan({ ...props }) {
                       <Image
                         src={data.image}
                         alt={data.title}
+                        objectFit={'contain'}
                         height={75}
                         width={75}
                       />

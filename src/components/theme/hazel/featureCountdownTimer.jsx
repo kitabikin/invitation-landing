@@ -1,12 +1,24 @@
 import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { Container, Box, SimpleGrid, Text } from '@chakra-ui/react';
+import { reduceFeature } from '@/libs/utils';
 
 function FeatureCountdownTimer({ ...props }) {
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+
+  // Get Data ==================================================================
+  // Countdown Timer
+  const codeCountdownTimer = `${props.options.code}-countdownTimer`;
+  const countdownTimer = reduceFeature(
+    props.feature[codeCountdownTimer].column,
+  );
+  const {
+    [`${codeCountdownTimer}-date`]: countdownTimerDate,
+    [`${codeCountdownTimer}-time`]: countdownTimerTime,
+  } = countdownTimer;
 
   const leading0 = (num) => {
     return num < 10 ? '0' + num : num;
@@ -28,10 +40,13 @@ function FeatureCountdownTimer({ ...props }) {
   };
 
   useEffect(() => {
-    setInterval(() => getTimeUntil(props.options.date), 1000);
+    const dt = countdownTimerDate.value;
+    const tm = countdownTimerTime.value;
+    const ctDate = new Date(`${dt} ${tm}`);
+    setInterval(() => getTimeUntil(ctDate), 1000);
 
-    return () => getTimeUntil(props.options.date);
-  }, [props.options.date]);
+    return () => getTimeUntil(ctDate);
+  }, [countdownTimerDate, countdownTimerTime]);
 
   return (
     <>

@@ -38,10 +38,15 @@ const Add = ({
   const { code_invitation } = router.query;
 
   // Get Data
-  const paramsInvitation = {
-    where: [{ id_user: session?.user.id_user }, { is_delete: false }],
+  const paramsInvitation: any = {
+    where: [{ is_delete: false }],
     with: [{ invitation_guest_book_template: true }],
   };
+
+  if (session?.user.role === 'event-client') {
+    paramsInvitation.where.push({ id_user: session?.user.id_user });
+  }
+
   const { isLoading, data: invitation } = useQuery({
     queryKey: ['invitation', code_invitation],
     queryFn: () =>

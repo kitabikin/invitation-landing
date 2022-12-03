@@ -44,18 +44,22 @@ const Words = ({
   const [search, setSearch] = useState('');
 
   // Get Greeting
-  const params = {
+  const params: any = {
     where: [
       { is_active: true },
       { is_delete: false },
       { 'invitation:code': code_invitation },
-      { 'invitation:id_user': session?.user.id_user },
     ],
     with: [{ invitation: true }],
     search,
     sort,
     page,
   };
+
+  if (session?.user.role === 'event-client') {
+    params.where.push({ 'invitation:id_user': session?.user.id_user });
+  }
+
   const {
     isLoading,
     data: greeting,
