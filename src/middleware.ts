@@ -23,5 +23,5 @@ export default withAuth(async function middleware(req) {
 });
 
 export const config = {
-  matcher: '/a/:path*',
+  matcher: ['/a/:path*', '/((?!_next/static|favicon.ico|login|).*)'],
 };
