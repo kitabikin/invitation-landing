@@ -65,7 +65,7 @@ const Words = ({
     data: greeting,
     isPreviousData,
   } = useQuery({
-    queryKey: ['greeting', page, sort, search],
+    queryKey: ['greeting', code_invitation, page, sort, search],
     queryFn: () => getAllGreeting(session?.accessToken, { params }),
     keepPreviousData: true,
     staleTime: 5000,
@@ -74,12 +74,15 @@ const Words = ({
   // Effect
   useEffect(() => {
     if (!isPreviousData && greeting?.hasMore) {
-      queryClient.prefetchQuery(['greeting', page + 1, sort, search], () => {
-        assign(params, {
-          page: page + 1,
-        });
-        return getAllGreeting(session?.accessToken, { params });
-      });
+      queryClient.prefetchQuery(
+        ['greeting', code_invitation, page + 1, sort, search],
+        () => {
+          assign(params, {
+            page: page + 1,
+          });
+          return getAllGreeting(session?.accessToken, { params });
+        },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [greeting, isPreviousData, sort, page, search, queryClient]);

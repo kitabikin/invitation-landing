@@ -93,7 +93,7 @@ const Guestbook = ({
     data: guestbook,
     isPreviousData,
   } = useQuery({
-    queryKey: ['guestbook', page, sort, search, type, send],
+    queryKey: ['guestbook', code_invitation, page, sort, search, type, send],
     queryFn: () => getAllGuestbook(session?.accessToken, { params }),
     keepPreviousData: true,
     staleTime: 5000,

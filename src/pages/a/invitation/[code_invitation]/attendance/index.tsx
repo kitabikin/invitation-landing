@@ -75,7 +75,7 @@ const Attendance = ({
     data: guestbook,
     isPreviousData,
   } = useQuery({
-    queryKey: ['attendance', page, sort, search, confirmation],
+    queryKey: ['attendance', code_invitation, page, sort, search, confirmation],
     queryFn: () => getAllGuestbook(session?.accessToken, { params }),
     keepPreviousData: true,
     staleTime: 5000,
@@ -85,7 +85,7 @@ const Attendance = ({
   useEffect(() => {
     if (!isPreviousData && guestbook?.hasMore) {
       queryClient.prefetchQuery(
-        ['attendance', page + 1, sort, search, confirmation],
+        ['attendance', code_invitation, page + 1, sort, search, confirmation],
         () => {
           assign(params, {
             page: page + 1,

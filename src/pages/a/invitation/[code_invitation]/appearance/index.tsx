@@ -30,7 +30,7 @@ const Appearance = ({
     code: code_invitation,
   };
   const { isLoading, data: appearance } = useQuery({
-    queryKey: ['appearance'],
+    queryKey: ['appearance', code_invitation],
     queryFn: () => getAllAppearance(session?.accessToken, { params }),
   });
 
