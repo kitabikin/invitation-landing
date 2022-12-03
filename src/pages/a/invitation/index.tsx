@@ -196,10 +196,12 @@ export async function getServerSideProps(context) {
     authOptions,
   );
 
+  console.log(session);
+
   if (!session) {
     return {
       redirect: {
-        destination: '/a/invitation',
+        destination: '/login',
         permanent: false,
       },
     };

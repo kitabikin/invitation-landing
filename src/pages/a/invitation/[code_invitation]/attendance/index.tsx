@@ -319,7 +319,7 @@ export async function getServerSideProps(context) {
   if (!session) {
     return {
       redirect: {
-        destination: '/a/invitation',
+        destination: '/login',
         permanent: false,
       },
     };
