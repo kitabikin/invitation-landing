@@ -107,7 +107,10 @@ function HouseBlessingDetail({ data, greeting }) {
   }
 
   return (
-    <ContainerBlank>
+    <ContainerBlank
+      title={`Housewarming Party`}
+      description={`Please join us for a housewarming party at the new house of Sendi & Vivie`}
+    >
       <NextSeo
         title={`Housewarming Party`}
         titleTemplate={`%s | ${site.title}`}

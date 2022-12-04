@@ -3,7 +3,7 @@ import ContainerConifer from '@/components/theme/conifer/container.jsx';
 
 function Conifer() {
   return (
-    <ContainerBlank>
+    <ContainerBlank title={'Tema Conifer'} description={'Tema Conifer'}>
       <ContainerConifer />
     </ContainerBlank>
   );

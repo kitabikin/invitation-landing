@@ -1,6 +1,5 @@
 import button from '@/styles/Button.module.css';
 import NextImage from 'next/image';
-import { NextSeo } from 'next-seo';
 import {
   Button,
   Container,
@@ -19,12 +18,7 @@ import { RiWhatsappLine, RiMailSendLine } from 'react-icons/ri';
 
 function Contact() {
   return (
-    <ContainerDefault>
-      <NextSeo
-        title="Kontak"
-        titleTemplate={`%s | ${site.title}`}
-        description={site.description}
-      />
+    <ContainerDefault title="Kontak">
       <Container maxW="container.lg" mt={20}>
         <HeaderPage title={'Tim kita siap membantu'} position={'center'} />
 

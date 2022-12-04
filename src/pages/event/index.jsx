@@ -1,9 +1,7 @@
 import NextImage from 'next/image';
-import { NextSeo } from 'next-seo';
 import { Box, Container, Img, SimpleGrid } from '@chakra-ui/react';
 import qs from 'qs';
 
-import site from '@/config/site';
 import ContainerDefault from '@/layouts/container/containerDefault';
 import HeaderPage from '@/components/global/header/headerPage';
 import EventPreviewList from '@/components/specific/event/eventPreviewList';
@@ -14,12 +12,7 @@ const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
 function Event({ event }) {
   return (
-    <ContainerDefault>
-      <NextSeo
-        title="Acara"
-        titleTemplate={`%s | ${site.title}`}
-        description={site.description}
-      />
+    <ContainerDefault title="Acara">
       <Container maxW="container.lg" mt={20}>
         <HeaderPage title={'Acara'} />
 

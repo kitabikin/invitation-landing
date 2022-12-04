@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { NextSeo } from 'next-seo';
 import _ from 'lodash';
 import { Container, Box } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
@@ -83,6 +84,38 @@ function ContainerNashville({ options, data, greeting }) {
       <Head>
         <link rel="stylesheet" href="/nashville/nashville.css" />
       </Head>
+      <NextSeo
+        additionalLinkTags={[
+          {
+            rel: 'preload',
+            href: `/nashville/TheBlacklight.ttf`,
+            as: 'font',
+            type: 'font/ttf',
+            crossOrigin: 'anonymous',
+          },
+          {
+            rel: 'preload',
+            href: `/nashville/OptimusPrinceps.ttf`,
+            as: 'font',
+            type: 'font/ttf',
+            crossOrigin: 'anonymous',
+          },
+          {
+            rel: 'preload',
+            href: `/nashville/StylishCalligraphy.ttf`,
+            as: 'font',
+            type: 'font/ttf',
+            crossOrigin: 'anonymous',
+          },
+          {
+            rel: 'preload',
+            href: `/nashville/Millerstone.ttf`,
+            as: 'font',
+            type: 'font/ttf',
+            crossOrigin: 'anonymous',
+          },
+        ]}
+      />
       <Box color={generalColorBody.value} fontFamily="nashvilleBody">
         <Box
           position="fixed"

@@ -2,42 +2,18 @@ import NextImage from 'next/image';
 import { NextSeo } from 'next-seo';
 import { Box, Container } from '@chakra-ui/react';
 
-const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
-
 import site from '@/config/site';
 import ContainerDefault from '@/layouts/container/containerDefault';
-import HomeHero from '@/components/specific/home/homeHero';
+import HomeHeroV2 from '@/components/specific/home/homeHeroV2';
 import HomeFeature from '@/components/specific/home/homeFeature';
 import HomeStatistic from '@/components/specific/home/homeStatistic';
 
 function Home() {
-  const canonical = site.siteUrl;
-  const noIndex = !isProduction;
-
   return (
-    <ContainerDefault>
-      <NextSeo
-        title={site.titleHome}
-        titleTemplate={`%s`}
-        description={site.description}
-        additionalMetaTags={[
-          {
-            property: 'keywords',
-            content: site.keywords,
-          },
-        ]}
-        canonical={canonical}
-        noindex={noIndex}
-        openGraph={{
-          url: canonical,
-          title: site.titleHome,
-          description: site.description,
-          site_name: site.title,
-          images: [{ url: '/images/logo/logo80x80.png' }],
-        }}
-      />
+    <ContainerDefault isHome={true} title={site.titleHome}>
+      <NextSeo titleTemplate={`%s`} />
       <Container maxW="container.lg" mt={20}>
-        <HomeHero />
+        <HomeHeroV2 />
       </Container>
 
       <Container maxW="container.lg" mt={16}>

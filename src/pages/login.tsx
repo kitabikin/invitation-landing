@@ -62,10 +62,10 @@ function Login({ csrfToken }) {
   }
 
   return (
-    <ContainerBlank>
-      <Head>
-        <title>Masuk | {site.title}</title>
-      </Head>
+    <ContainerBlank
+      title={`Masuk | ${site.title}`}
+      description={'Deskripsi Masuk'}
+    >
       <Box bg={'white'} w={'full'} h={'100vh'}>
         <Container
           maxW={'md'}
@@ -181,7 +181,7 @@ function Login({ csrfToken }) {
                   </Box>
 
                   <Box display={'grid'}>
-                    <Button colorScheme={'green'} type="submit">
+                    <Button colorScheme={'pink'} type="submit">
                       {isSubmitting ? 'Loading...' : 'Masuk'}
                     </Button>
                   </Box>

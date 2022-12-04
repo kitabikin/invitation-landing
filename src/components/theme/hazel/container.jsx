@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { useAtom } from 'jotai';
 import { useHydrateAtoms } from 'jotai/utils';
 import _ from 'lodash';
@@ -116,6 +117,31 @@ function ContainerHazel({ options, data, greeting }) {
       <Head>
         <link rel="stylesheet" href="/hazel/hazel.css" />
       </Head>
+      <NextSeo
+        additionalLinkTags={[
+          {
+            rel: 'preload',
+            href: `https://fonts.gstatic.com/s/librebodoni/v2/_Xmr-H45qDWDYULr5OfyZud9wQiR.woff2`,
+            as: 'font',
+            type: 'font/woff2',
+            crossOrigin: 'anonymous',
+          },
+          {
+            rel: 'preload',
+            href: `/nashville/FallInLove.ttf`,
+            as: 'font',
+            type: 'font/ttf',
+            crossOrigin: 'anonymous',
+          },
+          {
+            rel: 'preload',
+            href: `/nashville/Sienthas.otf`,
+            as: 'font',
+            type: 'font/ttf',
+            crossOrigin: 'anonymous',
+          },
+        ]}
+      />
       {isFromTheme && (
         <NavbarTheme atom={themeAtom} theme={'Hazel'} options={THEME} />
       )}

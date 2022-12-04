@@ -31,20 +31,10 @@ function WeddingDetail({ data, greeting }) {
   const noIndex = !isProduction;
 
   return (
-    <ContainerBlank>
-      <NextSeo
-        title={`Pernikahan ${data.name}`}
-        titleTemplate={`%s | ${site.title}`}
-        description={data.description}
-        canonical={canonical}
-        noindex={noIndex}
-        openGraph={{
-          url: canonical,
-          title: `Pernikahan ${data.name}`,
-          description: data.description,
-          site_name: site.title,
-        }}
-      />
+    <ContainerBlank
+      title={`Pernikahan ${data.name}`}
+      description={data.description}
+    >
       <SwitchTheme options={options} data={data} greeting={greeting} />
     </ContainerBlank>
   );

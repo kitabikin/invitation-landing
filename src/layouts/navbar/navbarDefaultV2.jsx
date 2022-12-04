@@ -92,6 +92,7 @@ export default function NavbarDefault() {
 
           <Stack
             flex={{ base: 1, md: 0 }}
+            alignItems={'center'}
             justify={'flex-end'}
             direction={'row'}
             spacing={{ base: 2, md: 4 }}
@@ -103,8 +104,7 @@ export default function NavbarDefault() {
             <NextLink href={'/contact'} passHref>
               <Button
                 as={'a'}
-                colorScheme={'green'}
-                fontSize={'sm'}
+                colorScheme={'pink'}
                 fontWeight={400}
                 _focus={{
                   boxShadow: 'inherit',
@@ -210,11 +210,11 @@ const DesktopNav = () => {
             <Button
               as={'a'}
               variant={'ghost'}
-              fontSize={'sm'}
               fontWeight={400}
               color={'gray.700'}
               _hover={{
                 textDecoration: 'none',
+                color: 'pink.800',
               }}
               _active={{
                 bg: 'inherit',

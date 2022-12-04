@@ -6,6 +6,7 @@ function ThemePreviewCommingSoon({ event, theme }) {
     <NextLink href={`/event/${event.code}/${theme.code}`} passHref>
       <Box
         as={Link}
+        target={'_blank'}
         p={6}
         border={1}
         borderStyle={'solid'}

@@ -1,34 +1,17 @@
 import Image from 'next/image';
-import { NextSeo } from 'next-seo';
 import { Container, Box, Flex, Heading, Badge } from '@chakra-ui/react';
 import qs from 'qs';
 
 import ContainerBlank from '@/layouts/container/containerBlank';
 import site from '@/config/site';
 
-const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
 function GuestBookDetail({ data }) {
-  const canonical = `${site.siteUrl}/guest-book/${data.id_invitation_guest_book}}`;
-  const noIndex = true;
   const seed = Math.floor(Math.random() * 100 + 1);
 
   return (
-    <ContainerBlank>
-      <NextSeo
-        title={`Buku Tamu`}
-        titleTemplate={`%s | ${site.title}`}
-        description={site.description}
-        canonical={canonical}
-        noindex={noIndex}
-        openGraph={{
-          url: canonical,
-          title: `Buku Tamu`,
-          description: site.description,
-          site_name: site.title,
-        }}
-      />
+    <ContainerBlank title={`Buku Tamu`} description={site.description}>
       <Container maxW="container.sm" mt={4}>
         <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
           <Box p="6" textAlign={'center'}>

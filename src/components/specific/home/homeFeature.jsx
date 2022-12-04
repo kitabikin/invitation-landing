@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  Heading,
   Icon,
   Tab,
   Tabs,
@@ -127,17 +128,16 @@ const FEATURE_ITEMS = [
 function HomeHero() {
   return (
     <Box>
-      <Text
+      <Heading
         as={'h2'}
         fontWeight={700}
         fontSize={{ base: '2xl', md: '3xl' }}
         lineHeight={1.25}
-        textAlign={'center'}
       >
         Fitur
-      </Text>
-      <Tabs variant="soft-rounded" colorScheme="green" mt={8} id={'feature'}>
-        <TabList justifyContent={'center'}>
+      </Heading>
+      <Tabs variant="soft-rounded" colorScheme="pink" mt={4} id={'feature'}>
+        <TabList>
           <Tab>Pernikahan</Tab>
         </TabList>
         <TabPanels>

@@ -1,13 +1,10 @@
 import { useRouter } from 'next/router';
 import ContainerBlank from '@/layouts/container/containerBlank';
-import { NextSeo } from 'next-seo';
-import site from '@/config/site';
 import _ from 'lodash';
 import qs from 'qs';
 import { addDays } from 'date-fns';
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
-const isProduction = process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
 
 import SwitchTheme from '@/components/theme/switchTheme';
 import LoadingPage from '@/components/specific/loadingPage';
@@ -28,24 +25,8 @@ function ThemeDetail({ data }) {
     date: addDays(new Date(), Math.floor(Math.random() * (60 - 30 + 1) + 30)),
   };
 
-  const canonical = `${site.siteUrl}/event/${data.theme_category.event.code}/${data.code}`;
-  const noIndex = !isProduction;
-
   return (
-    <ContainerBlank>
-      <NextSeo
-        title={`Tema ${data.name}`}
-        titleTemplate={`%s | ${site.title}`}
-        description={data.description}
-        canonical={canonical}
-        noindex={noIndex}
-        openGraph={{
-          url: canonical,
-          title: `Tema ${data.name}`,
-          description: data.description,
-          site_name: site.title,
-        }}
-      />
+    <ContainerBlank title={`Tema ${data.name}`} description={data.description}>
       <SwitchTheme options={options} data={data} />
     </ContainerBlank>
   );

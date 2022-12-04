@@ -1,8 +1,8 @@
 const site = {
   title: `Kitabikin Undangan`,
-  titleHome: `Kitabikin Undangan`,
-  description: `Perlu undangan digital untuk acara Kamu? Yuk, Kitabikin.`,
-  keywords: `undangan digital, undangan online, undangan pernikahan, undangan gratis, website undangan, contoh undangan online, cara membuat undangan digital, online invitation, wedding invitation`,
+  titleHome: `Kitabikin Undangan: Undangan elegan untuk setiap acara`,
+  description: `Perlu undangan digital untuk acara Kamu? Yuk, Kitabikin. Pilih dari berbagai gaya, tema, dan warna untuk membuat undangan yang mencerminkan gaya dan personalitas Anda yang unik.`,
+  keywords: `undangan digital, undangan online, undangan pernikahan, undangan gratis, website undangan, contoh undangan online, cara membuat undangan digital, online invitation, wedding invitation, kustom, custom, elegan, terjangkau, murah`,
   author: `Kitabikin.com`,
   siteUrl:
     process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
