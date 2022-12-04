@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import _ from 'lodash';
+import React, { Fragment, useState } from 'react';
+import { assign, isEmpty } from 'lodash';
 import {
   Container,
   Box,
@@ -21,14 +21,12 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { Navigation, Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
 
 const MySwal = withReactContent(Swal);
 
@@ -84,7 +82,7 @@ function FeatureUcapanDoa({ ...props }) {
       url = 'invitation-greeting';
     }
 
-    _.assign(input, { [id]: props.options.id });
+    assign(input, { [id]: props.options.id });
 
     const res = await fetch(`/api/${url}`, {
       method: 'POST',
@@ -247,24 +245,28 @@ function FeatureUcapanDoa({ ...props }) {
           </Box>
 
           <Box mt="12" height={'500'} overflowY={'scroll'} p={4}>
-            {data.map((item, i) => (
-              <Box
-                key={i}
-                mb={4}
-                bgColor={'white'}
-                border={'1px'}
-                borderColor={'gray.100'}
-                borderRadius={'lg'}
-                py={4}
-                px={6}
-                boxShadow={'lg'}
-              >
-                <Text fontSize={'lg'} fontWeight={'bold'} mb={2}>
-                  {item.name}
-                </Text>
-                <Text whiteSpace={'pre-wrap'}>{item.greeting}</Text>
-              </Box>
-            ))}
+            {!isEmpty(data) && (
+              <Fragment>
+                {data.map((item, i) => (
+                  <Box
+                    key={i}
+                    mb={4}
+                    bgColor={'white'}
+                    border={'1px'}
+                    borderColor={'gray.100'}
+                    borderRadius={'lg'}
+                    py={4}
+                    px={6}
+                    boxShadow={'lg'}
+                  >
+                    <Text fontSize={'lg'} fontWeight={'bold'} mb={2}>
+                      {item.name}
+                    </Text>
+                    <Text whiteSpace={'pre-wrap'}>{item.greeting}</Text>
+                  </Box>
+                ))}
+              </Fragment>
+            )}
           </Box>
 
           {/* <Box

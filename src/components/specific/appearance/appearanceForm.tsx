@@ -5,7 +5,9 @@ import { assign } from 'lodash';
 import { useSession } from 'next-auth/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import DynamicIcon from '@/components/global/dynamicIcon';
 import site from '@/config/site';
+import { isValidHttpUrl } from '@/libs/utils';
 import {
   updateAppearanceFeature,
   updateAppearanceFeatureData,
@@ -209,13 +211,15 @@ const FormFile = ({ label, value, onChangeData }) => {
         minW={'100px'}
         minH={'100px'}
       >
-        <Image
-          src={value || 'https://placehold.co/100x100?text=Image'}
-          alt={label}
-          width={100}
-          height={100}
-          objectFit={'cover'}
-        />
+        {isValidHttpUrl(value) && (
+          <Image
+            src={value || 'https://placehold.co/100x100?text=Image'}
+            alt={label}
+            width={100}
+            height={100}
+            objectFit={'cover'}
+          />
+        )}
       </Flex>
       <Box>
         <IKContext
