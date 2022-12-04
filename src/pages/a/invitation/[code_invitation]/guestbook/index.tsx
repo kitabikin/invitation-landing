@@ -14,6 +14,7 @@ import EmptyList from '@/components/global/emptyList';
 import Pagination from '@/components/global/pagination';
 import GuestbookSend from '@/components/specific/guestbook/guestbookSend';
 import GuestbookMessage from '@/components/specific/guestbook/guestbookMessage';
+import { verify } from '@/libs/jwtSignVerify';
 import { getAllGuestbook, getInvitation } from '@/libs/fetchQuery';
 import {
   Badge,
@@ -53,6 +54,8 @@ import {
   MdModeEdit,
   MdArrowForward,
 } from 'react-icons/md';
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const Guestbook = ({
   session,
@@ -493,13 +496,25 @@ const Guestbook = ({
 };
 
 export async function getServerSideProps(context) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions,
-  );
+  try {
+    const session = await unstable_getServerSession(
+      context.req,
+      context.res,
+      authOptions,
+    );
 
-  if (!session) {
+    if (!session) {
+      throw new Error('No Session');
+    }
+
+    await verify(session.accessToken, JWT_SECRET_KEY);
+
+    return {
+      props: {
+        session,
+      },
+    };
+  } catch (error) {
     return {
       redirect: {
         destination: '/login',
@@ -507,12 +522,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
-  return {
-    props: {
-      session,
-    },
-  };
 }
 
 export default Guestbook;

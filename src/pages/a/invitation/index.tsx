@@ -11,6 +11,7 @@ import site from '@/config/site';
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
+import { verify } from '@/libs/jwtSignVerify';
 import { getAllInvitation } from '@/libs/fetchQuery';
 import {
   Box,
@@ -29,6 +30,8 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 import { MdEmail, MdSearch, MdEvent, MdWeb } from 'react-icons/md';
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const Invitation = ({
   session,
@@ -190,13 +193,25 @@ const Invitation = ({
 };
 
 export async function getServerSideProps(context) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions,
-  );
+  try {
+    const session = await unstable_getServerSession(
+      context.req,
+      context.res,
+      authOptions,
+    );
 
-  if (!session) {
+    if (!session) {
+      throw new Error('No Session');
+    }
+
+    await verify(session.accessToken, JWT_SECRET_KEY);
+
+    return {
+      props: {
+        session,
+      },
+    };
+  } catch (error) {
     return {
       redirect: {
         destination: '/login',
@@ -204,12 +219,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
-  return {
-    props: {
-      session,
-    },
-  };
 }
 
 export default Invitation;

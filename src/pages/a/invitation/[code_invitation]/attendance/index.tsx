@@ -13,6 +13,7 @@ import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
 import Pagination from '@/components/global/pagination';
+import { verify } from '@/libs/jwtSignVerify';
 import { getAllGuestbook } from '@/libs/fetchQuery';
 import {
   Badge,
@@ -39,6 +40,8 @@ import {
   MdSupervisedUserCircle,
   MdAccessTimeFilled,
 } from 'react-icons/md';
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const Attendance = ({
   session,
@@ -290,13 +293,25 @@ const Attendance = ({
 };
 
 export async function getServerSideProps(context) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions,
-  );
+  try {
+    const session = await unstable_getServerSession(
+      context.req,
+      context.res,
+      authOptions,
+    );
 
-  if (!session) {
+    if (!session) {
+      throw new Error('No Session');
+    }
+
+    await verify(session.accessToken, JWT_SECRET_KEY);
+
+    return {
+      props: {
+        session,
+      },
+    };
+  } catch (error) {
     return {
       redirect: {
         destination: '/login',
@@ -304,12 +319,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
-  return {
-    props: {
-      session,
-    },
-  };
 }
 
 export default Attendance;

@@ -6,6 +6,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
+import { verify } from '@/libs/jwtSignVerify';
 import { getGuestbook, updateGuestbook } from '@/libs/fetchQuery';
 import {
   Box,
@@ -29,6 +30,8 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const Edit = ({
   session,
@@ -259,13 +262,25 @@ const Edit = ({
 };
 
 export async function getServerSideProps(context) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions,
-  );
+  try {
+    const session = await unstable_getServerSession(
+      context.req,
+      context.res,
+      authOptions,
+    );
 
-  if (!session) {
+    if (!session) {
+      throw new Error('No Session');
+    }
+
+    await verify(session.accessToken, JWT_SECRET_KEY);
+
+    return {
+      props: {
+        session,
+      },
+    };
+  } catch (error) {
     return {
       redirect: {
         destination: '/login',
@@ -273,12 +288,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
-  return {
-    props: {
-      session,
-    },
-  };
 }
 
 export default Edit;

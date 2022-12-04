@@ -2,7 +2,10 @@ import { InferGetServerSidePropsType } from 'next';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import ContainerClient from '@/layouts/container/containerClient';
+import { verify } from '@/libs/jwtSignVerify';
 import { Box, Container, Flex, Heading } from '@chakra-ui/react';
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const Analytics = ({
   session,
@@ -23,13 +26,25 @@ const Analytics = ({
 };
 
 export async function getServerSideProps(context) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions,
-  );
+  try {
+    const session = await unstable_getServerSession(
+      context.req,
+      context.res,
+      authOptions,
+    );
 
-  if (!session) {
+    if (!session) {
+      throw new Error('No Session');
+    }
+
+    await verify(session.accessToken, JWT_SECRET_KEY);
+
+    return {
+      props: {
+        session,
+      },
+    };
+  } catch (error) {
     return {
       redirect: {
         destination: '/login',
@@ -37,12 +52,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
-  return {
-    props: {
-      session,
-    },
-  };
 }
 
 export default Analytics;
