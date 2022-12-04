@@ -10,7 +10,7 @@ import HomeStatistic from '@/components/specific/home/homeStatistic';
 
 function Home() {
   return (
-    <ContainerDefault isHome={true} title={site.titleHome}>
+    <ContainerDefault title={site.titleHome}>
       <NextSeo titleTemplate={`%s`} />
       <Container maxW="container.lg" mt={20}>
         <HomeHeroV2 />

@@ -9,10 +9,6 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head>
-          <link rel="preconnect" href="https://ik.imagekit.io" />
-          <link rel="preconnect" href="https://res.cloudinary.com" />
-          <link rel="preconnect" href="https://avatars.dicebear.com" />
-          <link rel="preconnect" href="https://placehold.co" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
