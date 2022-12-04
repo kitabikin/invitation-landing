@@ -12,6 +12,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
+import Pagination from '@/components/global/pagination';
 import { getAllGuestbook } from '@/libs/fetchQuery';
 import {
   Badge,
@@ -47,7 +48,14 @@ const Attendance = ({
   const router = useRouter();
   const { code_invitation } = router.query;
 
+  const perPageItems = [
+    { value: 5, label: '5' },
+    { value: 10, label: '10' },
+    { value: 25, label: '25' },
+  ];
+
   // State
+  const [perPage, setPerPage] = useState(5);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('modified_at:desc');
   const [search, setSearch] = useState('');
@@ -63,7 +71,8 @@ const Attendance = ({
     with: [{ invitation: true }, { parrent: true }],
     search,
     sort,
-    page,
+    limit: perPage,
+    start: perPage * page - perPage,
   };
 
   if (session?.user.role === 'event-client') {
@@ -75,36 +84,21 @@ const Attendance = ({
     data: guestbook,
     isPreviousData,
   } = useQuery({
-    queryKey: ['attendance', code_invitation, page, sort, search, confirmation],
+    queryKey: [
+      'attendance',
+      code_invitation,
+      perPage,
+      page,
+      sort,
+      search,
+      confirmation,
+    ],
     queryFn: () => getAllGuestbook(session?.accessToken, { params }),
     keepPreviousData: true,
     staleTime: 5000,
   });
 
   // Effect
-  useEffect(() => {
-    if (!isPreviousData && guestbook?.hasMore) {
-      queryClient.prefetchQuery(
-        ['attendance', code_invitation, page + 1, sort, search, confirmation],
-        () => {
-          assign(params, {
-            page: page + 1,
-          });
-          return getAllGuestbook(session?.accessToken, { params });
-        },
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    guestbook,
-    isPreviousData,
-    sort,
-    page,
-    search,
-    confirmation,
-    queryClient,
-  ]);
-
   useEffect(() => {
     return () => {
       debouncedChangeHandler.cancel();
@@ -276,28 +270,14 @@ const Attendance = ({
                         </Card>
                       ))}
                     </Stack>
-                    <Flex justifyContent={'space-between'}>
-                      <Button
-                        size={'sm'}
-                        colorScheme={'pink'}
-                        onClick={() => setPage((old) => Math.max(old - 1, 0))}
-                        disabled={page === 1}
-                      >
-                        Sebelumnya
-                      </Button>
-                      <Button
-                        size={'sm'}
-                        colorScheme={'pink'}
-                        onClick={() => {
-                          setPage((old) =>
-                            guestbook?.hasMore ? old + 1 : old,
-                          );
-                        }}
-                        disabled={isPreviousData || !guestbook?.hasMore}
-                      >
-                        Selanjutnya
-                      </Button>
-                    </Flex>
+                    <Pagination
+                      perPageItems={perPageItems}
+                      pagination={guestbook.pagination}
+                      perPage={perPage}
+                      page={page}
+                      onPerPage={(e) => setPerPage(Number(e))}
+                      onPage={(e) => setPage(Number(e))}
+                    />
                   </>
                 )}
               </Fragment>

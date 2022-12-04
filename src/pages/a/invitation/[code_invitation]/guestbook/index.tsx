@@ -11,6 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 import ContainerClient from '@/layouts/container/containerClient';
 import SkeletonList from '@/components/global/skeletonList';
 import EmptyList from '@/components/global/emptyList';
+import Pagination from '@/components/global/pagination';
 import GuestbookSend from '@/components/specific/guestbook/guestbookSend';
 import GuestbookMessage from '@/components/specific/guestbook/guestbookMessage';
 import { getAllGuestbook, getInvitation } from '@/libs/fetchQuery';
@@ -60,7 +61,14 @@ const Guestbook = ({
   const router = useRouter();
   const { code_invitation } = router.query;
 
+  const perPageItems = [
+    { value: 5, label: '5' },
+    { value: 10, label: '10' },
+    { value: 25, label: '25' },
+  ];
+
   // State
+  const [perPage, setPerPage] = useState(5);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('modified_at:desc');
   const [search, setSearch] = useState('');
@@ -81,7 +89,8 @@ const Guestbook = ({
     with: [{ invitation: true }, { parrent: true }],
     search,
     sort,
-    page,
+    limit: perPage,
+    start: perPage * page - perPage,
   };
 
   if (session?.user.role === 'event-client') {
@@ -93,7 +102,16 @@ const Guestbook = ({
     data: guestbook,
     isPreviousData,
   } = useQuery({
-    queryKey: ['guestbook', code_invitation, page, sort, search, type, send],
+    queryKey: [
+      'guestbook',
+      code_invitation,
+      perPage,
+      page,
+      sort,
+      search,
+      type,
+      send,
+    ],
     queryFn: () => getAllGuestbook(session?.accessToken, { params }),
     keepPreviousData: true,
     staleTime: 5000,
@@ -411,28 +429,14 @@ const Guestbook = ({
                           </Card>
                         ))}
                       </Stack>
-                      <Flex justifyContent={'space-between'}>
-                        <Button
-                          size={'sm'}
-                          colorScheme={'pink'}
-                          onClick={() => setPage((old) => Math.max(old - 1, 0))}
-                          disabled={page === 1}
-                        >
-                          Sebelumnya
-                        </Button>
-                        <Button
-                          size={'sm'}
-                          colorScheme={'pink'}
-                          onClick={() => {
-                            setPage((old) =>
-                              guestbook?.hasMore ? old + 1 : old,
-                            );
-                          }}
-                          disabled={isPreviousData || !guestbook?.hasMore}
-                        >
-                          Selanjutnya
-                        </Button>
-                      </Flex>
+                      <Pagination
+                        perPageItems={perPageItems}
+                        pagination={guestbook.pagination}
+                        perPage={perPage}
+                        page={page}
+                        onPerPage={(e) => setPerPage(Number(e))}
+                        onPage={(e) => setPage(Number(e))}
+                      />
                     </>
                   )}
                 </Fragment>

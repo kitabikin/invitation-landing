@@ -32,15 +32,6 @@ export const getInvitation = async (accessToken, { id, params = {} }) => {
 
 // Guest Book ==================================================================
 export const getAllGuestbook = async (accessToken, { params = {} }: any) => {
-  let page = 1;
-  if (!isEmpty(params)) {
-    page = params.page;
-    assign(params, {
-      limit: 5,
-      start: 5 * params.page - 5,
-    });
-  }
-
   const merge = qs.stringify(params);
   const options = {
     method: 'GET',
@@ -51,8 +42,24 @@ export const getAllGuestbook = async (accessToken, { params = {} }: any) => {
     url: `${coreUrl}/v1/invitation-guest-book?${merge}`,
   };
   const { data } = await axios(options);
-  const hasMore = data.pagination ? data.pagination.end_page : 1;
-  return { data: data.data, hasMore: page < hasMore };
+
+  const result: any = {
+    data: data.data,
+  };
+
+  if (isEmpty(data.data)) {
+    assign(result, {
+      pagination: { empty: true },
+      hasMore: false,
+    });
+  } else {
+    assign(result, {
+      pagination: data.pagination,
+      hasMore: data.pagination.next_page < data.pagination.total_pages,
+    });
+  }
+
+  return result;
 };
 
 export const getGuestbook = async (accessToken, { id, params = {} }) => {
@@ -101,15 +108,6 @@ export const updateGuestbook = async (
 
 // Greeting ====================================================================
 export const getAllGreeting = async (accessToken, { params = {} }: any) => {
-  let page = 1;
-  if (!isEmpty(params)) {
-    page = params.page;
-    assign(params, {
-      limit: 5,
-      start: 5 * params.page - 5,
-    });
-  }
-
   const merge = qs.stringify(params);
   const options = {
     method: 'GET',
@@ -120,8 +118,24 @@ export const getAllGreeting = async (accessToken, { params = {} }: any) => {
     url: `${coreUrl}/v1/invitation-greeting?${merge}`,
   };
   const { data } = await axios(options);
-  const hasMore = data.pagination ? data.pagination.end_page : 1;
-  return { data: data.data, hasMore: page < hasMore };
+
+  const result: any = {
+    data: data.data,
+  };
+
+  if (isEmpty(data.data)) {
+    assign(result, {
+      pagination: { empty: true },
+      hasMore: false,
+    });
+  } else {
+    assign(result, {
+      pagination: data.pagination,
+      hasMore: data.pagination.next_page < data.pagination.total_pages,
+    });
+  }
+
+  return result;
 };
 
 // Invitation Guest Book Template ==============================================
