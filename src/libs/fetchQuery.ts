@@ -62,6 +62,33 @@ export const getAllGuestbook = async (accessToken, { params = {} }: any) => {
   return result;
 };
 
+export const getTotalGuestbook = async (accessToken, { params = {} }: any) => {
+  const merge = qs.stringify(params);
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    url: `${coreUrl}/v1/invitation-guest-book/total?${merge}`,
+  };
+  const { data } = await axios(options);
+
+  const result: any = {};
+
+  if (isEmpty(data.data)) {
+    assign(result, {
+      data: 0,
+    });
+  } else {
+    assign(result, {
+      data: data.data.count,
+    });
+  }
+
+  return result;
+};
+
 export const getGuestbook = async (accessToken, { id, params = {} }) => {
   const merge = qs.stringify(params);
   return await fetch(`${coreUrl}/v1/invitation-guest-book/${id}?${merge}`, {
@@ -132,6 +159,33 @@ export const getAllGreeting = async (accessToken, { params = {} }: any) => {
     assign(result, {
       pagination: data.pagination,
       hasMore: data.pagination.next_page < data.pagination.total_pages,
+    });
+  }
+
+  return result;
+};
+
+export const getTotalGreeting = async (accessToken, { params = {} }: any) => {
+  const merge = qs.stringify(params);
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    url: `${coreUrl}/v1/invitation-greeting/total?${merge}`,
+  };
+  const { data } = await axios(options);
+
+  const result: any = {};
+
+  if (isEmpty(data.data)) {
+    assign(result, {
+      data: 0,
+    });
+  } else {
+    assign(result, {
+      data: data.data.count,
     });
   }
 

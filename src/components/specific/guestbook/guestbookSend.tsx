@@ -16,6 +16,8 @@ const GuestbookSend = ({ id, isSend }) => {
       updateGuestbook(session?.accessToken, { id, body, params }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['guestbook'] });
+      queryClient.invalidateQueries({ queryKey: ['total-guestbook-send'] });
+      queryClient.invalidateQueries({ queryKey: ['total-guestbook-send-not'] });
     },
   });
 

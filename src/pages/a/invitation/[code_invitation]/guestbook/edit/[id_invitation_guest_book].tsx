@@ -57,7 +57,12 @@ const Edit = ({
         body,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries(['guestbook']);
+      queryClient.invalidateQueries({ queryKey: ['guestbook'] });
+      queryClient.invalidateQueries({ queryKey: ['total-guestbook-send'] });
+      queryClient.invalidateQueries({ queryKey: ['total-guestbook-send-not'] });
+      queryClient.invalidateQueries({ queryKey: ['total-guestbook-vip'] });
+      queryClient.invalidateQueries({ queryKey: ['total-guestbook-family'] });
+      queryClient.invalidateQueries({ queryKey: ['total-guestbook-normal'] });
     },
   });
 
