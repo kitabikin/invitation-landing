@@ -27,6 +27,7 @@ import {
   NumberInputStepper,
   Select,
   Textarea,
+  useToast,
 } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -38,6 +39,7 @@ const Edit = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Settings
   const queryClient = useQueryClient();
+  const toast = useToast();
   const router = useRouter();
   const { code_invitation, id_invitation_guest_book } = router.query;
 
@@ -58,6 +60,16 @@ const Edit = ({
       queryClient.invalidateQueries(['guestbook']);
     },
   });
+
+  if (mutation.isError) {
+    toast({
+      title: 'Terjadi kesalahan.',
+      description: 'Silahkan coba kembali.',
+      status: 'error',
+      position: 'bottom-left',
+      isClosable: true,
+    });
+  }
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Harus diisi.'),
@@ -244,7 +256,12 @@ const Edit = ({
                         </Box>
 
                         <Box display={'grid'}>
-                          <Button colorScheme={'pink'} type="submit">
+                          <Button
+                            colorScheme={'pink'}
+                            type="submit"
+                            isLoading={mutation.isLoading ? true : false}
+                            loadingText="Loading..."
+                          >
                             Simpan
                           </Button>
                         </Box>

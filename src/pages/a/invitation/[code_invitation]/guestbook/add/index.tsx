@@ -26,6 +26,7 @@ import {
   NumberInputStepper,
   Select,
   Textarea,
+  useToast,
 } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -37,6 +38,7 @@ const Add = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Settings
   const queryClient = useQueryClient();
+  const toast = useToast();
   const router = useRouter();
   const { code_invitation } = router.query;
 
@@ -65,6 +67,16 @@ const Add = ({
       queryClient.invalidateQueries(['guestbook']);
     },
   });
+
+  if (mutation.isError) {
+    toast({
+      title: 'Terjadi kesalahan.',
+      description: 'Silahkan coba kembali.',
+      status: 'error',
+      position: 'bottom-left',
+      isClosable: true,
+    });
+  }
 
   const initialValues = {
     name: '',
@@ -248,7 +260,12 @@ const Add = ({
                       </Box>
 
                       <Box display={'grid'}>
-                        <Button colorScheme={'pink'} type="submit">
+                        <Button
+                          colorScheme={'pink'}
+                          type="submit"
+                          isLoading={mutation.isLoading ? true : false}
+                          loadingText="Loading..."
+                        >
                           Simpan
                         </Button>
                       </Box>

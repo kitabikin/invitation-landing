@@ -1,11 +1,12 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { Button } from '@chakra-ui/react';
+import { Button, useToast } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { updateGuestbook } from '@/libs/fetchQuery';
 
 const GuestbookSend = ({ id, isSend }) => {
   const { data: session, status } = useSession();
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   const params = {
     modified_at: false,
@@ -24,6 +25,16 @@ const GuestbookSend = ({ id, isSend }) => {
     });
   };
 
+  if (mutation.isError) {
+    toast({
+      title: 'Terjadi kesalahan.',
+      description: 'Silahkan coba kembali.',
+      status: 'error',
+      position: 'bottom-left',
+      isClosable: true,
+    });
+  }
+
   return (
     <Button
       type={'button'}
@@ -35,6 +46,8 @@ const GuestbookSend = ({ id, isSend }) => {
           isSend: !isSend,
         })
       }
+      isLoading={mutation.isLoading ? true : false}
+      loadingText="Loading..."
     >
       {isSend ? 'Tandai belum terkirim' : 'Tandai sudah terkirim'}
     </Button>

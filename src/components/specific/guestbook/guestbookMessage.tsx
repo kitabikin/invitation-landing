@@ -52,6 +52,16 @@ const GuestbookMessage = ({ id, guest = 'Tamu Undangan' }) => {
     },
   });
 
+  if (mutation.isError) {
+    toast({
+      title: 'Terjadi kesalahan.',
+      description: 'Silahkan coba kembali.',
+      status: 'error',
+      position: 'bottom-left',
+      isClosable: true,
+    });
+  }
+
   // Action
   const onSubmit = (e) => {
     e.preventDefault();
@@ -173,6 +183,8 @@ const GuestbookMessage = ({ id, guest = 'Tamu Undangan' }) => {
             colorScheme="pink"
             onClick={onSubmit}
             type={'button'}
+            isLoading={mutation.isLoading ? true : false}
+            loadingText="Loading..."
           >
             Simpan Template
           </Button>

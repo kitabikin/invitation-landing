@@ -5,7 +5,6 @@ import { assign } from 'lodash';
 import { useSession } from 'next-auth/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import DynamicIcon from '@/components/global/dynamicIcon';
 import site from '@/config/site';
 import { isValidHttpUrl } from '@/libs/utils';
 import {
@@ -28,6 +27,7 @@ import {
   Switch,
   Text,
   Textarea,
+  useToast,
 } from '@chakra-ui/react';
 import { IKContext, IKUpload } from 'imagekitio-react';
 import { MdAdd, MdDelete } from 'react-icons/md';
@@ -503,6 +503,7 @@ const FormDynamic = ({ data, value, saveData }) => {
 const AppearanceForm = ({ data, onResetIframe }) => {
   const { data: session } = useSession();
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   const mutationFeature = useMutation({
     mutationFn: (body: any) =>
@@ -527,6 +528,16 @@ const AppearanceForm = ({ data, onResetIframe }) => {
       onResetIframe();
     },
   });
+
+  if (mutationFeature.isError || mutationFeatureData.isError) {
+    toast({
+      title: 'Terjadi kesalahan.',
+      description: 'Silahkan coba kembali.',
+      status: 'error',
+      position: 'bottom-left',
+      isClosable: true,
+    });
+  }
 
   const changeFeature = (fields) => {
     mutationFeature.mutate(fields);

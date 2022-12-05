@@ -181,8 +181,13 @@ function Login({ csrfToken }) {
                   </Box>
 
                   <Box display={'grid'}>
-                    <Button colorScheme={'pink'} type="submit">
-                      {isSubmitting ? 'Loading...' : 'Masuk'}
+                    <Button
+                      colorScheme={'pink'}
+                      type="submit"
+                      isLoading={isSubmitting ? true : false}
+                      loadingText="Loading..."
+                    >
+                      Masuk
                     </Button>
                   </Box>
                 </Form>
