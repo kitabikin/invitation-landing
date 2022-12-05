@@ -1,0 +1,82 @@
+[
+  {
+    "bank_code": "GIFT",
+    "bank_name": "KIRIM KADO",
+    "swift_code": "GIFT",
+    "name": "Kirim Kado",
+    "code": "GIFT",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249811/invitation/logo/logo-gift_xs2865.png"
+  },
+  {
+    "bank_code": "014",
+    "bank_name": "PT. BANK CENTRAL ASIA, TBK.",
+    "swift_code": "CENAIDJA",
+    "name": "Bank Central Asia (BCA)",
+    "code": "BCA",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-bca_cwd3dm.png"
+  },
+  {
+    "bank_code": "008",
+    "bank_name": "PT. BANK MANDIRI, TBK.",
+    "swift_code": "BMRIIDJA",
+    "name": "Bank Mandiri",
+    "code": "MANDIRI",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-mandiri_ahi8iq.png"
+  },
+  {
+    "bank_code": "002",
+    "bank_name": "PT. BANK RAKYAT INDONESIA, TBK.",
+    "swift_code": "BRINIDJA",
+    "name": "Bank Rakyat Indonesia (BRI)",
+    "code": "BRI",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-bri_j7spd5.png"
+  },
+  {
+    "bank_code": "009",
+    "bank_name": "PT. BANK NEGARA INDONESIA, TBK.",
+    "swift_code": "BNINIDJA",
+    "name": "Bank Negara Indonesia (BNI)",
+    "code": "BNI",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-bni_gnhk25.png"
+  },
+  {
+    "bank_code": "OVO",
+    "bank_name": "OVO (PT. Visionet Internasional)",
+    "swift_code": "OVO",
+    "name": "OVO",
+    "code": "EWALLET_OVO",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-ovo_uke4hz.png"
+  },
+  {
+    "bank_code": "DANA",
+    "bank_name": "DANA (PT. Espay Debit Indonesia)",
+    "swift_code": "DANA",
+    "name": "DANA",
+    "code": "EWALLET_DANA",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-dana_fbsggx.png"
+  },
+  {
+    "bank_code": "GOPAY",
+    "bank_name": "GOPAY (PT. Aplikasi Karya Anak Bangsa)",
+    "swift_code": "GOPAY",
+    "name": "GoPay",
+    "code": "EWALLET_GOPAY",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-gopay_irfsuk.png"
+  },
+  {
+    "bank_code": "SHOPEEPAY",
+    "bank_name": "SHOPEEPAY (PT. AirPay International Indonesia)",
+    "swift_code": "SHOPEEPAY",
+    "name": "ShoopePay",
+    "code": "EWALLET_SHOPEEPAY",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-shopeepay_o8bcvh.png"
+  },
+  {
+    "bank_code": "LINKAJA",
+    "bank_name": "LINKAJA (PT. Fintek Karya Nusantara)",
+    "swift_code": "LINKAJA",
+    "name": "LinkAja",
+    "code": "EWALLET_LINKAJA",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-linkaja_qpymle.png"
+  }
+]

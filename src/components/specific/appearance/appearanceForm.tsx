@@ -1,15 +1,16 @@
-import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { assign } from 'lodash';
 import { useSession } from 'next-auth/react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import site from '@/config/site';
 import { isValidHttpUrl } from '@/libs/utils';
 import {
   updateAppearanceFeature,
   updateAppearanceFeatureData,
+  getAllGift,
 } from '@/libs/fetchQuery';
 import {
   Box,
@@ -182,6 +183,36 @@ const FormSelect = ({ label, value, options, onChangeData }) => {
   );
 };
 
+const FormSelectGift = ({ label, value, onChangeData }) => {
+  const { isLoading, data: gift } = useQuery({
+    queryKey: ['gift'],
+    queryFn: () => getAllGift({ params: {} }),
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <Select
+      variant="filled"
+      placeholder={label}
+      defaultValue={value}
+      onChange={(e) =>
+        onChangeData({
+          value: e.target.value,
+        })
+      }
+    >
+      {gift.data.map((option, index) => (
+        <option key={index} value={option.code}>
+          {option.name}
+        </option>
+      ))}
+    </Select>
+  );
+};
+
 const FormFile = ({ label, value, onChangeData }) => {
   const router = useRouter();
   const { code_invitation } = router.query;
@@ -199,7 +230,7 @@ const FormFile = ({ label, value, onChangeData }) => {
   };
 
   return (
-    <Flex gap={4} minW={'300px'}>
+    <Flex gap={4} minW={{ base: 'auto', md: '300px' }}>
       <Flex
         border={1}
         borderStyle={'solid'}
@@ -445,6 +476,7 @@ const FormDynamic = ({ data, value, saveData }) => {
         {inputFields.map((input, i) => (
           <Flex
             key={i}
+            flexDir={{ base: 'column', md: 'row' }}
             justifyContent={'space-between'}
             justifyItems={'stretch'}
             mb={4}
@@ -466,6 +498,14 @@ const FormDynamic = ({ data, value, saveData }) => {
                       case 'file':
                         return (
                           <FormFile
+                            label={field.label}
+                            value={input[field.code]}
+                            onChangeData={(e) => changeFields(i, field.code, e)}
+                          />
+                        );
+                      case 'selectgift':
+                        return (
+                          <FormSelectGift
                             label={field.label}
                             value={input[field.code]}
                             onChangeData={(e) => changeFields(i, field.code, e)}

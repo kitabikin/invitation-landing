@@ -10,6 +10,14 @@ import { reduceFeature } from '@/libs/utils';
 import NavbarTheme from '@/layouts/navbar/navbarTheme';
 import FooterTheme from '@/layouts/footer/footerTheme';
 
+// import localFont from '@next/font/local';
+// import {
+//   EB_Garamond as hazelBody,
+//   Libre_Bodoni as hazelTitle,
+// } from '@next/font/google';
+// const hazelHeading = localFont({ src: '/hazel/FallInLove.ttf' });
+// const hazelHandwriting = localFont({ src: '/hazel/Sienthas.otf' });
+
 import FeatureKepada from '@/components/theme/hazel/featureKepada';
 import FeatureMusik from '@/components/theme/hazel/featureMusik';
 import FeatureSnowflakes from '@/components/theme/hazel/featureSnowflakes';
@@ -29,6 +37,7 @@ import FeatureLoveStory from '@/components/theme/hazel/featureLoveStory';
 import FeatureLoveQuotes from '@/components/theme/hazel/featureLoveQuotes';
 import FeatureGalleryPhoto from '@/components/theme/hazel/featureGalleryPhoto';
 import FeatureGalleryVideo from '@/components/theme/hazel/featureGalleryVideo';
+import FeatureWeddingGift from '@/components/theme/hazel/featureWeddingGift';
 import FeatureKehadiranUcapan from '@/components/theme/hazel/featureKehadiranUcapan';
 import FeatureUcapanDoa from '@/components/theme/hazel/featureUcapanDoa';
 
@@ -82,6 +91,7 @@ function ContainerHazel({ options, data, greeting }) {
     [`${options.code}-loveQuotes`]: fLoveQuotes,
     [`${options.code}-galleryPhoto`]: fGalleryPhoto,
     [`${options.code}-galleryVideo`]: fGalleryVideo,
+    [`${options.code}-weddingGift`]: fWeddingGift,
     [`${options.code}-kehadiranUcapan`]: fKehadiranUcapan,
     [`${options.code}-ucapanDoa`]: fUcapanDoa,
   } = feature;
@@ -128,14 +138,14 @@ function ContainerHazel({ options, data, greeting }) {
           },
           {
             rel: 'preload',
-            href: `/nashville/FallInLove.ttf`,
+            href: `/hazel/FallInLove.ttf`,
             as: 'font',
             type: 'font/ttf',
             crossOrigin: 'anonymous',
           },
           {
             rel: 'preload',
-            href: `/nashville/Sienthas.otf`,
+            href: `/hazel/Sienthas.otf`,
             as: 'font',
             type: 'font/ttf',
             crossOrigin: 'anonymous',
@@ -150,7 +160,7 @@ function ContainerHazel({ options, data, greeting }) {
         minH={'100vh'}
         bg={'var(--hazel-bg-color)'}
         color={'var(--hazel-color-body)'}
-        fontFamily={'nashvilleBody'}
+        fontFamily={'hazelBody'}
         fontSize={{ base: 'md', md: 'lg' }}
       >
         {/* Kepada */}
@@ -426,6 +436,11 @@ function ContainerHazel({ options, data, greeting }) {
               />
             </Box>
           </Container>
+
+          {/* Wedding Gift */}
+          {fWeddingGift && fWeddingGift.is_active && (
+            <FeatureWeddingGift options={options} feature={feature} />
+          )}
 
           {/* Kehadiran Ucapan */}
           {fKehadiranUcapan && fKehadiranUcapan.is_active && (

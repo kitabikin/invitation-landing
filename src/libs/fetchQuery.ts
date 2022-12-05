@@ -2,6 +2,8 @@ import { assign, isEmpty } from 'lodash';
 import qs from 'qs';
 import axios from 'axios';
 
+import site from '@/config/site';
+
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
 // Invitation ==================================================================
@@ -279,4 +281,23 @@ export const updateAppearanceFeatureData = async (
   })
     .then((res) => res.json())
     .then((res) => res.data);
+};
+
+// Gift ====================================================================
+export const getAllGift = async ({ params = {} }: any) => {
+  const merge = qs.stringify(params);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    url: `${site.siteUrl}/api/gift?${merge}`,
+  };
+  const { data } = await axios(options);
+
+  const result: any = {
+    data: data.data,
+  };
+
+  return result;
 };
