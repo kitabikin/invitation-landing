@@ -357,7 +357,7 @@ export const updateAppearanceFeatureData = async (
     .then((res) => res.data);
 };
 
-// Gift ====================================================================
+// Gift ========================================================================
 export const getAllGift = async ({ params = {} }: any) => {
   const merge = qs.stringify(params);
   const options = {

@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+import { withProse } from '@nikolovlazar/chakra-ui-prose';
 
 const config = {
   initialColorMode: 'light',
@@ -25,6 +26,6 @@ const customTheme = {
   ...config,
 };
 
-const theme = extendTheme(customTheme);
+const theme = extendTheme(customTheme, withProse());
 
 export default theme;

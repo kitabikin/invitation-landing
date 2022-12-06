@@ -21,6 +21,10 @@ const NAV_ITEMS = [
     label: 'Acara',
     href: '/event',
   },
+  {
+    label: 'Blog',
+    href: '/blog',
+  },
 ];
 
 export default function NavbarDefault() {

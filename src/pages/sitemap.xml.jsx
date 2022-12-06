@@ -1,5 +1,6 @@
 import site from '@/config/site';
 import qs from 'qs';
+import { getBlogSlug } from '@/libs/fetchBlog';
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
@@ -74,6 +75,9 @@ export const getServerSideProps = async ({ res }) => {
   // Invitation
   const invitationPages = await getInvitation();
 
+  // Blog
+  const blogPages = await getBlogSlug();
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${staticPages
@@ -120,6 +124,18 @@ export const getServerSideProps = async ({ res }) => {
                 <lastmod>${new Date().toISOString()}</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.5</priority>
+              </url>
+            `;
+        })
+        .join('')}
+      ${blogPages
+        .map((slug) => {
+          return `
+              <url>
+                <loc>${baseUrl}/blog/${slug}</loc>
+                <lastmod>${new Date().toISOString()}</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>1.0</priority>
               </url>
             `;
         })

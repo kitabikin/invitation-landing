@@ -9,6 +9,7 @@ const moduleExports = {
       'ik.imagekit.io',
       'avatars.dicebear.com',
       'placehold.co',
+      'images.unsplash.com',
     ],
   },
   experimental: {
