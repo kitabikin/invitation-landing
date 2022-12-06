@@ -16,7 +16,7 @@ import { RiWhatsappLine, RiMailSendLine } from 'react-icons/ri';
 
 function Contact() {
   // Settings
-  const description = `Tim kita akan segera menanggapi pertanyaan, saran, atau keluhan dari pengguna dengan cepat dan ramah.`;
+  const description = `Tim kita akan segera menanggapi pertanyaan, saran, atau keluhan dari pengguna dengan cepat dan ramah. Ayo hubungi kita untuk mendapatkan informasi lebih lanjut atau bantuan.`;
 
   const wa = site.whatsappNumber;
   const txt = encodeURIComponent(
