@@ -6,6 +6,80 @@ import site from '@/config/site';
 
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
+// Event ==================================================================
+export const getAllEvent = async ({ params = {} }: any) => {
+  const merge = qs.stringify(params);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    url: `${coreUrl}/v1/event?${merge}`,
+  };
+  const { data } = await axios(options);
+
+  const result: any = {
+    data: data.data,
+  };
+
+  if (isEmpty(data.data)) {
+    assign(result, {
+      pagination: { empty: true },
+      hasMore: false,
+    });
+  } else {
+    assign(result, {
+      pagination: data.pagination,
+      hasMore: data.pagination.next_page < data.pagination.total_pages,
+    });
+  }
+
+  return result;
+};
+
+export const getEvent = async ({ id, params = {} }) => {
+  const merge = qs.stringify(params);
+  return await fetch(`${coreUrl}/v1/event/${id}?${merge}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => res.data);
+};
+
+// Theme ==================================================================
+export const getAllTheme = async ({ params = {} }: any) => {
+  const merge = qs.stringify(params);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    url: `${coreUrl}/v1/theme?${merge}`,
+  };
+  const { data } = await axios(options);
+
+  const result: any = {
+    data: data.data,
+  };
+
+  if (isEmpty(data.data)) {
+    assign(result, {
+      pagination: { empty: true },
+      hasMore: false,
+    });
+  } else {
+    assign(result, {
+      pagination: data.pagination,
+      hasMore: data.pagination.next_page < data.pagination.total_pages,
+    });
+  }
+
+  return result;
+};
+
 // Invitation ==================================================================
 export const getAllInvitation = async (accessToken, { params = {} }) => {
   const merge = qs.stringify(params);
