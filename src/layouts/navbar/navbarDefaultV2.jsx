@@ -63,7 +63,7 @@ export default function NavbarDefault() {
           </Flex>
 
           <Flex flex={{ base: 1 }} justify={'start'}>
-            <NextLink href="/">
+            <NextLink href="/" passHref>
               <Link
                 display={'flex'}
                 alignItems={'center'}

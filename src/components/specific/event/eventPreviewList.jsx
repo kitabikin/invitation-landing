@@ -19,7 +19,7 @@ function EventPreviewList({ event }) {
         borderColor={'gray.200'}
         borderRadius={8}
         _hover={{
-          borderColor: 'gray.400',
+          borderColor: 'pink.300',
         }}
       >
         <Flex

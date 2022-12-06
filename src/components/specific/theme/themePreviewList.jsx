@@ -14,7 +14,7 @@ function ThemePreviewCommingSoon({ event, theme }) {
         borderRadius={8}
         _hover={{
           textDecoration: 'none',
-          borderColor: 'gray.400',
+          borderColor: 'pink.300',
         }}
       >
         <Image src={theme.image} alt={theme.name} />

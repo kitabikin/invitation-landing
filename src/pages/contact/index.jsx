@@ -1,4 +1,3 @@
-import button from '@/styles/Button.module.css';
 import NextImage from 'next/image';
 import {
   Button,
@@ -8,7 +7,6 @@ import {
   Spacer,
   Text,
 } from '@chakra-ui/react';
-import ReactWhatsapp from 'react-whatsapp';
 
 import site from '@/config/site';
 import ContainerDefault from '@/layouts/container/containerDefault';
@@ -17,6 +15,11 @@ import HeaderPage from '@/components/global/header/headerPage';
 import { RiWhatsappLine, RiMailSendLine } from 'react-icons/ri';
 
 function Contact() {
+  const wa = site.whatsappNumber;
+  const txt = encodeURIComponent(
+    `Halo kak, saya tertarik ingin membuat undangan. \nMohon bantuannya :)`,
+  );
+
   return (
     <ContainerDefault title="Kontak">
       <Container maxW="container.lg" mt={20}>
@@ -46,7 +49,7 @@ function Contact() {
               alignItems={'center'}
               justifyContent={'center'}
               borderRadius={'full'}
-              bg={'green.500'}
+              bg={'#25D366'}
               color={'white'}
             >
               <RiWhatsappLine color={'white'} size={45} />
@@ -66,16 +69,19 @@ function Contact() {
               w={{ base: 2, md: 4 }}
               h={{ base: 2, md: 4 }}
             />
-            <ReactWhatsapp
-              number={site.whatsappNumber}
-              message={
-                'Halo kak, saya tertarik ingin membuat undangan. \nMohon bantuannya :)'
-              }
-              className={`chakra-button ${button.green}`}
-              type={'button'}
+            <Button
+              as={'a'}
+              bg={'#25D366'}
+              color={'white'}
+              w={'full'}
+              href={`https://wa.me/${wa}?text=${txt}`}
+              target={'_blank'}
+              _hover={{
+                bg: '#128C7E',
+              }}
             >
               Kontak kita
-            </ReactWhatsapp>
+            </Button>
             <Spacer
               flex={'none'}
               alignSelf={'center'}

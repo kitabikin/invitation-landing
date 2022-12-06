@@ -28,6 +28,7 @@ function Home() {
         >
           <NextImage
             src="/images/illustration/launch.png"
+            alt="Invitation Launch"
             layout="fill"
             objectFit="cover"
             objectPosition={'center 35%'}
