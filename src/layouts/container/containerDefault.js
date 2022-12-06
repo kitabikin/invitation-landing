@@ -6,10 +6,13 @@ import FooterDefault from '@/layouts/footer/footerDefault';
 import BaseHead from '@/components/global/baseHead';
 import FloatingWhatsapp from '@/components/global/floatingWhatsapp';
 
-function ContainerDefault({ children, title }) {
+function ContainerDefault({ children, title, description = null }) {
   return (
     <>
-      <BaseHead title={title} description={site.description} />
+      <BaseHead
+        title={title}
+        description={description ? description : site.description}
+      />
       <NavbarDefault />
       <Box as={'main'}>{children}</Box>
       <FooterDefault />

@@ -15,13 +15,16 @@ import HeaderPage from '@/components/global/header/headerPage';
 import { RiWhatsappLine, RiMailSendLine } from 'react-icons/ri';
 
 function Contact() {
+  // Settings
+  const description = `Tim kita akan segera menanggapi pertanyaan, saran, atau keluhan dari pengguna dengan cepat dan ramah.`;
+
   const wa = site.whatsappNumber;
   const txt = encodeURIComponent(
     `Halo kak, saya tertarik ingin membuat undangan. \nMohon bantuannya :)`,
   );
 
   return (
-    <ContainerDefault title="Kontak">
+    <ContainerDefault title="Kontak" description={description}>
       <Container maxW="container.lg" mt={20}>
         <HeaderPage title={'Tim kita siap membantu'} position={'center'} />
 

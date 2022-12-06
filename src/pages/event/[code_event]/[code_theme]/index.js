@@ -10,6 +10,8 @@ import SwitchTheme from '@/components/theme/switchTheme';
 import LoadingPage from '@/components/specific/loadingPage';
 
 function ThemeDetail({ data }) {
+  // Settings
+  const description = `Ayo buat undangan yang sempurna dan elegan dengan bantuan Kitabikin.`;
   const router = useRouter();
   const guest = router.query.to || 'Tamu Undangan';
 
@@ -26,7 +28,7 @@ function ThemeDetail({ data }) {
   };
 
   return (
-    <ContainerBlank title={`Tema ${data.name}`} description={data.description}>
+    <ContainerBlank title={`Tema ${data.name}`} description={description}>
       <SwitchTheme options={options} data={data} />
     </ContainerBlank>
   );

@@ -21,6 +21,7 @@ const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
 const EventDetail = ({ event }) => {
   // Settings
+  const description = `Pengguna dapat memilih undangan sesuai dengan tema, warna, dan preferensi pribadi. Menyediakan fitur custom design yang memungkinkan pengguna untuk menyesuaikan desain undangan sesuai dengan kebutuhan.`;
   const router = useRouter();
   const { code_event } = router.query;
 
@@ -38,7 +39,7 @@ const EventDetail = ({ event }) => {
   });
 
   return (
-    <ContainerDefault title={`Acara ${event.name}`}>
+    <ContainerDefault title={`Acara ${event.name}`} description={description}>
       <Container maxW="container.lg" mt={20}>
         <HeaderPage title={event.name} />
 

@@ -17,6 +17,9 @@ import { MdEvent } from 'react-icons/md';
 const coreUrl = process.env.NEXT_PUBLIC_CORE_URL;
 
 const Event = () => {
+  // Settings
+  const description = `Kitabikin menyediakan berbagai pilihan undangan acara. Mulai dari undangan pernikahan, ulang tahun, hingga undangan konferensi internasional, semuanya tersedia dengan desain yang menarik dan elegan.`;
+
   const params = {
     where: [{ is_active: true }],
     sort: 'name:asc',
@@ -27,7 +30,7 @@ const Event = () => {
   });
 
   return (
-    <ContainerDefault title="Acara">
+    <ContainerDefault title="Acara" description={description}>
       <Container maxW="container.lg" mt={20}>
         <HeaderPage title={'Acara'} />
 
