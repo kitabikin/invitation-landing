@@ -82,7 +82,7 @@ export const getServerSideProps = async ({ res }) => {
             <url>
               <loc>${url}</loc>
               <lastmod>${new Date().toISOString()}</lastmod>
-              <changefreq>monthly</changefreq>
+              <changefreq>weekly</changefreq>
               <priority>1.0</priority>
             </url>
           `;
@@ -94,7 +94,7 @@ export const getServerSideProps = async ({ res }) => {
               <url>
                 <loc>${baseUrl}/event/${code}</loc>
                 <lastmod>${modified_at}</lastmod>
-                <changefreq>monthly</changefreq>
+                <changefreq>weekly</changefreq>
                 <priority>1.0</priority>
               </url>
             `;
@@ -106,7 +106,7 @@ export const getServerSideProps = async ({ res }) => {
               <url>
                 <loc>${url}</loc>
                 <lastmod>${modified_at}</lastmod>
-                <changefreq>monthly</changefreq>
+                <changefreq>weekly</changefreq>
                 <priority>1.0</priority>
               </url>
             `;
@@ -118,7 +118,7 @@ export const getServerSideProps = async ({ res }) => {
               <url>
                 <loc>${baseUrl}/${event.code}/${code}</loc>
                 <lastmod>${new Date().toISOString()}</lastmod>
-                <changefreq>monthly</changefreq>
+                <changefreq>weekly</changefreq>
                 <priority>0.5</priority>
               </url>
             `;
