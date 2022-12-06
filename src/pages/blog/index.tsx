@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash';
 import { Box, Container, SimpleGrid } from '@chakra-ui/react';
 
 import ContainerDefault from '@/layouts/container/containerDefault';
@@ -6,6 +7,8 @@ import BlogPost from '@/components/specific/blog/blogPost';
 import { getAllBlog } from '@/libs/fetchBlog';
 
 const Blog = ({ posts }) => {
+  const sortPosts = sortBy(posts, ['publishedAt']).reverse();
+
   return (
     <ContainerDefault title="Blog">
       <Container maxW="container.lg" mt={20}>
@@ -13,7 +16,7 @@ const Blog = ({ posts }) => {
 
         <Box mb={24}>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
-            {posts.map((frontMatter, index) => (
+            {sortPosts.map((frontMatter, index) => (
               <BlogPost
                 key={index}
                 slug={frontMatter.slug}
@@ -32,18 +35,9 @@ const Blog = ({ posts }) => {
 export async function getStaticProps() {
   const blogs = await getAllBlog();
 
-  blogs
-    .map((blog) => blog.data)
-    .sort((a, b) => {
-      if (a.data.publishedAt > b.data.publishedAt) return 1;
-      if (a.data.publishedAt < b.data.publishedAt) return -1;
-
-      return 0;
-    });
-
   return {
     props: {
-      posts: blogs.reverse(),
+      posts: blogs,
     },
   };
 }

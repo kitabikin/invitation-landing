@@ -20,6 +20,7 @@ const BlogPage = ({ post: { source, frontmatter } }) => {
       title={frontmatter.title}
       description={frontmatter.excerpt}
       image={frontmatter.image}
+      author={frontmatter.author}
       date={new Date(frontmatter.publishedAt).toISOString()}
     >
       <Container maxW="container.md" mt={20}>
@@ -32,7 +33,7 @@ const BlogPage = ({ post: { source, frontmatter } }) => {
 
           <Flex justifyContent={'space-between'}>
             <Box>
-              {`Kitabikin / `}
+              {`${frontmatter.author} / `}
               {format(parseISO(frontmatter.publishedAt), 'd MMMM yyyy', {
                 locale: id,
               })}

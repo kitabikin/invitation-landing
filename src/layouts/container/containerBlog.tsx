@@ -8,7 +8,14 @@ import FooterDefault from '@/layouts/footer/footerDefault';
 import BaseHead from '@/components/global/baseHead';
 import FloatingWhatsapp from '@/components/global/floatingWhatsapp';
 
-function ContainerBlog({ children, title, description = null, image, date }) {
+function ContainerBlog({
+  children,
+  title,
+  description = null,
+  image,
+  author,
+  date,
+}) {
   const router = useRouter();
 
   return (
@@ -33,7 +40,7 @@ function ContainerBlog({ children, title, description = null, image, date }) {
         images={[image]}
         datePublished={date}
         dateModified={date}
-        authorName={site.author}
+        authorName={author}
         publisherName={site.author}
         publisherLogo={'/images/logo/logo80x80.png'}
         description={description}
