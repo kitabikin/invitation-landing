@@ -29,6 +29,10 @@ const WeddingGift = ({ code, alias, nomor }) => {
       url =
         'https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-bni_gnhk25.png';
       break;
+    case 'BJB':
+      url =
+        'https://res.cloudinary.com/kitabikin/image/upload/v1685791292/invitation/logo/logo-bjb_edipd8.png';
+      break;
     case 'EWALLET_OVO':
       url =
         'https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-ovo_uke4hz.png';

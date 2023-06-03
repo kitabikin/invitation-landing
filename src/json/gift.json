@@ -40,6 +40,14 @@
     "image": "https://res.cloudinary.com/kitabikin/image/upload/v1670249809/invitation/logo/logo-bni_gnhk25.png"
   },
   {
+    "bank_code": "110",
+    "bank_name": "PT. BANK BJB",
+    "swift_code": "PDJBIDJA",
+    "name": "Bank BJB",
+    "code": "BJB",
+    "image": "https://res.cloudinary.com/kitabikin/image/upload/v1685791292/invitation/logo/logo-bjb_edipd8.png"
+  },
+  {
     "bank_code": "OVO",
     "bank_name": "OVO (PT. Visionet Internasional)",
     "swift_code": "OVO",
