@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
 import _ from 'lodash';
 import { Box, Circle } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
@@ -41,11 +42,11 @@ function FeatureMusik({ ...props }) {
         bottom="30px"
         right="30px"
         border="2px"
-        onClick={handlePlaying()}
+        onClick={() => handlePlaying()}
         zIndex="500"
         aria-label="Music"
       >
-        {props.isPlaying ? <MdMusicNote size={20} /> : <MdMusicOff size={20} />}
+        {isPlaying ? <MdMusicNote size={20} /> : <MdMusicOff size={20} />}
       </Circle>
       <ReactPlayer
         url={musikSong.value}

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useAtom } from 'jotai';
 import _ from 'lodash';
 import { Container, Box, Flex, Button } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
@@ -80,7 +81,7 @@ function FeatureKepada({ ...props }) {
             fontStyle={'italic'}
             px={8}
             _hover={{ bg: 'var(--hazel-color-primary)', color: 'white' }}
-            onClick={handleClickTo()}
+            onClick={() => handleClickTo()}
           >
             {kepadaButtonLabel.value}
           </Button>
