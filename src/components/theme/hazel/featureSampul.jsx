@@ -14,6 +14,7 @@ const Nickname = ({ nickname, mx = 0 }) => {
         fontSize={'6xl'}
         color={'var(--hazel-color-primary)'}
         mx={mx}
+        lineHeight={1}
       >
         {nickname}
       </Text>
