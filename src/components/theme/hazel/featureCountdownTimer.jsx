@@ -42,11 +42,11 @@ function FeatureCountdownTimer({ ...props }) {
   useEffect(() => {
     const dt = countdownTimerDate.value;
     const tm = countdownTimerTime.value;
-    const ctDate = new Date(`${dt} ${tm}`);
+    const ctDate = new Date(`${dt} ${tm}`) || props.options.date;
     setInterval(() => getTimeUntil(ctDate), 1000);
 
     return () => getTimeUntil(ctDate);
-  }, [countdownTimerDate, countdownTimerTime]);
+  }, [countdownTimerDate, countdownTimerTime, props.options.date]);
 
   return (
     <>
