@@ -4,10 +4,13 @@ import { Box, Circle } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
 import { reduceFeature } from '@/libs/utils';
 
+import { isPlayingAtom } from '@/store/hazelStore';
+
 import { MdMusicNote, MdMusicOff } from 'react-icons/md';
 
 function FeatureMusik({ ...props }) {
   const [showChild, setShowChild] = useState(false);
+  const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
 
   useEffect(() => {
     setShowChild(true);
@@ -23,6 +26,11 @@ function FeatureMusik({ ...props }) {
   const musik = reduceFeature(props.feature[codeMusik].column);
   const { [`${codeMusik}-song`]: musikSong } = musik;
 
+  // Function ==================================================================
+  function handlePlaying() {
+    setIsPlaying(!isPlaying);
+  }
+
   return (
     <>
       <Circle
@@ -33,7 +41,7 @@ function FeatureMusik({ ...props }) {
         bottom="30px"
         right="30px"
         border="2px"
-        onClick={props.onPlayingChange}
+        onClick={handlePlaying()}
         zIndex="500"
         aria-label="Music"
       >
@@ -41,7 +49,7 @@ function FeatureMusik({ ...props }) {
       </Circle>
       <ReactPlayer
         url={musikSong.value}
-        playing={props.isPlaying}
+        playing={isPlaying}
         loop={true}
         style={{ display: 'none' }}
       />

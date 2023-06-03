@@ -3,7 +3,13 @@ import _ from 'lodash';
 import { Container, Box, Flex, Button } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
 
+import { displayAtom, isPlayingAtom, overflowYAtom } from '@/store/hazelStore';
+
 function FeatureKepada({ ...props }) {
+  const [, setDisplay] = useAtom(displayAtom);
+  const [, setIsPlaying] = useAtom(isPlayingAtom);
+  const [, setOverflowY] = useAtom(overflowYAtom);
+
   // Get Data ==================================================================
   // Kepada
   const codeKepada = `${props.options.code}-kepada`;
@@ -13,6 +19,13 @@ function FeatureKepada({ ...props }) {
     [`${codeKepada}-title`]: kepadaTitle,
     [`${codeKepada}-buttonLabel`]: kepadaButtonLabel,
   } = kepada;
+
+  // Function ==================================================================
+  function handleClickTo() {
+    setDisplay('none');
+    setIsPlaying(true);
+    setOverflowY('auto');
+  }
 
   return (
     <>
@@ -67,7 +80,7 @@ function FeatureKepada({ ...props }) {
             fontStyle={'italic'}
             px={8}
             _hover={{ bg: 'var(--hazel-color-primary)', color: 'white' }}
-            onClick={props.onDisplayChange}
+            onClick={handleClickTo()}
           >
             {kepadaButtonLabel.value}
           </Button>

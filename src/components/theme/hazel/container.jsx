@@ -41,7 +41,7 @@ import FeatureWeddingGift from '@/components/theme/hazel/featureWeddingGift';
 import FeatureKehadiranUcapan from '@/components/theme/hazel/featureKehadiranUcapan';
 import FeatureUcapanDoa from '@/components/theme/hazel/featureUcapanDoa';
 
-import { themeAtom, overflowYAtom } from '@/store/hazelStore';
+import { themeAtom, displayAtom, overflowYAtom } from '@/store/hazelStore';
 
 const THEME = [
   {
@@ -61,9 +61,8 @@ const THEME = [
 function ContainerHazel({ options, data, greeting }) {
   const router = useRouter();
   const isFromTheme = options.from === 'theme';
-  const [display, setDisplay] = useState('block');
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [overflowY, setOverflowY] = useAtom(overflowYAtom);
+  const [display] = useAtom(displayAtom);
+  const [overflowY] = useAtom(overflowYAtom);
 
   const scroll = router.query.scroll || 'true';
   const isScroll = scroll === 'true';
@@ -114,13 +113,6 @@ function ContainerHazel({ options, data, greeting }) {
   useEffect(() => {
     document.querySelector('body').style.overflowY = overflowY;
   }, [overflowY]);
-
-  // Function ==================================================================
-  function handleClickTo() {
-    setDisplay('none');
-    setIsPlaying(!isPlaying);
-    setOverflowY('auto');
-  }
 
   return (
     <>
@@ -175,24 +167,14 @@ function ContainerHazel({ options, data, greeting }) {
           display={display}
         >
           {fKepada && fKepada.is_active && (
-            <FeatureKepada
-              options={options}
-              feature={feature}
-              display={display}
-              onDisplayChange={handleClickTo}
-            />
+            <FeatureKepada options={options} feature={feature} />
           )}
         </Box>
 
         {/* Musik */}
         <Box zIndex="500">
           {fMusik && fMusik.is_active && (
-            <FeatureMusik
-              options={options}
-              feature={feature}
-              isPlaying={isPlaying}
-              onPlayingChange={() => setIsPlaying(!isPlaying)}
-            />
+            <FeatureMusik options={options} feature={feature} />
           )}
         </Box>
 
