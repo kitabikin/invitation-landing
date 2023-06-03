@@ -14,7 +14,7 @@ const BrideGroom = (data) => {
       <Text
         mt={5}
         fontFamily={'hazelHandwriting'}
-        fontSize={'6xl'}
+        fontSize={'5xl'}
         color={'var(--hazel-color-primary)'}
         lineHeight={1}
       >
