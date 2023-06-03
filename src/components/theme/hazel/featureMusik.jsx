@@ -53,6 +53,7 @@ function FeatureMusik({ ...props }) {
         playing={isPlaying}
         loop={true}
         style={{ display: 'none' }}
+        playsinline={true}
       />
     </>
   );
