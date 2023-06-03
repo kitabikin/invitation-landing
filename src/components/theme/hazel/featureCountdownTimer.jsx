@@ -40,10 +40,10 @@ function FeatureCountdownTimer({ ...props }) {
   };
 
   useEffect(() => {
-    setInterval(() => getTimeUntil(props.date), 1000);
+    setInterval(() => getTimeUntil(props.options.date), 1000);
 
-    return () => getTimeUntil(props.date);
-  }, [props.date]);
+    return () => getTimeUntil(props.options.date);
+  }, [props.options.date]);
 
   return (
     <>

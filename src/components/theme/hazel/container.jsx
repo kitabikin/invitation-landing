@@ -101,17 +101,6 @@ function ContainerHazel({ options, data, greeting }) {
   const general = reduceFeature(feature[codeGeneral].column);
   const { [`${codeGeneral}-theme`]: generalTheme } = general;
 
-  // Countdown Timer
-  const codeCountdownTimer = `${options.code}-countdownTimer`;
-  const countdownTimer = reduceFeature(feature[codeCountdownTimer].column);
-  const {
-    [`${codeCountdownTimer}-date`]: countdownTimerDate,
-    [`${codeCountdownTimer}-time`]: countdownTimerTime,
-  } = countdownTimer;
-  const ctDate = new Date(
-    `${countdownTimerDate.value} ${countdownTimerTime.value}`,
-  );
-
   const initialTheme = `theme-${generalTheme.value}`;
   useHydrateAtoms([[themeAtom, initialTheme]]);
 
@@ -299,11 +288,7 @@ function ContainerHazel({ options, data, greeting }) {
 
           {/* Countdown Timer */}
           {fCountdownTimer && fCountdownTimer.is_active && (
-            <FeatureCountdownTimer
-              options={options}
-              feature={feature}
-              date={ctDate}
-            />
+            <FeatureCountdownTimer options={options} feature={feature} />
           )}
 
           {/* Penutupan */}
