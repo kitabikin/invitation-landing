@@ -9,7 +9,7 @@
     "partytown": "partytown copylib public/~partytown"
   },
   "dependencies": {
-    "@builder.io/partytown": "^0.5.3",
+    "@builder.io/partytown": "^0.8.0",
     "@chakra-ui/react": "^2.4.1",
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
