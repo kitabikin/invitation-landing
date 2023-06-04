@@ -114,6 +114,25 @@ function ContainerHazel({ options, data, greeting }) {
     document.querySelector('body').style.overflowY = overflowY;
   }, [overflowY]);
 
+  // Section
+  const section4 = (
+    fLiveWedding,
+    fTurutMengundang,
+    fPanduanTamu,
+    fProtokolKesehatan,
+  ) => {
+    if (
+      (fLiveWedding && fLiveWedding.is_active) ||
+      (fTurutMengundang && fTurutMengundang.is_active) ||
+      (fPanduanTamu && fPanduanTamu.is_active) ||
+      (fProtokolKesehatan && fProtokolKesehatan.is_active)
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <>
       <Head>
@@ -279,58 +298,65 @@ function ContainerHazel({ options, data, greeting }) {
           )}
         </Box>
 
-        <Box
-          position="relative"
-          py="24"
-          _before={{
-            bgImage: `var(--hazel-bg-section-4)`,
-            bgPosition: 'top left',
-            bgRepeat: 'no-repeat',
-            bgSize: 'contain',
-            content: "''",
-            display: 'block',
-            height: { base: '150px', md: '190px' },
-            width: { base: 'calc(100% + 130px)', md: '100%' },
-            zIndex: '99',
-            position: 'absolute',
-            top: { base: '10px', md: '10px' },
-            left: { base: '-80px', md: 0 },
-          }}
-        >
-          <Container h="full" maxW="2xl" centerContent pt="14" px="10" mb={6}>
-            <Box position="relative" h="full" w="full" textAlign="center">
-              {/* General Hr */}
-              <Box
-                mt={6}
-                bgImage={'var(--hazel-bg-hr)'}
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                bgSize="contain"
-                h="75"
-              />
-            </Box>
-          </Container>
+        {section4(
+          fLiveWedding,
+          fTurutMengundang,
+          fPanduanTamu,
+          fProtokolKesehatan,
+        ) && (
+          <Box
+            position="relative"
+            py="24"
+            _before={{
+              bgImage: `var(--hazel-bg-section-4)`,
+              bgPosition: 'top left',
+              bgRepeat: 'no-repeat',
+              bgSize: 'contain',
+              content: "''",
+              display: 'block',
+              height: { base: '150px', md: '190px' },
+              width: { base: 'calc(100% + 130px)', md: '100%' },
+              zIndex: '99',
+              position: 'absolute',
+              top: { base: '10px', md: '10px' },
+              left: { base: '-80px', md: 0 },
+            }}
+          >
+            <Container h="full" maxW="2xl" centerContent pt="14" px="10" mb={6}>
+              <Box position="relative" h="full" w="full" textAlign="center">
+                {/* General Hr */}
+                <Box
+                  mt={6}
+                  bgImage={'var(--hazel-bg-hr)'}
+                  bgPosition="center"
+                  bgRepeat="no-repeat"
+                  bgSize="contain"
+                  h="75"
+                />
+              </Box>
+            </Container>
 
-          {/* Live Wedding */}
-          {fLiveWedding && fLiveWedding.is_active && (
-            <FeatureLiveWedding options={options} feature={feature} />
-          )}
+            {/* Live Wedding */}
+            {fLiveWedding && fLiveWedding.is_active && (
+              <FeatureLiveWedding options={options} feature={feature} />
+            )}
 
-          {/* Turut Mengundang */}
-          {fTurutMengundang && fTurutMengundang.is_active && (
-            <FeatureTurutMengundang options={options} feature={feature} />
-          )}
+            {/* Turut Mengundang */}
+            {fTurutMengundang && fTurutMengundang.is_active && (
+              <FeatureTurutMengundang options={options} feature={feature} />
+            )}
 
-          {/* Panduan Tamu */}
-          {fPanduanTamu && fPanduanTamu.is_active && (
-            <FeaturePanduanTamu options={options} feature={feature} />
-          )}
+            {/* Panduan Tamu */}
+            {fPanduanTamu && fPanduanTamu.is_active && (
+              <FeaturePanduanTamu options={options} feature={feature} />
+            )}
 
-          {/* Protokol Kesehatan */}
-          {fProtokolKesehatan && fProtokolKesehatan.is_active && (
-            <FeatureProtokolKesehatan options={options} feature={feature} />
-          )}
-        </Box>
+            {/* Protokol Kesehatan */}
+            {fProtokolKesehatan && fProtokolKesehatan.is_active && (
+              <FeatureProtokolKesehatan options={options} feature={feature} />
+            )}
+          </Box>
+        )}
 
         <Box
           position="relative"
@@ -346,7 +372,17 @@ function ContainerHazel({ options, data, greeting }) {
             width: { base: 'calc(100% + 130px)', md: '100%' },
             zIndex: '99',
             position: 'absolute',
-            top: { base: '-100px', md: '-125px' },
+            top: {
+              base: section4(
+                fLiveWedding,
+                fTurutMengundang,
+                fPanduanTamu,
+                fProtokolKesehatan,
+              )
+                ? '-100px'
+                : '-10px',
+              md: '-125px',
+            },
             right: { base: '-25px', md: '0px' },
             transform: 'scaleX(-1)',
           }}

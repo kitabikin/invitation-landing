@@ -19,8 +19,8 @@ export default function FooterTheme() {
             <Image
               src="https://ik.imagekit.io/kitabikincom/invitation/theme/global/orangephotography_NWs35E8c7.png?updatedAt=1685788309838"
               alt="Orange Photography"
-              width="290"
-              height="39"
+              width="200"
+              height="26"
             />
           </Flex>
           <Flex
