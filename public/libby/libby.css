@@ -1,0 +1,122 @@
+/* Libby Body */
+/* 400 Normal */
+@font-face {
+  font-family: 'libbyBody';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/quicksand/v30/6xKtdSZaM9iE8KbpRA_hK1QN.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 500 Normal */
+@font-face {
+  font-family: 'libbyBody';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/quicksand/v30/6xKtdSZaM9iE8KbpRA_hK1QN.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 600 Normal */
+@font-face {
+  font-family: 'libbyBody';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/quicksand/v30/6xKtdSZaM9iE8KbpRA_hK1QN.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 700 Normal */
+@font-face {
+  font-family: 'libbyBody';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/quicksand/v30/6xKtdSZaM9iE8KbpRA_hK1QN.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Libby Title */
+@font-face {
+  font-family: 'libbyTitle';
+  font-style: normal;
+  font-display: swap;
+  src: url('/libby/LeGrand.ttf') format('truetype');
+}
+
+/* Hazel Handwriting */
+@font-face {
+  font-family: 'libbyHandwriting';
+  font-style: normal;
+  font-display: swap;
+  src: url('/hazel/Sienthas.otf') format('truetype');
+}
+
+/* Libby Theme */
+.theme-gray {
+  --libby-color-body: #333333;
+  --libby-color-primary: #CCCCCC;
+  --libby-color-secondary: #FFFFFF;
+  --libby-bg-color: #FFFFFF;
+}
+
+.theme-red {
+  --libby-color-body: #333333;
+  --libby-color-primary: #99081A;
+  --libby-color-secondary: #FFFFFF;
+  --libby-bg-color: #FFFFFF;
+}
+
+.theme-green {
+  --libby-color-body: #333333;
+  --libby-color-primary: #4F6B53;
+  --libby-color-secondary: #FFFFFF;
+  --libby-bg-color: #FFFFFF;
+}
+
+.theme-blue {
+  --libby-color-body: #333333;
+  --libby-color-primary: #24437b;
+  --libby-color-secondary: #FFFFFF;
+  --libby-bg-color: #FFFFFF;
+}
+
+/* Libby Slideshow */
+.libby-slideshow {
+  display: block; 
+  width: 100vw; 
+  height: 100vh; 
+  overflow: hidden; 
+  position: absolute; 
+  background-color: #FFFFFF;
+}
+
+.libby-slideshow img { 
+  position: absolute; 
+  opacity: 0; 
+  object-fit: cover; 
+  width: 100vw; 
+  height: 100vh;
+}
+
+@keyframes libby-slideshow {
+  28%{
+    opacity:1;
+  } 
+  
+  100% {
+    opacity:0;
+  }
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(1) translateY(0);
+    transform-origin: 50% 84%;
+  }
+    
+  100%{
+    transform: scale(1.5) translateY(10px);
+    transform-origin: center;
+  }
+}
