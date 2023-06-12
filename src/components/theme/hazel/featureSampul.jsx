@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { NextSeo } from 'next-seo';
 import _ from 'lodash';
 import { Container, Box, Flex, Text, Grid, GridItem } from '@chakra-ui/react';
 import { format, parseISO } from 'date-fns';
@@ -96,11 +95,6 @@ function FeatureSampul({ ...props }) {
 
   return (
     <>
-      <NextSeo
-        openGraph={{
-          images: [{ url: sampulBgImage.value }],
-        }}
-      />
       <Box
         bgImage={`url('${sampulBgImage.value}')`}
         bgPosition={'center'}

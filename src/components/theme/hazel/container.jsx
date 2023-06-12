@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { NextSeo } from 'next-seo';
+import { NextSeo, EventJsonLd } from 'next-seo';
 import { useAtom } from 'jotai';
 import { useHydrateAtoms } from 'jotai/utils';
 import _ from 'lodash';
 import { Container, Box } from '@chakra-ui/react';
+import site from '@/config/site';
 import { reduceFeature } from '@/libs/utils';
 import NavbarTheme from '@/layouts/navbar/navbarTheme';
 import FooterTheme from '@/layouts/footer/footerTheme';
@@ -58,6 +59,70 @@ const THEME = [
   },
 ];
 
+const MetadataImage = (image) => {
+  return (
+    <NextSeo
+      openGraph={{
+        images: [{ url: image.image }],
+      }}
+    />
+  );
+}
+
+const Metadata = (data, image) => {
+  if (!_.isEmpty(data.metadata)) {
+    const parse = JSON.parse(data.metadata);
+    const {
+      name,
+      startDate,
+      endDate,
+      locationName,
+      locationSameAs,
+      locationStreetAddress,
+      locationAddressLocality,
+      locationAddressRegion,
+      locationPostalCode,
+      locationAddressCountry,
+      images,
+      description,
+    } = parse;
+
+    return (
+      <>
+        <MetadataImage image={images} />
+        <EventJsonLd
+          name={name}
+          startDate={startDate}
+          endDate={endDate}
+          location={{
+            name: locationName,
+            sameAs: locationSameAs,
+            address: {
+              streetAddress: locationStreetAddress,
+              addressLocality: locationAddressLocality,
+              addressRegion: locationAddressRegion,
+              postalCode: locationPostalCode,
+              addressCountry: locationAddressCountry,
+            },
+          }}
+          url={`${site.siteUrl}/wedding/${data.code}`}
+          images={[images]}
+          description={description}
+          organizer={{
+            type: 'Organization',
+            name: site.author,
+            url: site.siteUrl,
+          }}
+        />
+      </>
+    );
+  }
+
+  return (
+    <MetadataImage image={image} />
+  );
+}
+
 function ContainerHazel({ options, data, greeting }) {
   const router = useRouter();
   const isFromTheme = options.from === 'theme';
@@ -99,6 +164,11 @@ function ContainerHazel({ options, data, greeting }) {
   const codeGeneral = `${options.code}-general`;
   const general = reduceFeature(feature[codeGeneral].column);
   const { [`${codeGeneral}-theme`]: generalTheme } = general;
+
+  // Sampul
+  const codeSampul = `${options.code}-sampul`;
+  const sampul = reduceFeature(feature[codeSampul].column);
+  const { [`${codeSampul}-bgImage`]: sampulBgImage } = sampul;
 
   const initialTheme = `theme-${generalTheme.value}`;
   useHydrateAtoms([[themeAtom, initialTheme]]);
@@ -163,9 +233,16 @@ function ContainerHazel({ options, data, greeting }) {
           },
         ]}
       />
-      {isFromTheme && (
-        <NavbarTheme atom={themeAtom} theme={'Hazel'} options={THEME} />
+      
+      {isFromTheme ? (
+        <>
+          <NavbarTheme atom={themeAtom} theme={'Hazel'} options={THEME} />
+          <MetadataImage image={sampulBgImage.value} />
+        </>
+      ) : (
+        <Metadata metadata={data.metadata} image={sampulBgImage.value} />
       )}
+
       <Box
         mt={isFromTheme ? '73px' : 0}
         minH={'100vh'}
