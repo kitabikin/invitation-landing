@@ -1,24 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
-import { NextSeo, EventJsonLd } from 'next-seo';
 import { useAtom } from 'jotai';
 import { useHydrateAtoms } from 'jotai/utils';
 import _ from 'lodash';
 import { Container, Box } from '@chakra-ui/react';
-import site from '@/config/site';
 import { reduceFeature } from '@/libs/utils';
 import NavbarTheme from '@/layouts/navbar/navbarTheme';
 import FooterTheme from '@/layouts/footer/footerTheme';
 
-// import localFont from '@next/font/local';
-// import {
-//   EB_Garamond as hazelBody,
-//   Libre_Bodoni as hazelTitle,
-// } from '@next/font/google';
-// const hazelHeading = localFont({ src: '/hazel/FallInLove.ttf' });
-// const hazelHandwriting = localFont({ src: '/hazel/Sienthas.otf' });
-
+import {
+  name as configName,
+  style as configStyle,
+  theme as configTheme,
+  linkTags as configLinkTags,
+} from '@/components/theme/hazel/config';
+import {
+  BaseHeadStyle,
+  BaseHeadLinkTags,
+  BaseHeadImage,
+  BaseHeadEvent,
+} from '@/components/theme/wedding/baseHead';
 import FeatureKepada from '@/components/theme/hazel/featureKepada';
 import FeatureMusik from '@/components/theme/hazel/featureMusik';
 import FeatureSnowflakes from '@/components/theme/hazel/featureSnowflakes';
@@ -43,86 +44,6 @@ import FeatureKehadiranUcapan from '@/components/theme/hazel/featureKehadiranUca
 import FeatureUcapanDoa from '@/components/theme/hazel/featureUcapanDoa';
 
 import { themeAtom, displayAtom, overflowYAtom } from '@/store/hazelStore';
-
-const THEME = [
-  {
-    value: 'theme-blue',
-    label: 'Biru',
-  },
-  {
-    value: 'theme-red',
-    label: 'Merah',
-  },
-  {
-    value: 'theme-green',
-    label: 'Hijau',
-  },
-];
-
-const MetadataImage = (image) => {
-  return (
-    <NextSeo
-      openGraph={{
-        images: [{ url: image.image }],
-      }}
-    />
-  );
-}
-
-const Metadata = (data, image) => {
-  if (!_.isEmpty(data.metadata)) {
-    const parse = JSON.parse(data.metadata);
-    const {
-      name,
-      startDate,
-      endDate,
-      locationName,
-      locationSameAs,
-      locationStreetAddress,
-      locationAddressLocality,
-      locationAddressRegion,
-      locationPostalCode,
-      locationAddressCountry,
-      url,
-      images,
-      description,
-    } = parse;
-
-    return (
-      <>
-        <MetadataImage image={images} />
-        <EventJsonLd
-          name={name}
-          startDate={startDate}
-          endDate={endDate}
-          location={{
-            name: locationName,
-            sameAs: locationSameAs,
-            address: {
-              streetAddress: locationStreetAddress,
-              addressLocality: locationAddressLocality,
-              addressRegion: locationAddressRegion,
-              postalCode: locationPostalCode,
-              addressCountry: locationAddressCountry,
-            },
-          }}
-          url={url}
-          images={[images]}
-          description={description}
-          organizer={{
-            type: 'Organization',
-            name: site.author,
-            url: site.siteUrl,
-          }}
-        />
-      </>
-    );
-  }
-
-  return (
-    <MetadataImage image={image} />
-  );
-}
 
 function ContainerHazel({ options, data, greeting }) {
   const router = useRouter();
@@ -206,42 +127,20 @@ function ContainerHazel({ options, data, greeting }) {
 
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="/hazel/hazel.css" />
-      </Head>
-      <NextSeo
-        additionalLinkTags={[
-          {
-            rel: 'preload',
-            href: `https://fonts.gstatic.com/s/librebodoni/v2/_Xmr-H45qDWDYULr5OfyZud9wQiR.woff2`,
-            as: 'font',
-            type: 'font/woff2',
-            crossOrigin: 'anonymous',
-          },
-          {
-            rel: 'preload',
-            href: `/hazel/FallInLove.ttf`,
-            as: 'font',
-            type: 'font/ttf',
-            crossOrigin: 'anonymous',
-          },
-          {
-            rel: 'preload',
-            href: `/hazel/Sienthas.otf`,
-            as: 'font',
-            type: 'font/ttf',
-            crossOrigin: 'anonymous',
-          },
-        ]}
-      />
+      <BaseHeadStyle css={configStyle} />
+      <BaseHeadLinkTags linkTags={configLinkTags} />
 
       {isFromTheme ? (
         <>
-          <NavbarTheme atom={themeAtom} theme={'Hazel'} options={THEME} />
-          <MetadataImage image={sampulBgImage.value} />
+          <NavbarTheme
+            atom={themeAtom}
+            theme={configName}
+            options={configTheme}
+          />
+          <BaseHeadImage image={sampulBgImage.value} />
         </>
       ) : (
-        <Metadata metadata={data.metadata} image={sampulBgImage.value} />
+        <BaseHeadEvent metadata={data.metadata} image={sampulBgImage.value} />
       )}
 
       <Box

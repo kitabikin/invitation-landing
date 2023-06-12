@@ -1,18 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
-import { NextSeo } from 'next-seo';
 import { useAtom } from 'jotai';
 import { useHydrateAtoms } from 'jotai/utils';
 import _ from 'lodash';
-import { Container, Box } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
 import NavbarTheme from '@/layouts/navbar/navbarTheme';
 import FooterTheme from '@/layouts/footer/footerTheme';
 
+import {
+  name as configName,
+  style as configStyle,
+  theme as configTheme,
+  linkTags as configLinkTags,
+} from '@/components/theme/libby/config';
+import {
+  BaseHeadStyle,
+  BaseHeadLinkTags,
+  BaseHeadImage,
+  BaseHeadEvent,
+} from '@/components/theme/wedding/baseHead';
 import FeatureKepada from '@/components/theme/libby/featureKepada';
 import FeatureMusik from '@/components/theme/libby/featureMusik';
-// import FeatureSnowflakes from '@/components/theme/libby/featureSnowflakes';
 import FeatureSampul from '@/components/theme/libby/featureSampul';
 import FeaturePembukaan from '@/components/theme/libby/featurePembukaan';
 import FeatureQuotes from '@/components/theme/libby/featureQuotes';
@@ -35,25 +44,6 @@ import FeatureUcapanDoa from '@/components/theme/libby/featureUcapanDoa';
 
 import { themeAtom, displayAtom, overflowYAtom } from '@/store/libbyStore';
 
-const THEME = [
-  {
-    value: 'theme-gray',
-    label: 'Abu-abu',
-  },
-  {
-    value: 'theme-blue',
-    label: 'Biru',
-  },
-  {
-    value: 'theme-red',
-    label: 'Merah',
-  },
-  {
-    value: 'theme-green',
-    label: 'Hijau',
-  },
-];
-
 function ContainerLibby({ options, data, greeting }) {
   const router = useRouter();
   const isFromTheme = options.from === 'theme';
@@ -69,7 +59,6 @@ function ContainerLibby({ options, data, greeting }) {
   const {
     [`${options.code}-kepada`]: fKepada,
     [`${options.code}-musik`]: fMusik,
-    // [`${options.code}-snowflakes`]: fSnowflakes,
     [`${options.code}-sampul`]: fSampul,
     [`${options.code}-pembukaan`]: fPembukaan,
     [`${options.code}-quotes`]: fQuotes,
@@ -134,32 +123,23 @@ function ContainerLibby({ options, data, greeting }) {
 
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="/libby/libby.css" />
-      </Head>
-      <NextSeo
-        openGraph={{
-          images: [{ url: generalOpenGraph.value }],
-        }}
-        additionalLinkTags={[
-          {
-            rel: 'preload',
-            href: `https://fonts.gstatic.com/s/quicksand/v30/6xKtdSZaM9iE8KbpRA_hK1QN.woff2`,
-            as: 'font',
-            type: 'font/woff2',
-            crossOrigin: 'anonymous',
-          },
-          {
-            rel: 'preload',
-            href: `/libby/LeGrand.ttf`,
-            as: 'font',
-            type: 'font/ttf',
-            crossOrigin: 'anonymous',
-          },
-        ]}
-      />
-      {isFromTheme && (
-        <NavbarTheme atom={themeAtom} theme={'Libby'} options={THEME} />
+      <BaseHeadStyle css={configStyle} />
+      <BaseHeadLinkTags linkTags={configLinkTags} />
+
+      {isFromTheme ? (
+        <>
+          <NavbarTheme
+            atom={themeAtom}
+            theme={configName}
+            options={configTheme}
+          />
+          <BaseHeadImage image={generalOpenGraph.value} />
+        </>
+      ) : (
+        <BaseHeadEvent
+          metadata={data.metadata}
+          image={generalOpenGraph.value}
+        />
       )}
 
       {/* Main */}
