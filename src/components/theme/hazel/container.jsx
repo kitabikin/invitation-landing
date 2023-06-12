@@ -83,6 +83,7 @@ const Metadata = (data, image) => {
       locationAddressRegion,
       locationPostalCode,
       locationAddressCountry,
+      url,
       images,
       description,
     } = parse;
@@ -105,7 +106,7 @@ const Metadata = (data, image) => {
               addressCountry: locationAddressCountry,
             },
           }}
-          url={`${site.siteUrl}/wedding/${data.code}`}
+          url={url}
           images={[images]}
           description={description}
           organizer={{
@@ -233,7 +234,7 @@ function ContainerHazel({ options, data, greeting }) {
           },
         ]}
       />
-      
+
       {isFromTheme ? (
         <>
           <NavbarTheme atom={themeAtom} theme={'Hazel'} options={THEME} />
