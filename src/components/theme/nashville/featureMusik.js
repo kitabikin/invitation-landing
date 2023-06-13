@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import _ from 'lodash';
 import { Box, Circle } from '@chakra-ui/react';
-import ReactPlayer from 'react-player';
+
 import { MdMusicNote, MdMusicOff } from 'react-icons/md';
+const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
 function FeatureMusik({ ...props }) {
+  const [hasWindow, setHasWindow] = useState(false);
   const [showChild, setShowChild] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHasWindow(true);
+    }
+  }, []);
 
   useEffect(() => {
     setShowChild(true);
@@ -40,14 +49,16 @@ function FeatureMusik({ ...props }) {
       >
         {props.isPlaying ? <MdMusicNote size={20} /> : <MdMusicOff size={20} />}
       </Circle>
-      <ReactPlayer
-        url={musikSong.value}
-        playing={props.isPlaying}
-        loop={true}
-        style={{ display: 'none' }}
-        playsinline={true}
-        playsInline={true}
-      />
+      {hasWindow && (
+        <ReactPlayer
+          url={musikSong.value}
+          playing={props.isPlaying}
+          loop={true}
+          style={{ display: 'none' }}
+          playsinline={true}
+          playsInline={true}
+        />
+      )}
     </>
   );
 }
