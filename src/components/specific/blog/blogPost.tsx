@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import Image from 'next/image';
 import {
   Card,
@@ -27,11 +27,9 @@ const BlogPost = ({ slug, image, title, excerpt }) => {
           height={300}
         />
         <Stack mt="4" spacing="3">
-          <Link href={`/blog/${slug}`} passHref>
-            <LinkOverlay>
-              <Heading size="md">{title}</Heading>
-            </LinkOverlay>
-          </Link>
+          <LinkOverlay as={NextLink} href={`/blog/${slug}`}>
+            <Heading size="md">{title}</Heading>
+          </LinkOverlay>
           <Text>{excerpt}</Text>
         </Stack>
       </CardBody>

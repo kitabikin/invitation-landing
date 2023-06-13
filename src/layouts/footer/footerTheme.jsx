@@ -30,9 +30,9 @@ export default function FooterTheme() {
           >
             <Box justifyContent={'center'} textAlign={'center'}>
               ©{' '}
-              <NextLink href={'/'} passHref>
-                <Link>Kitabikin Undangan</Link>
-              </NextLink>
+              <Link as={NextLink} href="/">
+                Kitabikin Undangan
+              </Link>
             </Box>
             <Flex justifyContent={'center'}>
               Made with{' '}
