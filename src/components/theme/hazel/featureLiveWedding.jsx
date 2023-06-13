@@ -30,7 +30,7 @@ function FeatureLiveWedding({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Live Wedding Title */}
           {liveWeddingTitle && liveWeddingTitle.is_active && (
-            <Text fontFamily="hazelHeading" fontSize="3xl">
+            <Text fontFamily="var(--hazel-font-heading)" fontSize="3xl">
               {liveWeddingTitle.value}
             </Text>
           )}

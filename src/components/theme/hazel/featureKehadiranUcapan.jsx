@@ -116,7 +116,7 @@ function FeatureKehadiranUcapan({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Live Wedding Title */}
           {kehadiranUcapanTitle && kehadiranUcapanTitle.is_active && (
-            <Text fontFamily="hazelHeading" fontSize="3xl">
+            <Text fontFamily="var(--hazel-font-heading)" fontSize="3xl">
               {kehadiranUcapanTitle.value}
             </Text>
           )}

@@ -109,77 +109,73 @@ const Invitation = ({
                 ) : (
                   <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
                     {invitation.map((res, index) => (
-                      <NextLink
+                      <Card
+                        as={NextLink}
                         key={index}
                         href={`/a/invitation/${res.code}/analytics`}
-                        passHref
+                        variant={'outline'}
+                        bg={'white'}
+                        _hover={{
+                          textDecoration: 'none',
+                          borderColor: 'pink.300',
+                        }}
                       >
-                        <Card
-                          as={Link}
-                          variant={'outline'}
-                          bg={'white'}
-                          _hover={{
-                            textDecoration: 'none',
-                            borderColor: 'pink.300',
-                          }}
-                        >
-                          <CardBody p={6}>
-                            <Heading
-                              as={'h5'}
-                              size="sm"
-                              textTransform="uppercase"
-                              mb={1}
-                            >
-                              {res.name}
-                            </Heading>
+                        <CardBody p={6}>
+                          <Heading
+                            as={'h5'}
+                            size="sm"
+                            textTransform="uppercase"
+                            mb={1}
+                          >
+                            {res.name}
+                          </Heading>
 
-                            <Text fontSize={'sm'}>
-                              {`${siteUrl}/${res.event.code}/${res.code}`}
-                            </Text>
+                          <Text fontSize={'sm'}>
+                            {`${siteUrl}/${res.event.code}/${res.code}`}
+                          </Text>
 
-                            <Flex
-                              flexDir={{ base: 'column', md: 'row' }}
-                              gap={{ base: 2, md: 6 }}
-                              mt={4}
+                          <Flex
+                            flexDir={{ base: 'column', md: 'row' }}
+                            gap={{ base: 2, md: 6 }}
+                            mt={4}
+                          >
+                            <Tooltip
+                              hasArrow
+                              placement="top"
+                              label="Acara"
+                              aria-label="Acara"
                             >
-                              <Tooltip
-                                hasArrow
-                                placement="top"
-                                label="Acara"
-                                aria-label="Acara"
+                              <Flex
+                                alignItems={'center'}
+                                gap={2}
+                                color={'blue.300'}
                               >
-                                <Flex
-                                  alignItems={'center'}
-                                  gap={2}
-                                  color={'blue.300'}
-                                >
-                                  <MdEvent size={20} />
-                                  <Text fontSize="sm" color={'gray.600'}>
-                                    {res.event.name}
-                                  </Text>
-                                </Flex>
-                              </Tooltip>
-                              <Tooltip
-                                hasArrow
-                                placement="top"
-                                label="Tema"
-                                aria-label="Tema"
+                                <MdEvent size={20} />
+                                <Text fontSize="sm" color={'gray.600'}>
+                                  {res.event.name}
+                                </Text>
+                              </Flex>
+                            </Tooltip>
+                            <Tooltip
+                              hasArrow
+                              placement="top"
+                              label="Tema"
+                              aria-label="Tema"
+                            >
+                              <Flex
+                                alignItems={'center'}
+                                gap={2}
+                                color={'pink.300'}
                               >
-                                <Flex
-                                  alignItems={'center'}
-                                  gap={2}
-                                  color={'pink.300'}
-                                >
-                                  <MdWeb size={20} />
-                                  <Text fontSize="sm" color={'gray.600'}>
-                                    {res.theme.name}
-                                  </Text>
-                                </Flex>
-                              </Tooltip>
-                            </Flex>
-                          </CardBody>
-                        </Card>
-                      </NextLink>
+                                <MdWeb size={20} />
+                                <Text fontSize="sm" color={'gray.600'}>
+                                  {res.theme.name}
+                                </Text>
+                              </Flex>
+                            </Tooltip>
+                          </Flex>
+                        </CardBody>
+                      </Card>
                     ))}
                   </SimpleGrid>
                 )}

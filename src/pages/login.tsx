@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/legacy/image";
+import NextLink from 'next/link';
 import { signIn, getCsrfToken } from 'next-auth/react';
 
 import ContainerBlank from '@/layouts/container/containerBlank';
@@ -75,16 +75,14 @@ function Login({ csrfToken }) {
           flexDir={'column'}
         >
           <Box mb={4}>
-            <Link href="/">
-              <a>
-                <Image
-                  src={'/images/logo/logo36x36.png'}
-                  width={32}
-                  height={32}
-                  alt={'Kitabikin Undangan'}
-                />
-              </a>
-            </Link>
+            <NextLink href="/">
+              <Image
+                src={'/images/logo/logo36x36.png'}
+                width={32}
+                height={32}
+                alt={'Kitabikin Undangan'}
+              />
+            </NextLink>
           </Box>
 
           <Box mb={8}>

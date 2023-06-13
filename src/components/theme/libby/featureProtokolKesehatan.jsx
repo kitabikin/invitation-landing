@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import _ from 'lodash';
 import { Container, Box, Text, SimpleGrid, Center } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
@@ -44,7 +44,7 @@ function FeatureProtokolKesehatan({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Protokol Kesehatan Title */}
           {protokolKesehatanTitle && protokolKesehatanTitle.is_active && (
-            <Text fontFamily="libbyTitle" fontSize="3xl">
+            <Text fontFamily="var(--libby-font-title)" fontSize="3xl">
               {protokolKesehatanTitle.value}
             </Text>
           )}

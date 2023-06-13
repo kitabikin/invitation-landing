@@ -198,24 +198,21 @@ const Guestbook = ({
                 <Heading as={'h3'} size={'lg'}>
                   Buku Tamu
                 </Heading>
-                <NextLink
+                <Link
+                  as={NextLink}
                   href={`/a/invitation/${code_invitation}/guestbook/add`}
-                  passHref
+                  _hover={{
+                    textDecoration: 'none',
+                  }}
                 >
-                  <Link
-                    _hover={{
-                      textDecoration: 'none',
-                    }}
+                  <Button
+                    size={'sm'}
+                    colorScheme={'pink'}
+                    leftIcon={<MdAdd size={20} />}
                   >
-                    <Button
-                      size={'sm'}
-                      colorScheme={'pink'}
-                      leftIcon={<MdAdd size={20} />}
-                    >
-                      Tambah
-                    </Button>
-                  </Link>
-                </NextLink>
+                    Tambah
+                  </Button>
+                </Link>
               </Flex>
 
               {/* Filter */}
@@ -374,25 +371,22 @@ const Guestbook = ({
                                 gap={{ base: 2, md: 6 }}
                               >
                                 <HStack spacing="16px">
-                                  <NextLink
+                                  <Link
+                                    as={NextLink}
                                     href={`/a/invitation/${code_invitation}/guestbook/edit/${res.id_invitation_guest_book}`}
-                                    passHref
+                                    _hover={{
+                                      textDecoration: 'none',
+                                    }}
                                   >
-                                    <Link
-                                      _hover={{
-                                        textDecoration: 'none',
-                                      }}
+                                    <Button
+                                      size={'xs'}
+                                      variant="solid"
+                                      colorScheme="pink"
+                                      leftIcon={<MdModeEdit />}
                                     >
-                                      <Button
-                                        size={'xs'}
-                                        variant="solid"
-                                        colorScheme="pink"
-                                        leftIcon={<MdModeEdit />}
-                                      >
-                                        Ubah
-                                      </Button>
-                                    </Link>
-                                  </NextLink>
+                                      Ubah
+                                    </Button>
+                                  </Link>
                                   <Button
                                     display={{ base: 'none', md: 'block' }}
                                     size={'xs'}

@@ -18,7 +18,7 @@ function FeatureLoveStory({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Love Story Title */}
           {loveStoryTitle && loveStoryTitle.is_active && (
-            <Text fontFamily="hazelHeading" fontSize="3xl">
+            <Text fontFamily="var(--hazel-font-heading)" fontSize="3xl">
               {loveStoryTitle.value}
             </Text>
           )}

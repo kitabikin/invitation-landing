@@ -50,7 +50,7 @@ function FeatureDetailResepsi({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Detail Resepsi Title */}
           {detailResepsiTitle && detailResepsiTitle.is_active && (
-            <Text fontFamily="hazelHeading" fontSize="3xl">
+            <Text fontFamily="var(--hazel-font-heading)" fontSize="3xl">
               {detailResepsiTitle.value}
             </Text>
           )}
@@ -60,7 +60,7 @@ function FeatureDetailResepsi({ ...props }) {
             mt="6"
             ml="20px"
             transform="rotate(-10deg)"
-            fontFamily="hazelHandwriting"
+            fontFamily="var(--hazel-font-handwriting)"
             fontSize={{ base: '8xl', md: '9xl' }}
             color={'var(--hazel-color-primary)'}
           >
@@ -68,11 +68,12 @@ function FeatureDetailResepsi({ ...props }) {
               detailResepsiSaveTheDate1.is_active && (
                 <Text>{detailResepsiSaveTheDate1.value}</Text>
               )}
-            {detailResepsiSaveTheDate2 && detailResepsiSaveTheDate2.is_active && (
-              <Text mt={{ base: '-70px', md: '-90px' }} ml="20px">
-                {detailResepsiSaveTheDate2.value}
-              </Text>
-            )}
+            {detailResepsiSaveTheDate2 &&
+              detailResepsiSaveTheDate2.is_active && (
+                <Text mt={{ base: '-70px', md: '-90px' }} ml="20px">
+                  {detailResepsiSaveTheDate2.value}
+                </Text>
+              )}
           </Box>
 
           {/* Detail Resepsi Date */}
@@ -89,7 +90,7 @@ function FeatureDetailResepsi({ ...props }) {
               >
                 <Flex justifyContent="center">
                   <Text
-                    fontFamily="hazelTitle"
+                    fontFamily="var(--hazel-font-title)"
                     textTransform="uppercase"
                     fontSize={{ base: 'xl', md: '3xl' }}
                     mb={{ base: 2, md: 0 }}
@@ -106,7 +107,7 @@ function FeatureDetailResepsi({ ...props }) {
                   ></Box>
                   <Text
                     flexShrink="1"
-                    fontFamily="hazelTitle"
+                    fontFamily="var(--hazel-font-title)"
                     fontSize="6xl"
                     lineHeight="1"
                   >
@@ -121,7 +122,7 @@ function FeatureDetailResepsi({ ...props }) {
                 </Flex>
                 <Flex justifyContent="center">
                   <Text
-                    fontFamily="hazelTitle"
+                    fontFamily="var(--hazel-font-title)"
                     fontSize={{ base: '1.75rem', md: '2.5rem' }}
                   >
                     {formatYear}

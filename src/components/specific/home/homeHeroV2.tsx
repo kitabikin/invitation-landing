@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { Box, Button, Heading, Text } from '@chakra-ui/react';
 import { MdEast } from 'react-icons/md';
 
@@ -33,11 +33,15 @@ const HomeHero = () => {
           untuk setiap acara
         </Text>
       </Heading>
-      <Link href={`/event`} passHref>
-        <Button as={'a'} colorScheme={'pink'} mt={8} rightIcon={<MdEast />}>
-          Jelajahi Acara
-        </Button>
-      </Link>
+      <Button
+        as={NextLink}
+        href={`/event`}
+        colorScheme={'pink'}
+        mt={8}
+        rightIcon={<MdEast />}
+      >
+        Jelajahi Acara
+      </Button>
     </Box>
   );
 };

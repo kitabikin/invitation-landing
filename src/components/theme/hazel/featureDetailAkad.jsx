@@ -43,7 +43,7 @@ function FeatureDetailAkad({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Detail Akad Title */}
           {detailAkadTitle && detailAkadTitle.is_active && (
-            <Text fontFamily="hazelHeading" fontSize="3xl">
+            <Text fontFamily="var(--hazel-font-heading)" fontSize="3xl">
               {detailAkadTitle.value}
             </Text>
           )}

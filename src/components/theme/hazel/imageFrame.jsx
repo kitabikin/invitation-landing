@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Flex } from '@chakra-ui/react';
 
 function ImageFrame({ image, size }) {

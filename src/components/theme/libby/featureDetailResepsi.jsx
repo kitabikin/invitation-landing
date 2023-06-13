@@ -50,7 +50,7 @@ function FeatureDetailResepsi({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Detail Resepsi Title */}
           {detailResepsiTitle && detailResepsiTitle.is_active && (
-            <Text fontFamily="libbyTitle" fontSize="3xl">
+            <Text fontFamily="var(--libby-font-title)" fontSize="3xl">
               {detailResepsiTitle.value}
             </Text>
           )}
@@ -60,7 +60,7 @@ function FeatureDetailResepsi({ ...props }) {
             mt="6"
             ml="20px"
             transform="rotate(-10deg)"
-            fontFamily="libbyHandwriting"
+            fontFamily="var(--libby-font-handwriting)"
             fontSize={{ base: '8xl', md: '9xl' }}
             color={'var(--libby-color-primary)'}
           >
@@ -90,7 +90,7 @@ function FeatureDetailResepsi({ ...props }) {
               >
                 <Flex justifyContent="center">
                   <Text
-                    fontFamily="libbyTitle"
+                    fontFamily="var(--libby-font-title)"
                     textTransform="uppercase"
                     fontSize={{ base: 'xl', md: '3xl' }}
                     mb={{ base: 2, md: 0 }}
@@ -107,7 +107,7 @@ function FeatureDetailResepsi({ ...props }) {
                   ></Box>
                   <Text
                     flexShrink="1"
-                    fontFamily="libbyTitle"
+                    fontFamily="var(--libby-font-title)"
                     fontSize="6xl"
                     lineHeight="1"
                   >
@@ -122,7 +122,7 @@ function FeatureDetailResepsi({ ...props }) {
                 </Flex>
                 <Flex justifyContent="center">
                   <Text
-                    fontFamily="libbyTitle"
+                    fontFamily="var(--libby-font-title)"
                     fontSize={{ base: '1.75rem', md: '2.5rem' }}
                   >
                     {formatYear}

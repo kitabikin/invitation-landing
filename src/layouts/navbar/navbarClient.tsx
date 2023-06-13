@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import NextLink from 'next/link';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
@@ -30,30 +30,30 @@ const NavItem = (props) => {
   const isActive = router.asPath === props.href;
 
   return (
-    <NextLink href={props.href} passHref>
-      <Link
-        fontSize={'sm'}
-        fontWeight={'bold'}
-        color={isActive ? 'pink.500' : 'gray.800'}
-        _after={{
-          content: `''`,
-          display: 'block',
-          borderBottom: 2,
-          borderStyle: 'solid',
-          borderColor: 'pink.500',
-          transform: 'scaleX(0)',
-          transition: 'transform 300ms ease-in-out',
-          transformOrigin: '0 50%',
-        }}
-        _hover={{
-          _after: {
-            transform: 'scaleX(1)',
-          },
-        }}
-      >
-        <Text as={'span'}>{props.text}</Text>
-      </Link>
-    </NextLink>
+    <Link
+      as={NextLink}
+      href={props.href}
+      fontSize={'sm'}
+      fontWeight={'bold'}
+      color={isActive ? 'pink.500' : 'gray.800'}
+      _after={{
+        content: `''`,
+        display: 'block',
+        borderBottom: 2,
+        borderStyle: 'solid',
+        borderColor: 'pink.500',
+        transform: 'scaleX(0)',
+        transition: 'transform 300ms ease-in-out',
+        transformOrigin: '0 50%',
+      }}
+      _hover={{
+        _after: {
+          transform: 'scaleX(1)',
+        },
+      }}
+    >
+      <Text as={'span'}>{props.text}</Text>
+    </Link>
   );
 };
 
@@ -62,20 +62,20 @@ const NavItemMobile = (props) => {
   const isActive = router.asPath === props.href;
 
   return (
-    <NextLink href={props.href} passHref>
-      <Link
-        display={'block'}
-        w={'full'}
-        fontSize={'sm'}
-        fontWeight={'bold'}
-        color={isActive ? 'pink.500' : 'gray.800'}
-        bg={isActive ? 'pink.50' : 'white'}
-        py={3}
-        px={4}
-      >
-        <Text as={'span'}>{props.text}</Text>
-      </Link>
-    </NextLink>
+    <Link
+      as={NextLink}
+      href={props.href}
+      display={'block'}
+      w={'full'}
+      fontSize={'sm'}
+      fontWeight={'bold'}
+      color={isActive ? 'pink.500' : 'gray.800'}
+      bg={isActive ? 'pink.50' : 'white'}
+      py={3}
+      px={4}
+    >
+      <Text as={'span'}>{props.text}</Text>
+    </Link>
   );
 };
 
@@ -116,16 +116,19 @@ const NavbarClient = () => {
                 aria-label={'Toggle Navigation'}
                 size={'sm'}
               />
-              <NextLink href="/a/invitation" passHref>
-                <Link display={'flex'} ms={{ base: 6, md: '0 !important' }}>
-                  <Image
-                    src={'/images/logo/logo36x36.png'}
-                    width={32}
-                    height={32}
-                    alt={'Kitabikin Undangan'}
-                  />
-                </Link>
-              </NextLink>
+              <Link
+                as={NextLink}
+                href="/a/invitation"
+                display={'flex'}
+                ms={{ base: 6, md: '0 !important' }}
+              >
+                <Image
+                  src={'/images/logo/logo36x36.png'}
+                  width={32}
+                  height={32}
+                  alt={'Kitabikin Undangan'}
+                />
+              </Link>
               <HStack
                 spacing={6}
                 alignItems={'center'}

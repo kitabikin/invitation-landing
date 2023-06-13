@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useRouter } from 'next/router';
-import NextImage from 'next/image';
+import NextImage from "next/legacy/image";
 import { isEmpty } from 'lodash';
 import { Box, Container, SimpleGrid } from '@chakra-ui/react';
 import qs from 'qs';

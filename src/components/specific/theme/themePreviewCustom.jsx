@@ -21,11 +21,9 @@ function ThemePreviewCustom() {
       >
         Request tema khusus Anda
       </Text>
-      <NextLink href={`/contact`} passHref>
-        <Button as={'a'} colorScheme={'pink'}>
-          Request
-        </Button>
-      </NextLink>
+      <Button as={NextLink} href={`/contact`} colorScheme={'pink'}>
+        Request
+      </Button>
     </Flex>
   );
 }

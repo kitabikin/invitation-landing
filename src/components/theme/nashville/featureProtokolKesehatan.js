@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import _ from 'lodash'
 import { Container, Box, Text, SimpleGrid, Center } from '@chakra-ui/react'
 

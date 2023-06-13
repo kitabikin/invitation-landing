@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import NextLink from 'next/link';
-import NextImage from 'next/image';
+import NextImage from "next/legacy/image";
 import {
   Box,
   Button,
@@ -99,31 +99,31 @@ export default function NavbarDefault() {
           </Flex>
 
           <Flex flex={{ base: 1 }} justify={'start'}>
-            <NextLink href="/">
-              <Link
-                display={'flex'}
-                alignItems={'center'}
-                _hover={{
-                  textDecoration: 'none',
-                }}
+            <Link
+              as={NextLink}
+              href="/"
+              display={'flex'}
+              alignItems={'center'}
+              _hover={{
+                textDecoration: 'none',
+              }}
+            >
+              <NextImage
+                src={'/images/logo/logo36x36.png'}
+                width={32}
+                height={32}
+                alt={'Kitabikin Undangan'}
+              />
+              <Text
+                display={{ base: 'none', md: 'block' }}
+                as="h1"
+                size="md"
+                ml={3}
+                fontWeight={'700'}
               >
-                <NextImage
-                  src={'/images/logo/logo36x36.png'}
-                  width={32}
-                  height={32}
-                  alt={'Kitabikin Undangan'}
-                />
-                <Text
-                  display={{ base: 'none', md: 'block' }}
-                  as="h1"
-                  size="md"
-                  ml={3}
-                  fontWeight={'700'}
-                >
-                  Undangan
-                </Text>
-              </Link>
-            </NextLink>
+                Undangan
+              </Text>
+            </Link>
           </Flex>
 
           <Stack

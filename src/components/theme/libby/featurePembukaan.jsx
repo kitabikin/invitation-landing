@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import _ from 'lodash';
 import { Box, Container, Flex, Text } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
@@ -10,7 +10,12 @@ const BrideGroom = (data) => {
         <Image src={data.image} width={1080} height={915} alt={data.fullName} />
       </Box>
 
-      <Text mt={5} fontFamily={'libbyTitle'} fontSize={'4xl'} lineHeight={1}>
+      <Text
+        mt={5}
+        fontFamily={'var(--libby-font-title)'}
+        fontSize={'4xl'}
+        lineHeight={1}
+      >
         {data.fullName}
       </Text>
 
@@ -89,7 +94,7 @@ function FeaturePembukaan({ ...props }) {
           {pembukaanGreeting && pembukaanGreeting.is_active && (
             <Text
               mt={8}
-              fontFamily={'libbyTitle'}
+              fontFamily={'var(--libby-font-title)'}
               fontSize={{ base: '2xl', md: '3xl' }}
             >
               {pembukaanGreeting.value}
@@ -152,7 +157,7 @@ function FeaturePembukaan({ ...props }) {
           {pembukaanCoupleAnd && pembukaanCoupleAnd.is_active && (
             <Text
               mt={16}
-              fontFamily={'libbyTitle'}
+              fontFamily={'var(--libby-font-title)'}
               fontSize={'2xl'}
               fontWeight={'bold'}
             >

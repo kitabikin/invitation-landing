@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Box, Container, Flex, Icon, Link } from '@chakra-ui/react';
 import { RiHeart2Fill } from 'react-icons/ri';
 
@@ -30,9 +30,9 @@ export default function FooterTheme() {
           >
             <Box justifyContent={'center'} textAlign={'center'}>
               ©{' '}
-              <NextLink href={'/'} passHref>
-                <Link>Kitabikin Undangan</Link>
-              </NextLink>
+              <Link as={NextLink} href="/">
+                Kitabikin Undangan
+              </Link>
             </Box>
             <Flex justifyContent={'center'}>
               Made with{' '}

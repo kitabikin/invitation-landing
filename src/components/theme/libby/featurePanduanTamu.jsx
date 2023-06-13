@@ -18,7 +18,7 @@ function FeaturePanduanTamu({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Panduan Tamu Title */}
           {panduanTamuTitle && panduanTamuTitle.is_active && (
-            <Text fontFamily="libbyTitle" fontSize="3xl">
+            <Text fontFamily="var(--libby-font-title)" fontSize="3xl">
               {panduanTamuTitle.value}
             </Text>
           )}

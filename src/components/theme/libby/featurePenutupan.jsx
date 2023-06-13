@@ -35,7 +35,7 @@ function FeaturePenutupan({ ...props }) {
           {penutupanGreeting && penutupanGreeting && (
             <Text
               mt="8"
-              fontFamily="libbyTitle"
+              fontFamily="var(--libby-font-title)"
               fontSize={{ base: '2xl', md: '3xl' }}
             >
               {penutupanGreeting.value}

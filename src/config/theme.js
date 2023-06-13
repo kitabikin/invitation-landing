@@ -1,12 +1,22 @@
 import { extendTheme } from '@chakra-ui/react';
 import { withProse } from '@nikolovlazar/chakra-ui-prose';
 
+import { Inter, Lora } from 'next/font/google';
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
+const lora = Lora({
+  subsets: ['latin'],
+  display: 'swap',
+});
+
 const config = {
   initialColorMode: 'light',
   useSystemColorMode: false,
   fonts: {
-    heading: 'Lora',
-    body: 'Inter',
+    heading: lora.style.fontFamily,
+    body: inter.style.fontFamily,
   },
 };
 

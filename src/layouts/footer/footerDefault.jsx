@@ -14,9 +14,9 @@ export default function FooterDefault() {
           >
             <Box justifyContent={'center'} textAlign={'center'}>
               Copyright ©{new Date().getFullYear()}{' '}
-              <NextLink href={'/'} passHref>
-                <Link>Kitabikin Undangan</Link>
-              </NextLink>
+              <Link as={NextLink} href="/">
+                Kitabikin Undangan
+              </Link>
               .
             </Box>
             <Flex justifyContent={'center'}>

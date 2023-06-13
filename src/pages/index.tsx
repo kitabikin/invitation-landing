@@ -1,4 +1,4 @@
-import NextImage from 'next/image';
+import NextImage from "next/legacy/image";
 import { NextSeo } from 'next-seo';
 import { Box, Container } from '@chakra-ui/react';
 

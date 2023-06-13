@@ -35,7 +35,11 @@ function FeatureWeddingGift({ ...props }) {
         <Box position="relative" h="full" w="full">
           {/* Ucapan Doa Title */}
           {weddingGiftTitle && weddingGiftTitle.is_active && (
-            <Text fontFamily="libbyTitle" fontSize="3xl" textAlign="center">
+            <Text
+              fontFamily="var(--libby-font-title)"
+              fontSize="3xl"
+              textAlign="center"
+            >
               {weddingGiftTitle.value}
             </Text>
           )}
