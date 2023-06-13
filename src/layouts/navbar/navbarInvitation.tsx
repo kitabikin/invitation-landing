@@ -136,10 +136,10 @@ const NavbarClient = () => {
                   href={`/a/invitation/${code_invitation}/analytics`}
                   text={'Analitik'}
                 />
-                <NavItem
+                {/* <NavItem
                   href={`/a/invitation/${code_invitation}/appearance`}
                   text={'Tampilan'}
-                />
+                /> */}
                 <NavItem
                   href={`/a/invitation/${code_invitation}/guestbook`}
                   text={'Buku Tamu'}
@@ -190,10 +190,10 @@ const NavbarClient = () => {
                 href={`/a/invitation/${code_invitation}/analytics`}
                 text={'Analitik'}
               />
-              <NavItemMobile
+              {/* <NavItemMobile
                 href={`/a/invitation/${code_invitation}/appearance`}
                 text={'Tampilan'}
-              />
+              /> */}
               <NavItemMobile
                 href={`/a/invitation/${code_invitation}/guestbook`}
                 text={'Buku Tamu'}
