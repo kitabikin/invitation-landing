@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from 'next/image';
 import { useAtom } from 'jotai';
 import _ from 'lodash';
 import { Container, Box, Flex, Button } from '@chakra-ui/react';
@@ -54,6 +54,7 @@ function FeatureKepada({ ...props }) {
                 alt={kepadaImage.label}
                 width={100}
                 height={100}
+                priority
               />
             </Flex>
           )}
