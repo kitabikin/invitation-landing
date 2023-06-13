@@ -6,6 +6,7 @@ import _ from 'lodash';
 function BaseHeadStyle({ css }) {
   return (
     <Head>
+      <link rel="preload" href={css} as="style" />
       <link rel="stylesheet" href={css} />
     </Head>
   );
