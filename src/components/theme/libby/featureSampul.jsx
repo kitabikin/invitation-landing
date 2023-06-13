@@ -84,7 +84,7 @@ function FeatureSampul({ ...props }) {
     [`${codeSampul}-date`]: sampulDate,
   } = sampul;
 
-  const dateWedding = from === 'theme' ? date : parseISO(sampulDate.value);
+  const dateWedding = from === 'theme' ? date : props.options.date;
 
   // Section
   const bgImageAnimation = (sampulBgImage) => {
