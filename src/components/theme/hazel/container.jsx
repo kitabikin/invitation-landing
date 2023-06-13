@@ -12,11 +12,13 @@ import {
   name as configName,
   style as configStyle,
   theme as configTheme,
-  linkTags as configLinkTags,
+  ebGaramond,
+  filHeading,
+  libreBodoni,
+  sHandwriting,
 } from '@/components/theme/hazel/config';
 import {
   BaseHeadStyle,
-  BaseHeadLinkTags,
   BaseHeadImage,
   BaseHeadEvent,
 } from '@/components/theme/wedding/baseHead';
@@ -128,7 +130,6 @@ function ContainerHazel({ options, data, greeting }) {
   return (
     <>
       <BaseHeadStyle css={configStyle} />
-      <BaseHeadLinkTags linkTags={configLinkTags} />
 
       {isFromTheme ? (
         <>
@@ -144,11 +145,12 @@ function ContainerHazel({ options, data, greeting }) {
       )}
 
       <Box
+        className={`${ebGaramond.variable} ${filHeading.variable} ${libreBodoni.variable} ${sHandwriting.variable}`}
         mt={isFromTheme ? '73px' : 0}
         minH={'100vh'}
         bg={'var(--hazel-bg-color)'}
         color={'var(--hazel-color-body)'}
-        fontFamily={'hazelBody'}
+        fontFamily={'var(--hazel-font-body)'}
         fontSize={{ base: 'md', md: 'lg' }}
       >
         {/* Kepada */}

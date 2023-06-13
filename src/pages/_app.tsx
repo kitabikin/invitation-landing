@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import '@/styles/globals.css';
 
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Box } from '@chakra-ui/react';
 import theme from '@/config/theme';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';

@@ -9,7 +9,7 @@ const Nickname = ({ nickname, mx = 0 }) => {
   return (
     <>
       <Text
-        fontFamily={'hazelHandwriting'}
+        fontFamily={'var(--hazel-font-handwriting)'}
         fontSize={'6xl'}
         color={'var(--hazel-color-primary)'}
         mx={mx}
@@ -179,7 +179,7 @@ function FeatureSampul({ ...props }) {
             sampulDateLine.value === 'horizontal' ? (
               <Flex
                 mt={6}
-                fontFamily={'hazelTitle'}
+                fontFamily={'var(--hazel-font-title)'}
                 fontWeight={'bold'}
                 alignItems={'center'}
                 justifyContent={'center'}
@@ -211,7 +211,11 @@ function FeatureSampul({ ...props }) {
                 </Text>
               </Flex>
             ) : (
-              <Box mt={6} fontFamily={'hazelTitle'} fontWeight={'bold'}>
+              <Box
+                mt={6}
+                fontFamily={'var(--hazel-font-title)'}
+                fontWeight={'bold'}
+              >
                 <Text fontSize={'2xl'}>{formatMonth}</Text>
                 <Flex alignItems="center" justifyContent="center">
                   <Box

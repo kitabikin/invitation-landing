@@ -1,3 +1,6 @@
+import localFont from 'next/font/local';
+import { EB_Garamond, Libre_Bodoni } from 'next/font/google';
+
 const code = 'hazel';
 const name = 'Hazel';
 const style = '/hazel/hazel.css';
@@ -38,5 +41,33 @@ const linkTags = [
     crossOrigin: 'anonymous',
   },
 ];
+const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--hazel-font-body',
+});
+const filHeading = localFont({
+  src: './fonts/FallInLove.ttf',
+  variable: '--hazel-font-heading',
+});
+const libreBodoni = Libre_Bodoni({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--hazel-font-title',
+});
+const sHandwriting = localFont({
+  src: './fonts/Sienthas.otf',
+  variable: '--hazel-font-handwriting',
+});
 
-export { code, name, style, theme, linkTags };
+export {
+  code,
+  name,
+  style,
+  theme,
+  linkTags,
+  ebGaramond,
+  filHeading,
+  libreBodoni,
+  sHandwriting,
+};

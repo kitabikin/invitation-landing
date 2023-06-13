@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Box, Button, Flex, Text, useToast } from '@chakra-ui/react';
 import { MdLink } from 'react-icons/md';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';

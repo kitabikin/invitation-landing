@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import NextLink from 'next/link';
 import { signIn, getCsrfToken } from 'next-auth/react';
 

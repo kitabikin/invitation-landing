@@ -14,19 +14,18 @@ function CallOut() {
           <Text fontSize={'xl'} textAlign={{ base: 'center', md: 'left' }}>
             Kamu perlu undangan? Yuk, Kitabikin.
           </Text>
-          <NextLink href={`/contact`} passHref>
-            <Button
-              as={'a'}
-              size={'lg'}
-              colorScheme={'gray'}
-              variant={'outline'}
-              _hover={{
-                background: 'rgba(247, 250, 252, 0.1)',
-              }}
-            >
-              Hubungi kita
-            </Button>
-          </NextLink>
+          <Button
+            as={NextLink}
+            href={`/contact`}
+            size={'lg'}
+            colorScheme={'gray'}
+            variant={'outline'}
+            _hover={{
+              background: 'rgba(247, 250, 252, 0.1)',
+            }}
+          >
+            Hubungi kita
+          </Button>
         </Flex>
       </Container>
     </Box>

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import _ from 'lodash';
 import { Box, Container, Flex, Text } from '@chakra-ui/react';
 import ImageFrame from '@/components/theme/hazel/imageFrame';
@@ -13,7 +13,7 @@ const BrideGroom = (data) => {
 
       <Text
         mt={5}
-        fontFamily={'hazelHandwriting'}
+        fontFamily={'var(--hazel-font-handwriting)'}
         fontSize={'5xl'}
         color={'var(--hazel-color-primary)'}
         lineHeight={1}
@@ -96,7 +96,7 @@ function FeaturePembukaan({ ...props }) {
           {pembukaanGreeting && pembukaanGreeting.is_active && (
             <Text
               mt={8}
-              fontFamily={'hazelHeading'}
+              fontFamily={'var(--hazel-font-heading)'}
               fontSize={{ base: '2xl', md: '3xl' }}
             >
               {pembukaanGreeting.value}
@@ -158,7 +158,7 @@ function FeaturePembukaan({ ...props }) {
 
           <Text
             mt={16}
-            fontFamily={'hazelHandwriting'}
+            fontFamily={'var(--hazel-font-handwriting)'}
             fontSize={'4xl'}
             fontWeight={'bold'}
           >

@@ -30,7 +30,7 @@ function FeatureGalleryVideo({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Gallery Video Title */}
           {galleryVideoTitle && galleryVideoTitle.is_active && (
-            <Text fontFamily="libbyTitle" fontSize="3xl">
+            <Text fontFamily="var(--libby-font-title)" fontSize="3xl">
               {galleryVideoTitle.value}
             </Text>
           )}

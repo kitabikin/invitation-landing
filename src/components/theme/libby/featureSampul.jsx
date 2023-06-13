@@ -9,7 +9,7 @@ const Nickname = ({ nickname, mx = 0 }) => {
   return (
     <>
       <Text
-        fontFamily={'libbyTitle'}
+        fontFamily={'var(--libby-font-title)'}
         fontSize={'5xl'}
         color={'var(--libby-color-body)'}
         mx={mx}
@@ -199,7 +199,7 @@ function FeatureSampul({ ...props }) {
             sampulDateLine.value === 'horizontal' ? (
               <Flex
                 mt={6}
-                fontFamily={'libbyTitle'}
+                fontFamily={'var(--libby-font-title)'}
                 fontWeight={'bold'}
                 alignItems={'center'}
                 justifyContent={'center'}
@@ -231,7 +231,11 @@ function FeatureSampul({ ...props }) {
                 </Text>
               </Flex>
             ) : (
-              <Box mt={6} fontFamily={'libbyTitle'} fontWeight={'bold'}>
+              <Box
+                mt={6}
+                fontFamily={'var(--libby-font-title)'}
+                fontWeight={'bold'}
+              >
                 <Text fontSize={'2xl'}>{formatMonth}</Text>
                 <Flex alignItems="center" justifyContent="center">
                   <Box

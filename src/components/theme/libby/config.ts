@@ -1,3 +1,6 @@
+import localFont from 'next/font/local';
+import { Quicksand } from 'next/font/google';
+
 const code = 'libby';
 const name = 'Libby';
 const style = '/libby/libby.css';
@@ -42,5 +45,18 @@ const linkTags = [
     crossOrigin: 'anonymous',
   },
 ];
+const quicksand = Quicksand({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--libby-font-body',
+});
+const lgTitle = localFont({
+  src: './fonts/LeGrand.ttf',
+  variable: '--libby-font-title',
+});
+const sHandwriting = localFont({
+  src: './fonts/Sienthas.otf',
+  variable: '--libby-font-handwriting',
+});
 
-export { code, name, style, theme, linkTags };
+export { code, name, style, theme, linkTags, quicksand, lgTitle, sHandwriting };

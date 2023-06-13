@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Box, Container, Flex, Icon, Link } from '@chakra-ui/react';
 import { RiHeart2Fill } from 'react-icons/ri';
 

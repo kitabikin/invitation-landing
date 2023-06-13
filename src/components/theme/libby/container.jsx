@@ -12,11 +12,12 @@ import {
   name as configName,
   style as configStyle,
   theme as configTheme,
-  linkTags as configLinkTags,
+  quicksand,
+  lgTitle,
+  sHandwriting,
 } from '@/components/theme/libby/config';
 import {
   BaseHeadStyle,
-  BaseHeadLinkTags,
   BaseHeadImage,
   BaseHeadEvent,
 } from '@/components/theme/wedding/baseHead';
@@ -124,7 +125,6 @@ function ContainerLibby({ options, data, greeting }) {
   return (
     <>
       <BaseHeadStyle css={configStyle} />
-      <BaseHeadLinkTags linkTags={configLinkTags} />
 
       {isFromTheme ? (
         <>
@@ -144,11 +144,12 @@ function ContainerLibby({ options, data, greeting }) {
 
       {/* Main */}
       <Box
+        className={`${quicksand.variable} ${lgTitle.variable} ${sHandwriting.variable}`}
         mt={isFromTheme ? '73px' : 0}
         minH={'100vh'}
         bg={'var(--libby-bg-color)'}
         color={'var(--libby-color-body)'}
-        fontFamily={'libbyBody'}
+        fontFamily={'var(--libby-font-body)'}
         fontSize={{ base: 'md', md: 'lg' }}
       >
         {/* Kepada */}

@@ -26,7 +26,7 @@ function FeatureTurutMengundang({ ...props }) {
         <Box position="relative" h="full" w="full" textAlign="center">
           {/* Turut Mengundang Title */}
           {turutMengundangTitle && turutMengundangTitle.is_active && (
-            <Text fontFamily="libbyTitle" fontSize="3xl">
+            <Text fontFamily="var(--libby-font-title)" fontSize="3xl">
               {turutMengundangTitle.value}
             </Text>
           )}

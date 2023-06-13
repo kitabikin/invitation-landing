@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import _ from 'lodash';
 import { Box, Container, Flex, Text } from '@chakra-ui/react';
 import ImageFrame from '@/components/theme/nashville/imageFrame';

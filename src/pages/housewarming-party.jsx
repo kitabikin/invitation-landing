@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import ContainerBlank from '@/layouts/container/containerBlank';
 import { NextSeo } from 'next-seo';
 import {

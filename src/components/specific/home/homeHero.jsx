@@ -45,16 +45,15 @@ function HomeHero() {
       <Text fontSize={{ base: 'lg', md: 'xl' }} color={'gray.500'} mt={6}>
         {site.description}
       </Text>
-      <NextLink href={`/event`} passHref>
-        <Button
-          as={'a'}
-          colorScheme={'green'}
-          mt={8}
-          rightIcon={<BsArrowRight />}
-        >
-          Jelajahi Acara
-        </Button>
-      </NextLink>
+      <Button
+        as={NextLink}
+        href={`/event`}
+        colorScheme={'green'}
+        mt={8}
+        rightIcon={<BsArrowRight />}
+      >
+        Jelajahi Acara
+      </Button>
     </Box>
   );
 }

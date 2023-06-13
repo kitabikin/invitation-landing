@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import NextLink from 'next/link';
-import NextImage from 'next/image';
+import NextImage from 'next/legacy/image';
 import {
   Box,
   Button,
@@ -105,18 +105,17 @@ export default function NavbarDefault() {
               <DesktopNav />
             </Flex>
 
-            <NextLink href={'/contact'} passHref>
-              <Button
-                as={'a'}
-                colorScheme={'pink'}
-                fontWeight={400}
-                _focus={{
-                  boxShadow: 'inherit',
-                }}
-              >
-                Kontak
-              </Button>
-            </NextLink>
+            <Button
+              as={NextLink}
+              href={'/contact'}
+              colorScheme={'pink'}
+              fontWeight={400}
+              _focus={{
+                boxShadow: 'inherit',
+              }}
+            >
+              Kontak
+            </Button>
           </Stack>
         </Container>
       </Flex>
@@ -160,29 +159,28 @@ const MobileNavItem = ({ label, children, href, toggleParrent }) => {
       mt={'0 !important'}
     >
       <Stack spacing={4} onClick={children && onToggle}>
-        <NextLink href={href ?? '#'} passHref>
-          <Flex
-            py={3}
-            as={Link}
-            justify={'space-between'}
-            align={'center'}
-            _hover={{
-              textDecoration: 'none',
-            }}
-            onClick={href && toggleParrent}
-          >
-            <Text color={'gray.700'} fontWeight={600}>
-              {label}
-            </Text>
-            {children && (
-              <Icon
-                as={RiArrowDownSLine}
-                transition={'all .25s ease-in-out'}
-                transform={isOpen ? 'rotate(180deg)' : ''}
-              />
-            )}
-          </Flex>
-        </NextLink>
+        <Flex
+          py={3}
+          as={NextLink}
+          href={href ?? '#'}
+          justify={'space-between'}
+          align={'center'}
+          _hover={{
+            textDecoration: 'none',
+          }}
+          onClick={href && toggleParrent}
+        >
+          <Text color={'gray.700'} fontWeight={600}>
+            {label}
+          </Text>
+          {children && (
+            <Icon
+              as={RiArrowDownSLine}
+              transition={'all .25s ease-in-out'}
+              transform={isOpen ? 'rotate(180deg)' : ''}
+            />
+          )}
+        </Flex>
 
         <Collapse in={isOpen} animateOpacity style={{ marginTop: '0' }}>
           <Stack color={'gray.500'} pl={4} align={'start'}>
@@ -210,26 +208,25 @@ const DesktopNav = () => {
     <Stack direction={'row'} spacing={2}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
-          <NextLink href={navItem.href} passHref>
-            <Button
-              as={'a'}
-              variant={'ghost'}
-              fontWeight={400}
-              color={'gray.700'}
-              _hover={{
-                textDecoration: 'none',
-                color: 'pink.800',
-              }}
-              _active={{
-                bg: 'inherit',
-              }}
-              _focus={{
-                boxShadow: 'inherit',
-              }}
-            >
-              {navItem.label}
-            </Button>
-          </NextLink>
+          <Button
+            as={NextLink}
+            href={navItem.href}
+            variant={'ghost'}
+            fontWeight={400}
+            color={'gray.700'}
+            _hover={{
+              textDecoration: 'none',
+              color: 'pink.800',
+            }}
+            _active={{
+              bg: 'inherit',
+            }}
+            _focus={{
+              boxShadow: 'inherit',
+            }}
+          >
+            {navItem.label}
+          </Button>
         </Box>
       ))}
     </Stack>

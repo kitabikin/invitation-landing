@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import NextLink from 'next/link';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';

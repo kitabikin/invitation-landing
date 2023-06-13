@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import _ from 'lodash';
 import { Container, Box, Text } from '@chakra-ui/react';
 import PhotoAlbum from 'react-photo-album';

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { gsap } from 'gsap';
 import { useAtom } from 'jotai';
 import { Container, Box, Button, Flex } from '@chakra-ui/react';

@@ -95,7 +95,11 @@ function FeatureUcapanDoa({ ...props }) {
         <Box position="relative" h="full" w="full">
           {/* Ucapan Doa Title */}
           {ucapanDoaTitle && ucapanDoaTitle.is_active && (
-            <Text fontFamily="libbyTitle" fontSize="3xl" textAlign="center">
+            <Text
+              fontFamily="var(--libby-font-title)"
+              fontSize="3xl"
+              textAlign="center"
+            >
               {ucapanDoaTitle.value}
             </Text>
           )}

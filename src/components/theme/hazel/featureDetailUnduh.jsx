@@ -43,7 +43,7 @@ function FeatureDetailUnduh({ ...props }) {
         <Box position={'relative'} h={'full'} w={'full'} textAlign={'center'}>
           {/* Detail Unduh Title */}
           {detailUnduhTitle && detailUnduhTitle.is_active && (
-            <Text fontFamily={'hazelHeading'} fontSize={'3xl'}>
+            <Text fontFamily={'var(--hazel-font-heading)'} fontSize={'3xl'}>
               {detailUnduhTitle.value}
             </Text>
           )}

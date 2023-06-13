@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import _ from 'lodash'
 import { format, parseISO } from 'date-fns'
 import { id } from 'date-fns/locale'
