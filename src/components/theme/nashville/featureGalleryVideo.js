@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import _ from 'lodash';
 import { Container, Box, Text, AspectRatio } from '@chakra-ui/react';
-import ReactPlayer from 'react-player';
+
+const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
 function FeatureGalleryVideo({ ...props }) {
+  const [hasWindow, setHasWindow] = useState(false);
   const [showChild, setShowChild] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHasWindow(true);
+    }
+  }, []);
 
   useEffect(() => {
     setShowChild(true);
@@ -44,12 +53,14 @@ function FeatureGalleryVideo({ ...props }) {
               JSON.parse(galleryVideoVideo.value).map((data, i) => (
                 <Box key={i} mb="8">
                   <AspectRatio ratio={16 / 9}>
-                    <ReactPlayer
-                      url={data.video}
-                      width="100%"
-                      height="100%"
-                      controls={true}
-                    />
+                    {hasWindow && (
+                      <ReactPlayer
+                        url={data.video}
+                        width="100%"
+                        height="100%"
+                        controls={true}
+                      />
+                    )}
                   </AspectRatio>
                   <Text mt="2" fontStyle="italic">
                     {data.description}
