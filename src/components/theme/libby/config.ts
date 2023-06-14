@@ -6,6 +6,10 @@ const name = 'Libby';
 const style = '/libby/libby.css';
 const theme = [
   {
+    value: 'theme-cream',
+    label: 'Cream',
+  },
+  {
     value: 'theme-gray',
     label: 'Abu-abu',
   },

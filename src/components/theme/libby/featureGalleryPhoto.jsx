@@ -43,13 +43,17 @@ function FeatureGalleryPhoto({ ...props }) {
           {/* Gallery Photo Photo */}
           {galleryPhotoPhoto && galleryPhotoPhoto.is_active && (
             <>
-              <Box mt="6">
+              <Box mt="6" mx={{ base: '-2.5rem' }}>
                 <PhotoAlbum
                   layout="rows"
                   photos={photos}
                   targetRowHeight={300}
                   onClick={(event, photo, index) => setCurrentImage(index)}
                   renderPhoto={ImageAlbum}
+                  rowConstraints={{
+                    minPhotos: 2,
+                    maxPhotos: 3,
+                  }}
                 />
               </Box>
 

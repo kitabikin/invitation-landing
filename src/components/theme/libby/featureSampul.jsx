@@ -88,7 +88,7 @@ function FeatureSampul({ ...props }) {
 
   // Section
   const bgImageAnimation = (sampulBgImage) => {
-    const sec = JSON.parse(sampulBgImage.value).length * 10 + 's';
+    const sec = JSON.parse(sampulBgImage.value).length * 8 + 's';
 
     return `libby-slideshow ${sec} infinite, zoom-in ${sec} infinite`;
   };
@@ -114,7 +114,7 @@ function FeatureSampul({ ...props }) {
               style={{
                 animation: bgImageAnimation(sampulBgImage),
                 animationDelay: `${
-                  (JSON.parse(sampulBgImage.value).length - 1 - index) * 10
+                  (JSON.parse(sampulBgImage.value).length - 1 - index) * 8
                 }s`,
               }}
             />

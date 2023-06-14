@@ -1,4 +1,11 @@
 /* Libby Theme */
+.theme-cream {
+  --libby-color-body: #333333;
+  --libby-color-primary: #D1CCBA;
+  --libby-color-secondary: #FFFFFF;
+  --libby-bg-color: #FFFFFF;
+}
+
 .theme-gray {
   --libby-color-body: #333333;
   --libby-color-primary: #CCCCCC;
@@ -50,7 +57,7 @@
     opacity:1;
   } 
   
-  100% {
+  32% {
     opacity:0;
   }
 }

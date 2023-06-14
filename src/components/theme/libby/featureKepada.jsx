@@ -1,12 +1,18 @@
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import { useAtom } from 'jotai';
 import _ from 'lodash';
 import { Container, Box, Flex, Button } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
 
-import { displayAtom, isPlayingAtom, overflowYAtom } from '@/store/libbyStore';
+import {
+  themeAtom,
+  displayAtom,
+  isPlayingAtom,
+  overflowYAtom,
+} from '@/store/libbyStore';
 
 function FeatureKepada({ ...props }) {
+  const [theme] = useAtom(themeAtom);
   const [, setDisplay] = useAtom(displayAtom);
   const [, setIsPlaying] = useAtom(isPlayingAtom);
   const [, setOverflowY] = useAtom(overflowYAtom);
@@ -54,6 +60,11 @@ function FeatureKepada({ ...props }) {
         bgRepeat={'repeat'}
         bgSize={{ base: 'cover', md: 'contain' }}
         flexDir={'column'}
+        color={
+          ['theme-gray', 'theme-cream'].includes(theme)
+            ? 'white'
+            : 'var(--libby-color-body)'
+        }
       >
         {/* Kepada To */}
         {kepadaTo && kepadaTo.is_active && (
