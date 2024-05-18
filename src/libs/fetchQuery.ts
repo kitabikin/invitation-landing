@@ -94,6 +94,18 @@ export const getAllInvitation = async (accessToken, { params = {} }) => {
     .then((res) => res.data);
 };
 
+export const getAllInvitationPublic = async ({ params = {} }) => {
+  const merge = qs.stringify(params);
+  return await fetch(`${coreUrl}/v1/invitation?${merge}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => res.data);
+};
+
 export const getInvitation = async (accessToken, { id, params = {} }) => {
   const merge = qs.stringify(params);
   return await fetch(`${coreUrl}/v1/invitation/${id}?${merge}`, {

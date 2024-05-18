@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import { Container, Box, Flex, Heading, Badge } from '@chakra-ui/react';
 import qs from 'qs';
 
@@ -20,7 +20,7 @@ function GuestBookDetail({ data }) {
                 width="150"
                 height="150"
                 alt="{data.name}"
-                src={`https://avatars.dicebear.com/api/big-ears-neutral/${seed}.svg`}
+                src={`https://api.dicebear.com/8.x/big-ears-neutral/svg?seed=${seed}`}
               />
             </Flex>
 

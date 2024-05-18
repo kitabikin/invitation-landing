@@ -7,7 +7,7 @@ const moduleExports = {
     domains: [
       'res.cloudinary.com',
       'ik.imagekit.io',
-      'avatars.dicebear.com',
+      'api.dicebear.com',
       'placehold.co',
       'images.unsplash.com',
     ],

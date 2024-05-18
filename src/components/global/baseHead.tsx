@@ -42,7 +42,7 @@ const BaseHead = ({ title, description }) => {
           },
           {
             rel: 'preconnect',
-            href: `https://avatars.dicebear.com`,
+            href: `https://api.dicebear.com`,
           },
           {
             rel: 'preconnect',

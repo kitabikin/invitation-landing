@@ -51,7 +51,7 @@ export const authOptions = {
         .match(/(^\S|\S$)?/g)
         .join('')
         .toUpperCase();
-      const image = `https://avatars.dicebear.com/api/initials/${initial}.svg`;
+      const image = `https://api.dicebear.com/8.x/initials/svg?seed=${initial}`;
 
       session.user.id_user = token.id_user;
       session.user.username = token.username;

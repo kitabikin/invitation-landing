@@ -1,12 +1,23 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import { NextSeo } from 'next-seo';
 import _ from 'lodash';
 import { Container, Box } from '@chakra-ui/react';
 import { reduceFeature } from '@/libs/utils';
 import FooterTheme from '@/layouts/footer/footerTheme';
 
+import {
+  name as configName,
+  style as configStyle,
+  linkTags as configLinkTags,
+} from '@/components/theme/nashville/config';
+import {
+  BaseHeadStyle,
+  BaseHeadImage,
+  BaseHeadEvent,
+  BaseHeadLinkTags,
+} from '@/components/theme/wedding/baseHead';
 import FeatureKepada from '@/components/theme/nashville/featureKepada';
 import FeatureMusik from '@/components/theme/nashville/featureMusik';
 import FeatureSnowflakes from '@/components/theme/nashville/featureSnowflakes';
@@ -30,6 +41,7 @@ import FeatureKehadiranUcapan from '@/components/theme/nashville/featureKehadira
 import FeatureUcapanDoa from '@/components/theme/nashville/featureUcapanDoa';
 
 function ContainerNashville({ options, data, greeting }) {
+  const isFromTheme = options.from === 'theme';
   const [display, setDisplay] = useState('block');
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -81,41 +93,11 @@ function ContainerNashville({ options, data, greeting }) {
 
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="/nashville/nashville.css" />
-      </Head>
-      <NextSeo
-        additionalLinkTags={[
-          {
-            rel: 'preload',
-            href: `/nashville/TheBlacklight.ttf`,
-            as: 'font',
-            type: 'font/ttf',
-            crossOrigin: 'anonymous',
-          },
-          {
-            rel: 'preload',
-            href: `/nashville/OptimusPrinceps.ttf`,
-            as: 'font',
-            type: 'font/ttf',
-            crossOrigin: 'anonymous',
-          },
-          {
-            rel: 'preload',
-            href: `/nashville/StylishCalligraphy.ttf`,
-            as: 'font',
-            type: 'font/ttf',
-            crossOrigin: 'anonymous',
-          },
-          {
-            rel: 'preload',
-            href: `/nashville/Millerstone.ttf`,
-            as: 'font',
-            type: 'font/ttf',
-            crossOrigin: 'anonymous',
-          },
-        ]}
-      />
+      <BaseHeadStyle css={configStyle} />
+      <BaseHeadLinkTags linkTags={configLinkTags} />
+
+      {!isFromTheme && <BaseHeadEvent metadata={data.metadata} />}
+
       <Box color={generalColorBody.value} fontFamily="nashvilleBody">
         <Box
           position="fixed"

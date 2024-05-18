@@ -1,4 +1,4 @@
-import NextImage from "next/legacy/image";
+import NextImage from 'next/legacy/image';
 import { NextSeo } from 'next-seo';
 import { Box, Container } from '@chakra-ui/react';
 
@@ -6,6 +6,7 @@ import site from '@/config/site';
 import ContainerDefault from '@/layouts/container/containerDefault';
 import HomeHeroV2 from '@/components/specific/home/homeHeroV2';
 import HomeFeature from '@/components/specific/home/homeFeature';
+import HomeHappy from '@/components/specific/home/homeHappy';
 import HomeStatistic from '@/components/specific/home/homeStatistic';
 
 function Home() {
@@ -16,7 +17,15 @@ function Home() {
         <HomeHeroV2 />
       </Container>
 
-      <Container maxW="container.lg" mt={16}>
+      <Container maxW="container.lg">
+        <HomeHappy />
+      </Container>
+
+      <Container maxW="container.lg">
+        <HomeStatistic />
+      </Container>
+
+      <Container maxW="container.lg" mt={20}>
         <HomeFeature />
       </Container>
 
@@ -35,12 +44,6 @@ function Home() {
           />
         </Box>
       </Container>
-
-      {/* <Box borderTop={1} borderStyle={'solid'} borderColor={'gray.200'}>
-        <Container maxW="container.lg">
-          <HomeStatistic />
-        </Container>
-      </Box> */}
     </ContainerDefault>
   );
 }
