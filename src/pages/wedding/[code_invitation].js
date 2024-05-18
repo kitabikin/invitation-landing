@@ -40,6 +40,24 @@ function WeddingDetail({ data, greeting }) {
   );
 }
 
+async function getAllData() {
+  const pParams = {
+    where: [{ 'event:code': 'wedding' }],
+    with: [
+      { event: true },
+      { theme: true },
+      { invitation_feature: true },
+      { invitation_feature_data: true },
+    ],
+  };
+
+  const merge = qs.stringify(pParams);
+  const res = await fetch(`${coreUrl}/v1/invitation?${merge}`);
+  const data = await res.json();
+
+  return data;
+}
+
 async function getData(params) {
   const pParams = {
     where: [{ 'event:code': 'wedding' }],
@@ -77,7 +95,7 @@ async function getGreeting(idInvitation) {
   return data;
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   const data = await getData(params);
 
   if (data.error === 1) {
@@ -88,7 +106,23 @@ export async function getServerSideProps({ params }) {
 
   const greeting = await getGreeting(data.data.id_invitation);
 
-  return { props: { data: data.data, greeting: greeting.data } };
+  return {
+    props: {
+      data: data.data,
+      greeting: greeting.data,
+    },
+    revalidate: 200,
+  };
+}
+
+export async function getStaticPaths() {
+  const data = await getAllData();
+
+  const paths = data.data.map((item) => {
+    return `/wedding/${item.code}`;
+  });
+
+  return { paths, fallback: 'blocking' };
 }
 
 export default WeddingDetail;
